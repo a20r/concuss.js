@@ -1,0 +1,10 @@
+ERWiN Project: Tablet based balance, cognition, eye tracking, and reflex testing.
+
+- Grad students are on the second floor
+- Using iOS
+- Use eye tracking to follow eyes while subject looks at a object on the screen
+- Set screen brightness to track eyes
+- Try to have everything measured at the same time
+- Test whole system at once
+- Tilt ball maze test for balance
+- Learn about concussion testing
