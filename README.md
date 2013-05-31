@@ -15,6 +15,7 @@ Concuss.js
 * Bootstrap it up
 * Create image moving from circle to circle game
 * Get sensor data on the same screen as the circle game
+* For the dynamic game, ending the touch should pause all movement
 
 ##Global TODO
 * Research commonly used tests for:
