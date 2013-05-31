@@ -10,10 +10,11 @@ Concuss.js
 * Try implementing eye-tracking type game if possible
 * Send raw data and result to the server for visualization (non - critical)
 
-##Agyle Todo
-* Finish creating the Canvas utilities
+##Agile Todo
+* Finish creating the Canvas utilities *done*
 * Bootstrap it up
 * Create image moving from circle to circle game
+	* Creates map for this game
 * Get sensor data on the same screen as the circle game
 * For the dynamic game, ending the touch should pause all movement
 
