@@ -15,7 +15,9 @@ Concuss.js
 * Bootstrap it up
 * Create image moving from circle to circle game
 	* Creates map for this game
+		* Create a picture of a maze using paint or something
 * Get sensor data on the same screen as the circle game
+	* Use sensor data to move a ball around a screen
 * For the dynamic game, ending the touch should pause all movement
 
 ##Global TODO

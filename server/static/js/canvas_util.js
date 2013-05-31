@@ -62,10 +62,11 @@ CanvasImage.prototype.withinBounds = function (n_x, n_y) {
 	}
 }
 
-CanvasImage.prototype.updateGrabbed = function (n_x, n_y) {
-	this.grabbed = this.withinBounds(n_x, n_y);
+CanvasImage.prototype.updateGrabbed = function (n_touch) {
+	this.grabbed = this.withinBounds(n_touch.pageX, n_touch.pageY);
 	if (this.grabbed) {
-		this.setTransformVector(this.x - n_x, this.y - n_y);
+		this.setCurrentTouchId(n_touch.identifier);
+		this.setTransformVector(this.x - n_touch.pageX, this.y - n_touch.pageY);
 	}
 }
 

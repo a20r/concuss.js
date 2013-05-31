@@ -34,9 +34,7 @@ function onTouchStart(event) {
 	for (var t = 0; t < event.touches.length; t++) {
 		for (var i in img_array) {
 			if (img_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY)) {
-				img_array[i].updateGrabbed(event.touches[t].pageX, event.touches[t].pageY);
-				img_array[i].setCurrentTouchId(event.touches[t].identifier);
-				//alert(event.touches[t].identifier);
+				img_array[i].updateGrabbed(event.touches[t]);
 			}
 		}
 	}

@@ -45,21 +45,21 @@ func loadPage(folder, title string) (*Page, error) {
 // for static and template responses. See Usage!
 func fileResponseCreator(folder string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-                fmt.Println("GET\t" + r.URL.Path)
-    			var p *Page
-    			var err error
-    			if len(r.URL.Path) == 1 {
-                    // In case the path is just '/'
-    				p, err = loadPage("templates", "index.html")
-    			} else {
-    				p, err = loadPage(folder, r.URL.Path[1:])
-    			}
-    			if p != nil {
-        			w.Write(p.Body)
-        		} else {
-        			fmt.Println("ERROR\t" + err.Error())
-        		}
-		}
+        fmt.Println("GET\t" + r.URL.Path)
+    	var p *Page
+    	var err error
+    	if len(r.URL.Path) == 1 {
+            // In case the path is just '/'
+    		p, err = loadPage("templates", "index.html")
+    	} else {
+    		p, err = loadPage(folder, r.URL.Path[1:])
+    	}
+    	if p != nil {
+    		w.Write(p.Body)
+    	} else {
+    		fmt.Println("ERROR\t" + err.Error())
+    	}
+	}
 }
 
 // Handles all Javascript, images, and HTML
