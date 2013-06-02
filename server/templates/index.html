@@ -1,13 +1,36 @@
 <html>
 <head>
 	<title>Concussion Testing</title>
+	<!-- Bootsrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<style>
+		body {
+			padding-top: 60px;
+			padding-left: 30px;
+			padding-right: 30px;
+			background: lightgrey;
+		}
+
+	</style>
 </head>
-	<body style="background:lightgrey;">
-		<h1 id="label" style="display:none;">0, 0</h1>
-		<img src="/img/sphere.png" id="c_img" style="display:none;"/>
-		<img src="/img/circle.gif" id="open_circle" style="display:none;"/>
-		<img src="/img/greencircle.gif" id="green_circle" style="display:none;"/>
+	<body>
+		<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+        	    <a class="brand" href="/">Tests</a>
+       		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
+	            <!--<img src="../static/favicon.ico"/>-->
+	        </div>
+	      </div>
+	    </div>
+		<img src="/img/sphere.png" id="c_img" class="img-circle" style="display:none;"/>
+		<img src="/img/circle.gif" id="open_circle" class="img-circle" style="display:none;"/>
+		<img src="/img/greencircle.gif" id="green_circle" class="img-circle" style="display:none;"/>
 		<img src="/img/concussion.gif" id="b_img" style="display:none;"/>
+		<span class="lead">Time within circles: <span id="timerLabel" class="lead">0</span></span>
 		<canvas id="mainCanvas"></canvas>
 
 		<!-- JQuery -->
@@ -17,9 +40,5 @@
 		<script src="/js/canvas_util.js"></script>
 		<script src="/js/follow_circle.js"></script>
 		<script src="/js/concuss.js"></script>
-
-		<!-- Bootsrap -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	</body>
 </html>

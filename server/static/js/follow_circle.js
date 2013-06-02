@@ -1,8 +1,19 @@
 
+// array of circle images used
 var circle_array = [new CanvasImage("mainCanvas", "open_circle"), new CanvasImage("mainCanvas", "open_circle")];
 
+// main drawing interval
 var interval = window.setInterval(updateBoundaryCircles, 5);
 
+// green circle used to show that the user has their finger
+// inside the circle
+var green_circle = document.getElementById("green_circle");
+
+// open circle used to show that the user does not have
+// their finger inside the correct area
+var open_circle = document.getElementById("open_circle");
+
+// Function that needs to be called to initiate the game
 function initGame() {
 
 	// Gets the canvas
@@ -30,9 +41,9 @@ function initGame() {
 function onTouchStart(event) {
 	for (var i in circle_array) {
 		for (var t = 0; t < event.touches.length; t++) {
-			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY)) {
+			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
 				circle_array[i].setCurrentTouchId(event.touches[t].identifier);
-				circle_array[i].image = document.getElementById("green_circle");
+				circle_array[i].image = green_circle;
 				//updateBoundaryCircles();
 			}
 		}
@@ -49,33 +60,30 @@ function onTouchMove(event) {
 	for (var i in circle_array) {
 		var count = 0;
 		for (var t = 0; t < event.touches.length; t++) {
-			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY)) {
-				circle_array[i].image = document.getElementById("green_circle");
+			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
+				circle_array[i].image = green_circle;
 				//updateBoundaryCircles();
 			} else {
 				count++;
 			}
 		}
 		if (count == event.touches.length) {
-			circle_array[i].image = document.getElementById("open_circle");
+			circle_array[i].image = open_circle;
 		}
 	}
-
-	//img_array[0].clearCanvas();
 	drawBoundaryCircles();
 } 
  
 function onTouchEnd(event) {
-	//alert(circle_array[0].getCurrentTouchId());
 	for (var i in circle_array) {
 		var count = 0;
 		for (var t = 0; t < event.touches.length; t++) {
-			if (!circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY)) {
+			if (!circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
 				count++;
 			}
 		}
 		if (count == event.touches.length) {
-			circle_array[i].image = document.getElementById("open_circle");
+			circle_array[i].image = open_circle;
 		}
 	}
 }
@@ -88,14 +96,14 @@ function drawBoundaryCircles() {
 		}
 
 		// pushes the circle from the horizontal boundaries
-		if (circle_array[i].y + circle_array[i].image.height / 2 + circle_array[i].hy > document.height ||
+		if (circle_array[i].y + circle_array[i].image.height / 2 + circle_array[i].hy > document.height - 120 ||
 			circle_array[i].y - circle_array[i].image.height / 2  + circle_array[i].hy < 0) {
 			circle_array[i].hy = -circle_array[i].hy;
 		}
 
 		// pushes the circle from the vertical boundaries
-		if (circle_array[i].x + circle_array[i].image.width / 2  + circle_array[i].hx > document.width ||
-			circle_array[i].x - circle_array[i].image.width / 2  + circle_array[i].hx < 0) {
+		if (circle_array[i].x + circle_array[i].image.width / 2  + circle_array[i].hx > document.width - 30 ||
+			circle_array[i].x - circle_array[i].image.width / 2  + circle_array[i].hx < 0 ) {
 			circle_array[i].hx = -circle_array[i].hx;
 		}
 
