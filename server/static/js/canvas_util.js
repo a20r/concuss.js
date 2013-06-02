@@ -21,8 +21,7 @@ function CanvasImage(canvasId, id) {
 	this.uniqueId = undefined;
 
 	this.grabbed = false;
-	this.image = new Image();
-	this.image.src = document.getElementById(id).src;
+	this.image = document.getElementById(id);
 	this.canvas = document.getElementById(canvasId);
 	this.context = this.canvas.getContext("2d");
 }

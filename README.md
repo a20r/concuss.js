@@ -11,9 +11,12 @@ Concuss.js
 * Send raw data and result to the server for visualization (non - critical)
 
 ##Agile Todo
-* Finish creating the Canvas utilities *done*
+* Finish creating the Canvas utilities: *done*
 * Bootstrap it up
-* Create image moving from circle to circle game
+* Create game that tells the user to keep two balls in two circles
+	* Generate random paths by having an increasing probability of changing direction as time since last change increases
+	* Use setInterval
+* Create image moving from circle to circle game (Keep this for later)
 	* Creates map for this game
 		* Create a picture of a maze using paint or something
 * Get sensor data on the same screen as the circle game
@@ -28,6 +31,7 @@ Concuss.js
 	* Reflex
 		* Tap on a prescribed shape with certain color as fast as possible
 		* Left-right test
+		* Keep two balls between two different circles
 	* Balance 
 		* Roll ball from one hole into another (on one foot)
 		* Try to get sound to a certain pitch by adjusting the accelerometer readings
