@@ -1,0 +1,108 @@
+
+
+<html>
+<head>
+	<title>Concussion Testing</title>
+	<!-- Bootsrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le Bootstrap styles -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+	<!-- Le other styles -->
+	<style>
+		body {
+			padding-top: 60px;
+			padding-left: 30px;
+			padding-right: 30px;
+			background: lightgrey;
+		}
+
+	</style>
+</head>
+	<body>
+		<!-- Navigation bar -->
+		<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+        	    <a class="brand" href="/">Tests</a>
+       		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="/blog.html">Progress</a>
+       		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
+	        </div>
+	      </div>
+	    </div>
+
+	     <!-- Modal that is displayed once you start -->
+	    <div id="startMessage" class="modal hide fade">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h3 class="brand">Testing your reflexes</h3>
+			</div>
+			<div class="modal-body">
+		    	<p class="lead">
+			    	Keep your fingers inside the two circles. The circles will move around the screen
+			    	randomly. Once your a finger is within a circle, the circle will turn green. You will
+			    	be scored on the percent of time that your fingers stay within in the circles. An alert
+			    	will be shown once the test is over.
+			    </p>
+			    <p class="lead">
+			    	Press <b>Okay</b> and put your fingers inside the circles to begin
+			    </p>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Okay</button>
+			</div>
+		</div>
+
+	    <!-- Modal that is displayed once you finish -->
+	    <div id="endMessage" class="modal hide fade">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h3 class="brand">Results</h3>
+			</div>
+			<div class="modal-body">
+			    <p class="lead">Your score:</p>
+			    <table id="scoreTable" class="table table-hover" border="0">
+		        <tr>
+		          	<td><b>Circle A:</b></td>
+		          	<td id="resultTime0"></td>
+		          	<td id="resultPercent0"></td>
+		        </tr>
+		        <tr>
+		          	<td><b>Circle B:</b></td>
+		          	<td id="resultTime1"></td>
+		          	<td id="resultPercent1"></td>
+		        </tr>
+		      	</table>
+			</div>
+			<div class="modal-footer">
+			    <a href="/" class="btn">Retry</a>
+			    <a href="#" class="btn btn-primary">Submit</a>
+			</div>
+		</div>
+
+		<!-- All the images used in the app -->
+		<img src="/img/sphere.png" id="c_img" class="img-circle" style="display:none;"/>
+		<img src="/img/circle.gif" id="open_circle" class="img-circle" style="display:none;"/>
+		<img src="/img/greencircle.gif" id="green_circle" class="img-circle" style="display:none;"/>
+		<img src="/img/concussion.gif" id="b_img" style="display:none;"/>
+
+		<!-- Displays the current amount of time for each circle -->
+		<span class="lead">
+			Time within - Circle A: <span id="timer0">0.00</span>, Circle B: <span id="timer1">0.00</span>
+		</span>
+		<canvas id="mainCanvas"></canvas>
+
+		<!-- JQuery and Bootstrap Javascript files -->
+		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script src="/js/bootstrap.js"></script>
+
+		<!-- Concuss.js and Canvas utilities -->
+		<script text="text/javascript" src="/js/canvas_util.js"></script>
+		<script text="text/javascript" src="/js/follow_circle.js"></script>
+		<script text="text/javascript" src="/js/concuss.js"></script>
+	</body>
+</html>
+

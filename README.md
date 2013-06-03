@@ -14,6 +14,7 @@ Concuss.js
 * Finish creating the Canvas utilities: *done*
 * Bootstrap it up: *almost done*
 * Add a login screen
+	* Set a cookie that holds data about the user so that it can be sent with the test results when the test finishes
 * Create game that tells the user to keep fingers in two circles *Pretty much done*
 	* Send data to the server
 	* Add a distance metric

@@ -14,9 +14,13 @@
 	<style>
 		body {
 			padding-top: 60px;
+			padding-bottom: 20px;
 			padding-left: 30px;
 			padding-right: 30px;
 			background: lightgrey;
+		}
+		.controls {
+			padding-top:11px;
 		}
 
 	</style>
@@ -33,76 +37,111 @@
 	        </div>
 	      </div>
 	    </div>
+	    <div class="container">
+	    	<div class="span5 offset4">
+	    		<h1>Concuss.js</h1>
+      			<p class="lead">Give me your digits!</p>
+      		</div>
 
-	     <!-- Modal that is displayed once you start -->
-	    <div id="startMessage" class="modal hide fade">
-			<div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			    <h3 class="brand">Testing your reflexes</h3>
-			</div>
-			<div class="modal-body">
-		    	<p class="lead">
-			    	Keep your fingers inside the two circles. The circles will move around the screen
-			    	randomly. Once your a finger is within a circle, the circle will turn green. You will
-			    	be scored on the percent of time that your fingers stay within in the circles. An alert
-			    	will be shown once the test is over.
-			    </p>
-			    <p class="lead">
-			    	Press <b>Okay</b> and put your fingers inside the circles to begin
-			    </p>
-			</div>
-			<div class="modal-footer">
-			    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Okay</button>
+      		<div class="span5 offset3">
+	      		<form class="form-horizontal"> 
+			  		<div class="control-group">
+			  			<label class="control-label lead" for="fName">First Name</label>
+			  			<div class="controls">
+							<input type="text" id="fName" placeholder="Douglas">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Last Name</label>
+						<div class="controls">
+							<input type="text" id="lName" placeholder="Adams">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Email</label>
+						<div class="controls">
+					  		<input type="email" id="email" placeholder="potato@example.com">
+					  	</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Age</label>
+						<div class="controls">
+					  		<input type="text" id="age" placeholder="42">
+					  	</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Sport</label>
+						<div class="controls">
+					  		<input type="text" id="sport" placeholder="Quidditch">
+					  	</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Gender</label>
+						<div class="controls">
+						  	<select id="gender">
+						  		<option>Male</option>
+							  	<option>Female</option>
+							  	<option>Transgender</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Education</label>
+						<div class="controls">
+						  	<select id="education">
+						  		<option>Elementary</option>
+							  	<option>Middle School</option>
+							  	<option>High School</option>
+							  	<option>Post Secondary</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label lead">Classification</label>
+						<div class="controls">
+						  	<select id="classification">
+						  		<option>Baseline</option>
+							  	<option>Pre-Season</option>
+							  	<option>Baseline-Post Injury</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+					    <div class="controls">
+					      	<a href="/follow_circle.html" onclick="formSubmit()" class="btn btn-primary">Begin tests</a>
+					    </div>
+					</div>
+				</form>
 			</div>
 		</div>
-
-	    <!-- Modal that is displayed once you finish -->
-	    <div id="endMessage" class="modal hide fade">
-			<div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			    <h3 class="brand">Results</h3>
-			</div>
-			<div class="modal-body">
-			    <p class="lead">Your score:</p>
-			    <table id="scoreTable" class="table table-hover" border="0">
-		        <tr>
-		          	<td><b>Circle A:</b></td>
-		          	<td id="resultTime0"></td>
-		          	<td id="resultPercent0"></td>
-		        </tr>
-		        <tr>
-		          	<td><b>Circle B:</b></td>
-		          	<td id="resultTime1"></td>
-		          	<td id="resultPercent1"></td>
-		        </tr>
-		      	</table>
-			</div>
-			<div class="modal-footer">
-			    <a href="/" class="btn">Retry</a>
-			    <a href="#" class="btn btn-primary">Submit</a>
-			</div>
-		</div>
-
-		<!-- All the images used in the app -->
-		<img src="/img/sphere.png" id="c_img" class="img-circle" style="display:none;"/>
-		<img src="/img/circle.gif" id="open_circle" class="img-circle" style="display:none;"/>
-		<img src="/img/greencircle.gif" id="green_circle" class="img-circle" style="display:none;"/>
-		<img src="/img/concussion.gif" id="b_img" style="display:none;"/>
-
-		<!-- Displays the current amount of time for each circle -->
-		<span class="lead">
-			Time within - Circle A: <span id="timer0">0.00</span>, Circle B: <span id="timer1">0.00</span>
-		</span>
-		<canvas id="mainCanvas"></canvas>
-
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
 		<script src="/js/bootstrap.js"></script>
+		<script text="text/javascript">
+			function formSubmit() {
+				$.ajax({
+					type: 'POST',
+			      	url:'/form_submit/',
+			      	data: {
+			      		subject_data: JSON.stringify(
+			      			{
+			      				fName : $("#fName").val(), 
+			      				lName : $("#lName").val(),
+			      				email : $("#email").val(),
+			      				age : $("#age").val(),
+			      				sport : $("#sport").val(),
+			      				gender : $("#gender").val(),
+			      				education : $("#education").val(),
+			      				classification : $("#classification").val()
+			      			}
+			      		)
+			      	}
+			    });
+			}
+		</script>
 
 		<!-- Concuss.js and Canvas utilities -->
-		<script text="text/javascript" src="/js/canvas_util.js"></script>
-		<script text="text/javascript" src="/js/follow_circle.js"></script>
-		<script text="text/javascript" src="/js/concuss.js"></script>
+		<!-- <script text="text/javascript" src="/js/index.js"></script> -->
 	</body>
 </html>
 

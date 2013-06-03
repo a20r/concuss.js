@@ -7,10 +7,12 @@ import (
     "net/http"
     "flag"
     "encoding/json"
+    //rethink "github.com/christopherhesse/rethinkgo"
 )
 
 // JSON response mapping
 type Response map[string]interface{}
+type SubjectInfo Response
 
 // Represents an file loaded
 type Page struct {
@@ -62,6 +64,13 @@ func fileResponseCreator(folder string) func(w http.ResponseWriter, r *http.Requ
 	}
 }
 
+func formSubmitted(w http.ResponseWriter, r *http.Request) {
+    r.ParseForm()
+    fmt.Println("POST\t" + r.URL.Path)
+    fmt.Println(r.Form["subject_data"][0])
+    //var sData SubjectInfo
+}
+
 // Handles all Javascript, images, and HTML
 // file requests
 func displayHandler() {
@@ -75,6 +84,7 @@ func displayHandler() {
 
 func main() {
     displayHandler()
+    http.HandleFunc("/form_submit/", formSubmitted);
     var addr_flag = flag.String("addr", "localhost", "Address the http server binds to")
     var port_flag = flag.String("port", "8080", "Port used for http server")
     flag.Parse()
