@@ -1,3 +1,5 @@
+
+
 <html>
 <head>
 	<title>Concussion Testing</title>
@@ -26,10 +28,33 @@
 	        <div class="container">
         	    <a class="brand" href="/">Tests</a>
        		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="/blog.html">Progress</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
 	        </div>
 	      </div>
 	    </div>
+
+	     <!-- Modal that is displayed once you start -->
+	    <div id="startMessage" class="modal hide fade">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h3 class="brand">Testing your reflexes</h3>
+			</div>
+			<div class="modal-body">
+		    	<p class="lead">
+			    	Keep your fingers inside the two circles. The circles will move around the screen
+			    	randomly. Once your a finger is within a circle, the circle will turn green. You will
+			    	be scored on the percent of time that your fingers stay within in the circles. An alert
+			    	will be shown once the test is over.
+			    </p>
+			    <p class="lead">
+			    	Press <b>Okay</b> and put your fingers inside the circles to begin
+			    </p>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Okay</button>
+			</div>
+		</div>
 
 	    <!-- Modal that is displayed once you finish -->
 	    <div id="endMessage" class="modal hide fade">
@@ -38,11 +63,23 @@
 			    <h3 class="brand">Results</h3>
 			</div>
 			<div class="modal-body">
-			    <p class="lead">Your score was: </p>
+			    <p class="lead">Your score:</p>
+			    <table id="scoreTable" class="table table-hover" border="0">
+		        <tr>
+		          	<td><b>Circle A:</b></td>
+		          	<td id="resultTime0"></td>
+		          	<td id="resultPercent0"></td>
+		        </tr>
+		        <tr>
+		          	<td><b>Circle B:</b></td>
+		          	<td id="resultTime1"></td>
+		          	<td id="resultPercent1"></td>
+		        </tr>
+		      	</table>
 			</div>
 			<div class="modal-footer">
-			    <button href="/" class="btn">Retry</button>
-			    <button href="#" class="btn btn-primary">Submit</button>
+			    <a href="/" class="btn">Retry</a>
+			    <a href="#" class="btn btn-primary">Submit</a>
 			</div>
 		</div>
 
@@ -68,3 +105,4 @@
 		<script text="text/javascript" src="/js/concuss.js"></script>
 	</body>
 </html>
+

@@ -5,6 +5,11 @@ var circle_array = [new CanvasImage("mainCanvas", "open_circle"), new CanvasImag
 // main drawing interval
 var interval = window.setInterval(updateBoundaryCircles, 5);
 
+var gameLength = 25 * 1000;
+
+// interval in which game lasts
+var gameInterval = undefined;
+
 // green circle used to show that the user has their finger
 // inside the circle
 var green_circle = document.getElementById("green_circle");
@@ -18,6 +23,8 @@ var canvas = document.getElementById("mainCanvas");
 
 // Function that needs to be called to initiate the game
 function initGame() {
+
+	$("#startMessage").modal("show");
 
 	// Makes the canvas the size of the page
     canvas.width = document.width;
@@ -46,10 +53,23 @@ function initGame() {
 	});
 }
 
+// obviously occurs when game ends. Shows a modal with the score
+function whenGameEnds() {
+	window.clearInterval(gameInterval);
+	for (var i = 0; i < circle_array.length; i++) {
+		$("#resultTime" + i).html((+ $("#timer" + i).html()).toFixed(2) + " sec");
+		$("#resultPercent" + i).html((+ $("#timer" + i).html() / gameLength * 1000 * 100).toFixed(1) + "%");
+	}
+	$("#endMessage").modal('show');
+}
+
 function onTouchStart(event) {
 	for (var i in circle_array) {
 		for (var t = 0; t < event.touches.length; t++) {
 			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
+				if (gameInterval == undefined) {
+					gameInterval = window.setInterval(whenGameEnds, gameLength);
+				}
 				circle_array[i].setCurrentTouchId(event.touches[t].identifier);
 				circle_array[i].image = green_circle;
 				if (circle_array[i].timer == undefined) {

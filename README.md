@@ -12,16 +12,16 @@ Concuss.js
 
 ##Agile Todo
 * Finish creating the Canvas utilities: *done*
-* Bootstrap it up
-* Create game that tells the user to keep two balls in two circles
-	* Generate random paths by having an increasing probability of changing direction as time since last change increases
-	* Use setInterval
+* Bootstrap it up: *almost done*
+* Add a login screen
+* Create game that tells the user to keep fingers in two circles *Pretty much done*
+	* Send data to the server
+	* Add a distance metric
 * Create image moving from circle to circle game (Keep this for later)
 	* Creates map for this game
 		* Create a picture of a maze using paint or something
 * Get sensor data on the same screen as the circle game
 	* Use sensor data to move a ball around a screen
-* For the dynamic game, ending the touch should pause all movement
 
 ##Global TODO
 * Research commonly used tests for:
