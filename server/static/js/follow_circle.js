@@ -3,7 +3,7 @@
 var circle_array = [new CanvasImage("mainCanvas", "open_circle"), new CanvasImage("mainCanvas", "open_circle")];
 
 // main drawing interval
-var interval = window.setInterval(updateBoundaryCircles, 5);
+var interval = undefined;
 
 var gameLength = 25 * 1000;
 
@@ -64,6 +64,9 @@ function whenGameEnds() {
 }
 
 function onTouchStart(event) {
+	if (interval == undefined) {
+		interval = window.setInterval(updateBoundaryCircles, 5);
+	}
 	for (var i in circle_array) {
 		for (var t = 0; t < event.touches.length; t++) {
 			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
