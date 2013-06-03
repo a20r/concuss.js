@@ -20,6 +20,9 @@ function CanvasImage(canvasId, id) {
 
 	this.uniqueId = undefined;
 
+	this.timer = undefined;
+	this.timeElapsed = 0;
+
 	this.grabbed = false;
 	this.image = document.getElementById(id);
 	this.canvas = document.getElementById(canvasId);

@@ -13,11 +13,11 @@ var green_circle = document.getElementById("green_circle");
 // their finger inside the correct area
 var open_circle = document.getElementById("open_circle");
 
+// Gets the canvas
+var canvas = document.getElementById("mainCanvas");
+
 // Function that needs to be called to initiate the game
 function initGame() {
-
-	// Gets the canvas
-	var canvas = document.getElementById("mainCanvas");
 
 	// Makes the canvas the size of the page
     canvas.width = document.width;
@@ -30,12 +30,20 @@ function initGame() {
     	val.redraw();
     });
 
-  	// ff it is touchable, touch functions get fired
+  	// if it is touchable, touch functions get fired
     if('createTouch' in document) {
 		canvas.addEventListener('touchstart', onTouchStart, false);
 		canvas.addEventListener('touchmove', onTouchMove, false);
 		canvas.addEventListener('touchend', onTouchEnd, false);
 	}
+	$('#endMessage').on('hide', function () {
+  		for (var i in circle_array) {
+			circle_array[i].timeElapsed = 0;
+			circle_array[i].timer = undefined;
+			circle_array[i].image = open_circle;
+			$("#timer" + i).html((0).toFixed(2));
+		}
+	});
 }
 
 function onTouchStart(event) {
@@ -44,6 +52,9 @@ function onTouchStart(event) {
 			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
 				circle_array[i].setCurrentTouchId(event.touches[t].identifier);
 				circle_array[i].image = green_circle;
+				if (circle_array[i].timer == undefined) {
+					circle_array[i].timer = new Date().getTime();
+				}
 				//updateBoundaryCircles();
 			}
 		}
@@ -62,6 +73,9 @@ function onTouchMove(event) {
 		for (var t = 0; t < event.touches.length; t++) {
 			if (circle_array[i].withinBounds(event.touches[t].pageX, event.touches[t].pageY - 60)) {
 				circle_array[i].image = green_circle;
+				if (circle_array[i].timer == undefined) {
+					circle_array[i].timer = new Date().getTime();
+				}
 				//updateBoundaryCircles();
 			} else {
 				count++;
@@ -69,9 +83,10 @@ function onTouchMove(event) {
 		}
 		if (count == event.touches.length) {
 			circle_array[i].image = open_circle;
+			circle_array[i].timer = undefined;
 		}
 	}
-	drawBoundaryCircles();
+	//drawBoundaryCircles();
 } 
  
 function onTouchEnd(event) {
@@ -84,6 +99,7 @@ function onTouchEnd(event) {
 		}
 		if (count == event.touches.length) {
 			circle_array[i].image = open_circle;
+			circle_array[i].timer = undefined;
 		}
 	}
 }
@@ -122,6 +138,16 @@ function drawBoundaryCircles() {
 
 function updateBoundaryCircles() {
 	circle_array[0].clearCanvas();
+	var curTime = new Date().getTime();
+
+	// updates the timers 
+	for (var i in circle_array) {
+		if (circle_array[i].timer != undefined) {
+			circle_array[i].timeElapsed += (curTime - circle_array[i].timer);
+			circle_array[i].timer = curTime;
+			$("#timer" + i).html((circle_array[i].timeElapsed / 1000).toFixed(2));
+		}
+	}
 	drawBoundaryCircles();
 }
 

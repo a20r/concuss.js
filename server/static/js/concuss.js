@@ -1,4 +1,4 @@
 window.onload = function() {
-	$("body").css("overflow", "hidden");
+	//$("body").css("overflow", "hidden");
 	initGame();
 }
