@@ -1,0 +1,102 @@
+
+
+<html>
+<head>
+	<title>Concussion Testing</title>
+	<!-- Bootsrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le Bootstrap styles -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+	<!-- Le other styles -->
+	<style>
+		body {
+			padding-top: 60px;
+			padding-left: 30px;
+			padding-right: 30px;
+			background: lightgrey;
+		}
+
+	</style>
+</head>
+	<body>
+		<!-- Navigation bar -->
+		<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+        	    <a class="brand" href="/">Tests</a>
+       		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="/blog.html">Progress</a>
+       		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
+	        </div>
+	      </div>
+	    </div>
+
+	    <div class="container">
+	    	<div class="span5 offset3">
+	    		<h1>Concuss.js</h1>
+      			<p class="lead">What have I been up to?</p>
+
+      			<div class="accordion" id="accordion2">
+      				<div class="accordion-group">
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        						June 3, 2013
+      						</a>
+      					</div>
+      					<div id="collapseOne" class="accordion-body collapse in">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				As of now, I have finished a lot of the structure for creating tests.
+				      				I have created a utility for using the canvas tag to manipulate objects
+				      				based on touch input. A system is also configured to run tasks once 
+				      				a touch as been initiated, moved, and ended. 
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				A test has now been crafted in which two balls move randomly around the screen
+				      				and it is the goal of the subject to keep one finger in each circle. The
+				      				application records how long each circle was occupied shows a modal displaying
+				      				in a table the time, and the percentage of time that each of the circles
+				      				was filled. There is also a modal that is displayed when the page is started
+				      				outlining how the test should be conducted. The test is started once the 
+				      				subject presses okay on the modal and puts their fingers inside the circles.
+				      			</p>
+
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<p>
+				      				<ul>
+				      					<li>
+				      						Collect a distance metric to see how far the fingers were
+				      						from the correct circles
+				      					</li>
+				      					<li>
+				      						Check which transitions are difficult for the subject to
+				      						follow
+				      					</li>
+				      					<li>Create a login site that allows subjects to put their information</li>
+				      					<li>Allow entry of new information on the server side</li>
+				      					<li>Create a structure that allows for transitions between tests</li>
+				      					<li>Create a stroop color word test (perhaps use speech recognition)</li>
+				      					<li>
+				      						Add a balance test that asks the subject to match the pitch of a
+				      						a previously played sound by balancing on one foot and moving the
+				      						tablet side to side
+				      					</li>
+				      				</ul>
+				      			</p>
+      						</div>
+    					</div>
+    				</div>
+    			</div>
+	    	</div>
+	    </div>
+
+		<!-- JQuery and Bootstrap Javascript files -->
+		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script src="/js/bootstrap.js"></script>
+	</body>
+</html>
+
