@@ -68,6 +68,7 @@ function sendData() {
       				gender : $.cookie("gender"),
       				education : $.cookie("education"),
       				classification : $.cookie("classification"),
+      				priorConcussion : $.cookie("priorConcussion"),
       				results : {
       					reflex : {
       						circleA : {
