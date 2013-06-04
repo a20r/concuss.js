@@ -66,40 +66,60 @@ func fileResponseCreator(folder string) func(w http.ResponseWriter, r *http.Requ
 	}
 }
 
+func getResultFormat(sData SubjectInfo) (rethink.Map) {
+    // the line below gets a sub interface because Go is stupid
+    reflexMap := sData["results"].(map[string]interface{})["reflex"].(map[string]interface{})
+    return rethink.Map{
+        "reflex" : rethink.Map{
+            "circleA": rethink.Map{
+                "time" : reflexMap["circleA"].(map[string]interface{})["time"],
+                "percent" : reflexMap["circleA"].(map[string]interface{})["percent"],
+            },
+            "circleB": rethink.Map{
+                "time" : reflexMap["circleB"].(map[string]interface{})["time"],
+                "percent" : reflexMap["circleB"].(map[string]interface{})["percent"],
+            },
+        },
+        "classification" : sData["classification"],
+        "sport" : sData["sport"],
+        "time" : sData["time"],
+        "priorConcussion" : sData["priorConcussion"],
+        "age" : sData["age"],
+    }
+}
+
 func formSubmitted(w http.ResponseWriter, r *http.Request) {
     r.ParseForm()
     fmt.Println("POST\t" + r.URL.Path)
     fmt.Println("DATA\t" + r.Form["subject_data"][0])
+
+    // decodes the JSON data to be sent to the database
     var sData SubjectInfo
     json.Unmarshal([]byte (r.Form["subject_data"][0]), &sData)
-    reflexMap := sData["results"].(map[string]interface{})["reflex"].(map[string]interface{})
-    rethink.Table("concuss_data").Insert(
-        rethink.Map{
-            "fName" : sData["fName"],
-            "lName" : sData["lName"],
-            "email" : sData["email"],
-            "age" : sData["age"],
-            "sport" : sData["sport"],
-            "gender" : sData["gender"],
-            "education" : sData["education"],
-            "priorConcussion" : sData["priorConcussion"],
-            "results" : rethink.List{
-                rethink.Map{
-                    "reflex" : rethink.Map{
-                        "circleA": rethink.Map{
-                            "time" : reflexMap["circleA"].(map[string]interface{})["time"],
-                            "percent" : reflexMap["circleA"].(map[string]interface{})["percent"],
-                        },
-                        "circleB": rethink.Map{
-                            "time" : reflexMap["circleB"].(map[string]interface{})["time"],
-                            "percent" : reflexMap["circleB"].(map[string]interface{})["percent"],
-                        },
-                    "classification" : sData["classification"],
-                    },
+
+    // checks if the entry is already in the databaseå
+    var exists []interface{}
+    rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Run(session).All(&exists)
+
+    if len(exists) > 0 {
+        var person interface{}
+        rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
+        fmt.Println(person)
+        rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Update(rethink.Map{"results" : person}).Run(session).Exec()
+    } else { 
+        rethink.Table("concuss_data").Insert(
+            rethink.Map{
+                "fName" : sData["fName"],
+                "lName" : sData["lName"],
+                "email" : sData["email"],
+                "gender" : sData["gender"],
+                "education" : sData["education"],
+                "results" : rethink.List{
+                    getResultFormat(sData),
                 },
             },
-        },
-    ).Run(session).Exec()
+        ).Run(session).Exec()
+    }
 }
 
 // Handles all Javascript, images, and HTML

@@ -69,6 +69,7 @@ function sendData() {
       				education : $.cookie("education"),
       				classification : $.cookie("classification"),
       				priorConcussion : $.cookie("priorConcussion"),
+      				time : new Date().toString(),
       				results : {
       					reflex : {
       						circleA : {

@@ -117,7 +117,7 @@
 					</div>
 					<div class="control-group">
 					    <div class="controls">
-					      	<a href="/follow_circle.html" onclick="updateCookies()" class="btn btn-primary">
+					      	<a href="/follow_circle.html" onclick="updateCookies()" class="btn-large btn-primary">
 					      		Begin tests
 					      	</a>
 					    </div>
@@ -136,26 +136,6 @@
 				for (var i in inputIds) {
 					$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
 				}
-				/* Will use this later on 
-				$.ajax({
-					type: 'POST',
-			      	url:'/form_submit/',
-			      	data: {
-			      		subject_data: JSON.stringify(
-			      			{
-			      				fName : $("#fName").val(), 
-			      				lName : $("#lName").val(),
-			      				email : $("#email").val(),
-			      				age : $("#age").val(),
-			      				sport : $("#sport").val(),
-			      				gender : $("#gender").val(),
-			      				education : $("#education").val(),
-			      				classification : $("#classification").val()
-			      			}
-			      		)
-			      	}
-			    });
-				*/
 			}
 		</script>
 
