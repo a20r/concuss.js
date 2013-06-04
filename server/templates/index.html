@@ -107,8 +107,19 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label lead">Prior Concussion</label>
+						<div class="controls">
+						  	<select id="priorConcussion">
+						  		<option>No</option>
+							  	<option>Yes</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
 					    <div class="controls">
-					      	<a href="/follow_circle.html" onclick="formSubmit()" class="btn btn-primary">Begin tests</a>
+					      	<a href="/follow_circle.html" onclick="updateCookies()" class="btn btn-primary">
+					      		Begin tests
+					      	</a>
 					    </div>
 					</div>
 				</form>
@@ -116,9 +127,16 @@
 		</div>
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
 		<script src="/js/bootstrap.js"></script>
 		<script text="text/javascript">
-			function formSubmit() {
+			function updateCookies() {
+				var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
+								"classification", "priorConcussion"];
+				for (var i in inputIds) {
+					$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
+				}
+				/* Will use this later on 
 				$.ajax({
 					type: 'POST',
 			      	url:'/form_submit/',
@@ -137,6 +155,7 @@
 			      		)
 			      	}
 			    });
+				*/
 			}
 		</script>
 

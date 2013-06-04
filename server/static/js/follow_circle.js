@@ -53,6 +53,41 @@ function initGame() {
 	});
 }
 
+function sendData() {
+	$.ajax({
+		type: 'POST',
+      	url:'/form_submit/',
+      	data: {
+      		subject_data: JSON.stringify(
+      			{
+      				fName : $.cookie("fName"), 
+      				lName : $.cookie("lName"),
+      				email : $.cookie("email"),
+      				age : $.cookie("age"),
+      				sport : $.cookie("sport"),
+      				gender : $.cookie("gender"),
+      				education : $.cookie("education"),
+      				classification : $.cookie("classification"),
+      				results : {
+      					reflex : {
+      						circleA : {
+      							time : $("#resultTime0").html().split(" ")[0],
+      							percent : $("#resultPercent0").html().split("%")[0]
+      						}, 
+      						circleB : {
+      							time : $("#resultTime1").html().split(" ")[0],
+      							percent : $("#resultPercent1").html().split("%")[0]
+      						}
+      					}
+      				}
+      			}
+      		)
+      	}
+    });
+    $("#endMessage").modal("hide");
+    $("#thankYouMessage").modal('show');
+}
+
 // obviously occurs when game ends. Shows a modal with the score
 function whenGameEnds() {
 	window.clearInterval(gameInterval);

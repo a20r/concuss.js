@@ -56,6 +56,24 @@
 			</div>
 		</div>
 
+		<div id="thankYouMessage" class="modal hide fade">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h3 class="brand">Testing your reflexes</h3>
+			</div>
+			<div class="modal-body">
+		    	<p class="lead">
+			    	Thank you. You are all set!
+			    </p>
+			    <p class="lead">
+			    	Press <b>Okay</b> to go back to the start screen.
+			    </p>
+			</div>
+			<div class="modal-footer">
+			    <a href="/" class="btn btn-primary">Okay</a>
+			</div>
+		</div>
+
 	    <!-- Modal that is displayed once you finish -->
 	    <div id="endMessage" class="modal hide fade">
 			<div class="modal-header">
@@ -78,8 +96,8 @@
 		      	</table>
 			</div>
 			<div class="modal-footer">
-			    <a href="/" class="btn">Retry</a>
-			    <a href="#" class="btn btn-primary">Submit</a>
+			    <a href="/follow_circle.html" class="btn">Retry</a>
+			    <button type="button" onClick="sendData()" class="btn btn-primary">Submit</button>
 			</div>
 		</div>
 
@@ -97,6 +115,7 @@
 
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
 		<script src="/js/bootstrap.js"></script>
 
 		<!-- Concuss.js and Canvas utilities -->
