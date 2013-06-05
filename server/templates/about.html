@@ -26,7 +26,7 @@
 		<div class="navbar navbar-fixed-top">
 	      <div class="navbar-inner">
 	        <div class="container">
-        	    <a class="brand" href="/">Tests</a>
+        	    <a class="brand" href="/">Home</a>
        		    <a class="brand" href="/about.html">About</a>
        		    <a class="brand" href="/blog.html">Progress</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
@@ -39,17 +39,29 @@
 	    		<h1>Concuss.js</h1>
       			<p class="lead">What am I like?</p>
       			<p>
-      				Concuss.js is a JavaScript application that will be used to 
-      				gather information that tests a subject's cognition, reflex, 
+      				Concuss.js is a JavaScript application that 
+      				gathers information that tests a subject's cognition, reflex, 
       				and balance. This application is planned to be distributed 
-      				via a mobile platform and hopes to be used to classify
-      				if a subject has a concussion. The simple games that the subjects
-      				will play can be used as a base line to test whether, after some
-      				collision, if the person has suffered a head injury. 
+      				via a mobile platform to detect if users have a concussion. 
+      				The data gathered is sent to a <a href="http://rethinkdb.com">
+      				RethinkDB</a> database so it can be queried and analysed 
+      				at a later time. The tests work by aquiring user information, 
+      				user test data, and the classification of the test (such as 
+      				baseline, pre-season, post-injury) so that deductions can 
+      				be made on whether a particular user has a concussion.
       			</p>
-      			<p>
-      				This application is being developed at the University of Notre Dame
-      				for the ERWiN internship.
+      			<p class="lead" style="padding-top:10px;">Sponsors</p>
+      			<p class="lead well">
+      				<a href="http://nsf.gov">National Science Foundation</a><br/>
+      				<a href="http://nd.edu">University of Notre Dame</a><br/>
+      				<a href="http://www.cse.nd.edu/~darts/apply.html">ERWiN</a>
+      			</p>
+      			<p class="lead" style="padding-top:10px;">Toys</p>
+      			<p class="lead well">
+      				<a href="http://golang.com">Go</a><br/>
+      				<a href="http://rethinkdb.com">RethinkDB</a><br/>
+      				<a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a><br/>
+      				<a href="http://jquery.com">jQuery</a>
       			</p>
 	    	</div>
 	    </div>

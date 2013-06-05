@@ -53,6 +53,7 @@ function initGame() {
 	});
 }
 
+// sends the results and data about the user back to the server
 function sendData() {
 	$.ajax({
 		type: 'POST',
@@ -60,25 +61,25 @@ function sendData() {
       	data: {
       		subject_data: JSON.stringify(
       			{
-      				fName : $.cookie("fName"), 
-      				lName : $.cookie("lName"),
+      				fName : $.cookie("fName").toLowerCase(), 
+      				lName : $.cookie("lName").toLowerCase(),
       				email : $.cookie("email"),
-      				age : $.cookie("age"),
-      				sport : $.cookie("sport"),
-      				gender : $.cookie("gender"),
-      				education : $.cookie("education"),
-      				classification : $.cookie("classification"),
-      				priorConcussion : $.cookie("priorConcussion"),
+      				age : parseInt($.cookie("age")),
+      				sport : $.cookie("sport").toLowerCase(),
+      				gender : $.cookie("gender").toLowerCase(),
+      				education : $.cookie("education").toLowerCase().replace(" ", "_"),
+      				classification : $.cookie("classification").toLowerCase(),
+      				priorConcussion : $.cookie("priorConcussion") == "Yes",
       				time : new Date().toString(),
       				results : {
       					reflex : {
       						circleA : {
-      							time : $("#resultTime0").html().split(" ")[0],
-      							percent : $("#resultPercent0").html().split("%")[0]
+      							time : parseFloat($("#resultTime0").html().split(" ")[0]),
+      							percent : parseFloat($("#resultPercent0").html().split("%")[0])
       						}, 
       						circleB : {
-      							time : $("#resultTime1").html().split(" ")[0],
-      							percent : $("#resultPercent1").html().split("%")[0]
+      							time : parseFloat($("#resultTime1").html().split(" ")[0]),
+      							percent : parseFloat($("#resultPercent1").html().split("%")[0])
       						}
       					}
       				}
@@ -86,6 +87,8 @@ function sendData() {
       		)
       	}
     });
+	// hides the end message modal and displays a modal
+	// that thanks the user for doing the test
     $("#endMessage").modal("hide");
     $("#thankYouMessage").modal('show');
 }

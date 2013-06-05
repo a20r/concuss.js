@@ -26,7 +26,7 @@
 		<div class="navbar navbar-fixed-top">
 	      <div class="navbar-inner">
 	        <div class="container">
-        	    <a class="brand" href="/">Tests</a>
+        	    <a class="brand" href="/">Home</a>
        		    <a class="brand" href="/about.html">About</a>
        		    <a class="brand" href="/blog.html">Progress</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
@@ -80,12 +80,111 @@
 				      					<li>Make the balls never cross over themselves about the y-axis</li>
 				      					<li>Create a login site that allows subjects to put their information</li>
 				      					<li>Allow entry of new information on the server side</li>
-				      					<li>Create a structure that allows for transitions between tests</li>
-				      					<li>Create a stroop color word test (perhaps use speech recognition)</li>
+				      					<li>
+				      						Create a structure that allows for transitions between tests
+				      						<ul>
+				      							<li>
+				      								<b>Update</b>: will use separate html pages to encourage 
+				      								modularity
+				      							</li>
+				      						</ul>
+				      					</li>
+				      					<li>
+				      						Create a stroop color word test (perhaps use speech recognition)
+				      						<ul>
+				      							<li><b>Update</b>: will not use this test</li>
+				      						</ul>
+				      					</li>
 				      					<li>
 				      						Add a balance test that asks the subject to match the pitch of a
 				      						a previously played sound by balancing on one foot and moving the
 				      						tablet side to side
+				      					</li>
+				      				</ul>
+				      			</p>
+      						</div>
+    					</div>
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+        						June 4, 2013
+      						</a>
+      					</div>
+      					<div id="collapseTwo" class="accordion-body collapse in">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				The main contributions today involved adding a form that a subject will 
+				      				fill before the test begins. This data is saved temporarily using cookies. 
+				      				Once the subject finishes the test, the data stored in the cookies along with
+				      				the results are sent to the server and inserted into a RethinkDB database. 
+				      				I have also included modals that notify the user of the instructions, tell 
+				      				the user how they have done on the tests, and thank the user for using the 
+				      				application. 
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				More on the database side of things. The database's secondary index is 
+				      				the email address. This should be unique so the indexing is not really 
+				      				a problem I think. Perhaps I should make better login system... Using 
+				      				email as the secondary index, I check if the email has been used before.
+				      				If so, the results list is appended. If not, a new entry is inserted
+				      				into the table. This allows people to do the test multiple times. Also, 
+				      				the results list is flexible to have new tests (Thanks to RethinkDB).
+				      			</p>
+
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<p>
+				      				<ul>
+				      					<li>Do not let an incompleted be sent</li>
+				      					<li>
+				      						Circle game
+					      					<ul>
+						      					<li>
+						      						Collect a distance metric to see how far the fingers were
+						      						from the correct circles
+						      					</li>
+						      					<li>
+						      						Check which transitions are difficult for the subject to
+						      						follow
+						      					</li>
+						      					<li>Make the balls never cross over themselves about the y-axis</li>
+						      				</ul>
+						      			</li>
+						      			<li>
+						      				New tests
+						      				<ul>
+						      					<li>
+						      						A test where user is shown a sequence of shapes and is asked
+						      						to draw one of the shapes from the sequence. For instance, a
+						      						subject is shown in order a square, a triangle, an octagon,
+						      						and a circle. The user will be the prompted to draw the 3rd
+						      						shape from that sequence. The subject should draw the octagon.
+						      						Likewise, other questions could be asked such as draw the shape
+						      						shown that had the least number of sides. 
+						      					</li>
+						      					<li>
+						      						Adding on to the test described above, I could combine cognitive
+						      						and balance testing by having the user draw the shape using
+						      						tilt registered by the tablet.
+						      					</li>
+						      					<li>
+						      						Arda suggested that I create a test that has a series of lines
+						      						(or dots, not sure yet), and the subject is prompted to connect 
+						      						the dots. This test will see how coodinated the subject is. The 
+						      						metric being evaluated will measure how close to the actual line
+						      						the drawn line is and how fast the dots were connected. 
+						      					</li>
+						      					<li>
+						      						Perhaps the pitch matching game (boring as well)
+						      					</li>
+						      					<li>
+						      						The generic test that a user has to tilt the tablet to get
+						      						a ball through a maze (I dont really wanna do this one)
+						      					</li>
+						      				</ul>
+						      			</li>
+				      					<li>
+				      						Transition between tests using separate html pages. Add a href to the
+				      						button on the modal that takes the current view to the next page
 				      					</li>
 				      				</ul>
 				      			</p>
@@ -99,6 +198,9 @@
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
 		<script src="/js/bootstrap.js"></script>
+		<script>
+			$(function () {$(".collapse").collapse("hide");});
+		</script>
 	</body>
 </html>
 

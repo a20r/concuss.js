@@ -89,3 +89,46 @@
 2013-06-04T17:11:36.618686000 755.614130s info: Applying data {"rdb_namespaces":{"new":{"name":"concuss_data","primary_uuid":"00000000-0000-0000-0000-000000000000","database":"ad1dab3f-8250-4c12-b90e-9d101b055cc5","ack_expectations":{"00000000-0000-0000-0000-000000000000":{"expectation":1,"hard_durability":true}}}}}
 2013-06-04T17:48:23.767944000 2962.809159s info: Applying data {"rdb_namespaces":{"78370a7a-2e77-49d7-b25b-e29ea4f906c3":null}}
 2013-06-04T17:48:28.294214000 2967.335540s info: Applying data {"rdb_namespaces":{"new":{"name":"concuss_data","primary_uuid":"00000000-0000-0000-0000-000000000000","database":"ad1dab3f-8250-4c12-b90e-9d101b055cc5","ack_expectations":{"00000000-0000-0000-0000-000000000000":{"expectation":1,"hard_durability":true}}}}}
+2013-06-04T20:07:39.978039000 5123.609847s info: Server got SIGINT; shutting down...
+2013-06-04T20:07:39.978230000 5123.610038s info: Shutting down client connections...
+2013-06-04T20:07:39.978475000 5123.610283s info: All client connections closed.
+2013-06-04T20:07:39.978481000 5123.610288s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-06-04T20:07:39.980550000 5123.612358s info: Storage engine shut down.
+2013-06-04T20:07:59.698276000 0.005019s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-06-04T20:07:59.736940000 0.043683s info: Running on Darwin 12.2.1 x86_64
+2013-06-04T20:07:59.737018000 0.043760s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-06-04T20:07:59.744096000 0.050838s info: Listening for intracluster connections on port 29015
+2013-06-04T20:07:59.745413000 0.052155s info: Listening for client driver connections on port 28015
+2013-06-04T20:07:59.745428000 0.052170s info: Listening for administrative HTTP connections on port 8080
+2013-06-04T20:07:59.745430000 0.052172s info: Listening on addresses: 127.0.0.1
+2013-06-04T20:07:59.745431000 0.052173s info: To fully expose RethinkDB on the network, bind to all addresses
+2013-06-04T20:07:59.745431000 0.052173s info: by running rethinkdb with the `--bind all' command line option.
+2013-06-04T20:07:59.745432000 0.052174s info: Server ready
+2013-06-04T21:25:10.916802000 4631.329309s info: Server got SIGINT; shutting down...
+2013-06-04T21:25:10.916959000 4631.329466s info: Shutting down client connections...
+2013-06-04T21:25:10.917194000 4631.329701s info: All client connections closed.
+2013-06-04T21:25:10.917199000 4631.329706s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-06-04T21:25:10.919382000 4631.331889s info: Storage engine shut down.
+2013-06-04T21:25:16.064450000 0.007281s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-06-04T21:25:16.084153000 0.026983s info: Running on Darwin 12.2.1 x86_64
+2013-06-04T21:25:16.084228000 0.027057s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-06-04T21:25:16.129268000 0.072097s info: Listening for intracluster connections on port 29015
+2013-06-04T21:25:16.130674000 0.073504s info: Listening for client driver connections on port 28015
+2013-06-04T21:25:16.130690000 0.073519s info: Listening for administrative HTTP connections on port 8080
+2013-06-04T21:25:16.131175000 0.074005s info: Listening on addresses: 127.0.0.1, 10.24.168.115
+2013-06-04T21:25:16.131176000 0.074006s info: Server ready
+2013-06-04T21:38:24.318232000 788.281052s info: Applying data {"rdb_namespaces":{"31d0a720-ae08-4650-9cc4-a5359467a608":null}}
+2013-06-04T21:38:32.689651000 796.652683s info: Applying data {"rdb_namespaces":{"new":{"name":"concuss_data","primary_uuid":"00000000-0000-0000-0000-000000000000","database":"ad1dab3f-8250-4c12-b90e-9d101b055cc5","ack_expectations":{"00000000-0000-0000-0000-000000000000":{"expectation":1,"hard_durability":true}}}}}
+2013-06-04T21:39:17.657720000 841.621939s info: Server got SIGINT; shutting down...
+2013-06-04T21:39:17.657893000 841.622112s info: Shutting down client connections...
+2013-06-04T21:39:17.658119000 841.622337s info: All client connections closed.
+2013-06-04T21:39:17.658124000 841.622342s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-06-04T21:39:17.660247000 841.624466s info: Storage engine shut down.
+2013-06-04T21:39:18.528059000 0.002355s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-06-04T21:39:18.531767000 0.006063s info: Running on Darwin 12.2.1 x86_64
+2013-06-04T21:39:18.531818000 0.006113s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-06-04T21:39:18.584672000 0.058967s info: Listening for intracluster connections on port 29015
+2013-06-04T21:39:18.586141000 0.060437s info: Listening for client driver connections on port 28015
+2013-06-04T21:39:18.586156000 0.060451s info: Listening for administrative HTTP connections on port 8080
+2013-06-04T21:39:18.586679000 0.060975s info: Listening on addresses: 127.0.0.1, 10.24.168.115
+2013-06-04T21:39:18.586680000 0.060976s info: Server ready

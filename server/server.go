@@ -7,6 +7,7 @@ import (
     "net/http"
     "flag"
     "encoding/json"
+    //"strconv"
     rethink "github.com/christopherhesse/rethinkgo"
 )
 
@@ -99,14 +100,14 @@ func formSubmitted(w http.ResponseWriter, r *http.Request) {
 
     // checks if the entry is already in the databaseå
     var exists []interface{}
-    rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Run(session).All(&exists)
+    rethink.Table("concuss_data").GetAll("email", sData["email"]).Run(session).All(&exists)
 
     // appends a list of results if the entry is already there
     if len(exists) > 0 {
         var person interface{}
-        rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
-        fmt.Println(person)
-        rethink.Table("concuss_data").GetAll("email", "awallar@nd.edu").Update(rethink.Map{"results" : person}).Run(session).Exec()
+        rethink.Table("concuss_data").GetAll("email", sData["email"]).Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
+        //fmt.Println(person)
+        rethink.Table("concuss_data").GetAll("email", sData["email"]).Update(rethink.Map{"results" : person}).Run(session).Exec()
     // if entry is not in database, add new entry
     } else { 
         rethink.Table("concuss_data").Insert(
@@ -144,3 +145,4 @@ func main() {
     //fmt.Println("Running server on " + *addr_flag + ":" + *port_flag)
     http.ListenAndServe(*addr_flag + ":" + *port_flag, nil)
 }
+
