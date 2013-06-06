@@ -7,7 +7,6 @@ import (
     "net/http"
     "flag"
     "encoding/json"
-    //"strconv"
     rethink "github.com/christopherhesse/rethinkgo"
 )
 

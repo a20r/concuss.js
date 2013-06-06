@@ -29,18 +29,22 @@ function CanvasImage(canvasId, id) {
 	this.context = this.canvas.getContext("2d");
 }
 
+// getter for touch id
 CanvasImage.prototype.getCurrentTouchId = function () {
 	return this.uniqueId;
 }
 
+// setter for touch id
 CanvasImage.prototype.setCurrentTouchId = function (n_id) {
 	this.uniqueId = n_id;
 }
 
+// gets the distance to a Canvas Image
 CanvasImage.prototype.distanceTo = function (n_x, n_y) {
 	return Math.sqrt(Math.pow(this.x - n_x, 2) + Math.pow(this.y - n_y, 2));
 }
 
+// checks if to CanvasImages intersect
 CanvasImage.prototype.intersects = function (canvasImage) {
 	return canvasImage.x - canvasImage.image.width / 2 < this.x + this.image.width / 2 && 
 		canvasImage.x + canvasImage.image.width / 2 > this.x - this.image.width / 2 && 
@@ -67,6 +71,7 @@ CanvasImage.prototype.updatePosition = function (n_x, n_y) {
 	// updates the current position
 	this.x = n_x + this.tx;
 	this.y = n_y + this.ty;
+	return this;
 }
 
 CanvasImage.prototype.setHeading = function (n_x, n_y) {
