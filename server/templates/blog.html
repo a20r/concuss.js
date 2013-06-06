@@ -134,7 +134,7 @@
 				      			<p class="lead"><b>Things that need doing</b></p>
 				      			<p>
 				      				<ul>
-				      					<li>Do not let an incompleted be sent</li>
+				      					<li>Do not let an incompleted form be sent</li>
 				      					<li>
 				      						Circle game
 					      					<ul>
@@ -179,6 +179,86 @@
 						      					<li>
 						      						The generic test that a user has to tilt the tablet to get
 						      						a ball through a maze (I dont really wanna do this one)
+						      					</li>
+						      				</ul>
+						      			</li>
+				      					<li>
+				      						Transition between tests using separate html pages. Add a href to the
+				      						button on the modal that takes the current view to the next page
+				      					</li>
+				      				</ul>
+				      			</p>
+      						</div>
+    					</div>
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+        						June 5, 2013
+      						</a>
+      					</div>
+      					<div id="collapseThree" class="accordion-body collapse in">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				As of now, the design and implementation of the second has been completed.
+				      				To refresh one's memory, this test puts 2 circles on the screen for 
+				      				a given period of time. After the time has passed, the circles disappear
+				      				and the subject is asked to draw a line between where he / she thinks
+				      				they were. This test is supposed to measure coordination and memory. The 
+				      				memory aspect of the test is obvious. The coordination component exists 
+				      				because the user is also graded on how well he / she did on drawing the
+				      				line between the two circles. 
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				For this test to be compatible with the other, I need to save the test results
+				      				in cookies so the data can be sent in one chunk to the server after all 
+				      				of the tests have been completed. The metrics that will be used to measure
+				      				how well the user did will be the distance from the starting and ending point
+				      				of the drawn line to the respective circle and how straight the line was. 
+				      				Line straightness will be measured by checking each heading in the onTouchMoved
+				      				function. How they deviate will bring about a good metric showing how straight
+				      				the line is.
+				      			</p>
+
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<p>
+				      				<ul>
+				      					<li>Do not let an incompleted form be sent!</li>
+				      					<li>
+				      						Save the data from each test in a cookie until the last test
+				      						where the data will be sent to the server
+				      					</li>
+				      					<li>Implement the metrics for the draw_shape test</li>
+				      					<li>Append what is already being sent to the database with the new result</li>
+				      					<li>
+				      						Circle game
+					      					<ul>
+						      					<li>
+						      						Collect a distance metric to see how far the fingers were
+						      						from the correct circles
+						      					</li>
+						      					<li>
+						      						Check which transitions are difficult for the subject to
+						      						follow
+						      					</li>
+						      					<li>Make the balls never cross over themselves about the y-axis</li>
+						      				</ul>
+						      			</li>
+						      			<li>
+						      				New tests
+						      				<ul>
+						      					<li>
+						      						A test where user is shown a sequence of shapes and is asked
+						      						to draw one of the shapes from the sequence. For instance, a
+						      						subject is shown in order a square, a triangle, an octagon,
+						      						and a circle. The user will be the prompted to draw the 3rd
+						      						shape from that sequence. The subject should draw the octagon.
+						      						Likewise, other questions could be asked such as draw the shape
+						      						shown that had the least number of sides. 
+						      					</li>
+						      					<li>
+						      						Adding on to the test described above, I could combine cognitive
+						      						and balance testing by having the user draw the shape using
+						      						tilt registered by the tablet.
 						      					</li>
 						      				</ul>
 						      			</li>
