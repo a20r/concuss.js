@@ -59,38 +59,11 @@ function initGame() {
 
 // sends the results and data about the user back to the server
 function sendData() {
-	$.ajax({
-		type: 'POST',
-      	url:'/form_submit/',
-      	data: {
-      		subject_data: JSON.stringify(
-      			{
-      				fName : $.cookie("fName").toLowerCase(), 
-      				lName : $.cookie("lName").toLowerCase(),
-      				email : $.cookie("email"),
-      				age : parseInt($.cookie("age")),
-      				sport : $.cookie("sport").toLowerCase(),
-      				gender : $.cookie("gender").toLowerCase(),
-      				education : $.cookie("education").toLowerCase().replace(" ", "_"),
-      				classification : $.cookie("classification").toLowerCase(),
-      				priorConcussion : $.cookie("priorConcussion") == "Yes",
-      				time : new Date().toString(),
-      				results : {
-      					reflex : {
-      						circleA : {
-      							time : parseFloat($("#resultTime0").html().split(" ")[0]),
-      							percent : parseFloat($("#resultPercent0").html().split("%")[0])
-      						}, 
-      						circleB : {
-      							time : parseFloat($("#resultTime1").html().split(" ")[0]),
-      							percent : parseFloat($("#resultPercent1").html().split("%")[0])
-      						}
-      					}
-      				}
-      			}
-      		)
-      	}
-    });
+	for (var i =0; i < 2; i++) {
+		$.cookie("resultTime" + i, $("#resultTime" + i).html().split(" ")[0], {expires: 7});
+		$.cookie("resultPercent" + i, $("#resultPercent" + i).html().split("%")[0], {expires: 1});
+	}
+	//alert($.cookie("resultTime1"));
 	// hides the end message modal and displays a modal
 	// that thanks the user for doing the test
     $("#endMessage").modal("hide");

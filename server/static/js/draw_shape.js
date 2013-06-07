@@ -28,10 +28,13 @@ var circleInterval = undefined;
 
 // counter that specifies how many times the 
 // test will run
-var maxCounter = 3;
+var maxCounter = 20;
 
 // used ot hold the line statistics
 var stats = new LineStats();
+
+// used to hold final statistics
+var endStats = undefined;
 
 var counter = 0;
 
@@ -85,12 +88,10 @@ function removeTouchListeners() {
       }
 }
 
-function whenGameEnds() {
-      $("#endMessage").modal("show");
-}
-
+// get the unix time here and from on touch end to get the time taken
 function onTouchStart(event) {
       circleSmall.updatePosition(event.touches[0].pageX, event.touches[0].pageY).redraw();
+      stats.setStartTime();
       stats.setStart(circleSmall.x, circleSmall.y);
 }
 
@@ -102,19 +103,27 @@ function onTouchMove(event) {
       context.lineWidth = 5;
       context.stroke();
       circleSmall.updatePosition(event.touches[0].pageX, event.touches[0].pageY);
-      stats.push(circleSmall.vx, circleSmall.vy);
 }
 
 function onTouchEnd(event) {
       removeTouchListeners();
       circleSmall.redraw();
+      stats.setEndTime();
       stats.setEnd(circleSmall.x, circleSmall.y);
-      stats.compileCurrentStats(circleMedium[0].x, circleMedium[0].y, circleMedum[1].x, circleMedium[1].y);
-      stats.clearCurrentLine();
+      stats.compileCurrentStats(circleMedium[0].x, circleMedium[0].y, circleMedium[1].x, circleMedium[1].y);
 
       circleMedium[0].redraw();
       circleMedium[1].redraw();
       waitInterval = setInterval(showTempResults, waitTime);
+}
+
+function whenGameEnds() {
+      endStats = stats.getGlobalStats();
+      //alert(endStats);
+      $("#startingDeviation").html(endStats.sDeviation);
+      $("#finalDeviation").html(endStats.eDeviation);
+      $("#velocity").html(endStats.vel);
+      $("#endMessage").modal("show");
 }
 
 function showTempResults() {
@@ -131,7 +140,6 @@ function showTempResults() {
 
 // sends the data back to the server
 function sendData() {
-      /*
 	$.ajax({
 		type: 'POST',
       	url:'/form_submit/',
@@ -151,20 +159,24 @@ function sendData() {
       				results : {
       					reflex : {
       						circleA : {
-      							time : parseFloat($("#resultTime0").html().split(" ")[0]),
-      							percent : parseFloat($("#resultPercent0").html().split("%")[0])
+      							time : parseFloat($.cookie("resultTime0")),
+      							percent : parseFloat($.cookie("resultPercent0"))
       						}, 
       						circleB : {
-      							time : parseFloat($("#resultTime1").html().split(" ")[0]),
-      							percent : parseFloat($("#resultPercent1").html().split("%")[0])
+      							time : parseFloat($.cookie("resultTime1")),
+      							percent : parseFloat($.cookie("resultPercent1"))
       						}
-      					}
+      					}, 
+                                    memory : {
+                                          initialDev : parseFloat(endStats.sDeviation),
+                                          finalDev : parseFloat(endStats.eDeviation),
+                                          velocity : parseFloat(endStats.vel) 
+                                    }
       				}
       			}
       		)
       	}
       });
-      */
 	// hides the end message modal and displays a modal
 	// that thanks the user for doing the test
     $("#endMessage").modal("hide");

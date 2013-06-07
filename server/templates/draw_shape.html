@@ -83,6 +83,20 @@
 			    <h3 class="brand">Results</h3>
 			</div>
 			<div class="modal-body">
+				<table class="table table-hover" border="0">
+		        <tr>
+		          	<td><b>Scaled Average Initial Deviation:</b></td>
+		          	<td id="startingDeviation"></td>
+		        </tr>
+		        <tr>
+		          	<td><b>Scaled Average Final Deviation:</b></td>
+		          	<td id="finalDeviation"></td>
+		        </tr>
+		        <tr>
+		          	<td><b>Scaled Average Velocity:</b></td>
+		          	<td id="velocity"></td>
+		        </tr>
+		      	</table>
 			</div>
 			<div class="modal-footer">
 			    <a href="/draw_shape.html" class="btn">Retry</a>
@@ -103,6 +117,7 @@
 
 		<!-- Concuss.js and Canvas utilities -->
 		<script text="text/javascript" src="/js/canvas_util.js"></script>
+		<script text="text/javascript" src="/js/line_stats.js"></script>
 		<script text="text/javascript" src="/js/draw_shape.js"></script>
 	</body>
 </html>

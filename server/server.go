@@ -69,6 +69,7 @@ func fileResponseCreator(folder string) func(w http.ResponseWriter, r *http.Requ
 func getResultFormat(sData SubjectInfo) (rethink.Map) {
     // the line below gets a sub interface because Go is stupid
     reflexMap := sData["results"].(map[string]interface{})["reflex"].(map[string]interface{})
+    memoryMap := sData["results"].(map[string]interface{})["memory"].(map[string]interface{})
     return rethink.Map{
         "reflex" : rethink.Map{
             "circleA": rethink.Map{
@@ -79,6 +80,11 @@ func getResultFormat(sData SubjectInfo) (rethink.Map) {
                 "time" : reflexMap["circleB"].(map[string]interface{})["time"],
                 "percent" : reflexMap["circleB"].(map[string]interface{})["percent"],
             },
+        },
+        "memory" : rethink.Map{
+            "initialDev" : memoryMap["initialDev"],
+            "finalDev" : memoryMap["finalDev"],
+            "velocity" : memoryMap["velocity"],
         },
         "classification" : sData["classification"],
         "sport" : sData["sport"],
