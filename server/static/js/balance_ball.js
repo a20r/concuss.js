@@ -1,8 +1,12 @@
 
 
-var circleOpen = new CanvasImage("mainCanvas", "open_circle");
+var circleBoundary = new CanvasImage("mainCanvas", "green_circle");
 
 var circleSmall = new CanvasImage("mainCanvas", "circlesmall");
+
+var circleOpen = document.getElementById("open_circle");
+
+var circleGreen = document.getElementById("green_circle");
 
 var updateRate = 5;
 
@@ -45,7 +49,7 @@ function initGame() {
     circleSmall.setHeading(ax, ay);
 
     circleSmall.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
-    circleOpen.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
+    circleBoundary.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
 }
 
 function orientationEventHandler(event) {
@@ -55,9 +59,10 @@ function orientationEventHandler(event) {
 }
 
 function drawCircles() {
-	circleOpen.clearCanvas();
-	circleOpen.redraw();
+	circleBoundary.clearCanvas();
+	circleBoundary.redraw();
 
+	// fix this constants crap
 	if (circleSmall.x + circleSmall.hx + circleSmall.image.width / 2 > document.width - 50 || 
 		circleSmall.x + circleSmall.hx - circleSmall.image.width / 2 < 0) {
 		circleSmall.hx = -circleSmall.hx / 1.8;
@@ -70,10 +75,21 @@ function drawCircles() {
 
 	circleSmall.incrementPosition().redraw();
 
+	if (Math.sqrt(Math.pow(circleSmall.x - circleBoundary.x, 2) + 
+		Math.pow(circleSmall.y - circleBoundary.y, 2)) <= circleBoundary.image.height / 2) {
+		circleBoundary.image = circleGreen;
+	} else {
+		circleBoundary.image = circleOpen;
+	}
+
 	uax = mapVal(+$("#tiltHorizontal").html(), -45, 45, -scaleX * Math.abs(ax), scaleX * Math.abs(ax));
 	uay = mapVal(-+$("#tiltVertical").html(), -45, 45, -scaleY * Math.abs(ay), scaleY * Math.abs(ay));
 
 	circleSmall.setHeading(circleSmall.hx + ax + uax, circleSmall.hy + ay + uay);
+}
+
+function sendData() {
+
 }
 
 function mapVal(x, in_min, in_max, out_min, out_max) {
