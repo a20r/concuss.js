@@ -146,11 +146,11 @@ function sendData() {
       	data: {
       		subject_data: JSON.stringify(
       			{
-      				fName : $.cookie("fName").toLowerCase(), 
-      				lName : $.cookie("lName").toLowerCase(),
+      				fName : $.cookie("fName").toLowerCase().replace(" ", "_"), 
+      				lName : $.cookie("lName").toLowerCase().replace(" ", "_"),
       				email : $.cookie("email"),
       				age : parseInt($.cookie("age")),
-      				sport : $.cookie("sport").toLowerCase(),
+      				sport : $.cookie("sport").toLowerCase().replace(" ", "_"),
       				gender : $.cookie("gender").toLowerCase(),
       				education : $.cookie("education").toLowerCase().replace(" ", "_"),
       				classification : $.cookie("classification").toLowerCase(),

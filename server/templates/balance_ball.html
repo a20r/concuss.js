@@ -38,17 +38,14 @@
 	    <div id="startMessage" class="modal hide fade">
 			<div class="modal-header">
 			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			    <h3 class="brand">Testing your reflexes</h3>
+			    <h3 class="brand">Testing your coordination and memory</h3>
 			</div>
 			<div class="modal-body">
 		    	<p class="lead">
-			    	Keep your fingers inside the two circles. The circles will move around the screen
-			    	randomly. Once your a finger is within a circle, the circle will turn green. You will
-			    	be scored on the percent of time that your fingers stay within in the circles. An alert
-			    	will be shown once the test is over.
+		    		ENTER MODAL BODY HERE
 			    </p>
 			    <p class="lead">
-			    	Press <b>Okay</b> and put your fingers inside the circles to begin
+			    	Press <b>Okay</b> and start drawing the line to begin.
 			    </p>
 			</div>
 			<div class="modal-footer">
@@ -63,36 +60,22 @@
 			    <h3 class="brand">Results</h3>
 			</div>
 			<div class="modal-body">
-			    <p class="lead">Your score:</p>
-			    <table id="scoreTable" class="table table-hover" border="0">
-		        <tr>
-		          	<td><b>Circle A:</b></td>
-		          	<td id="resultTime0"></td>
-		          	<td id="resultPercent0"></td>
-		        </tr>
-		        <tr>
-		          	<td><b>Circle B:</b></td>
-		          	<td id="resultTime1"></td>
-		          	<td id="resultPercent1"></td>
-		        </tr>
-		      	</table>
+				PUT RESULTS HERE
 			</div>
 			<div class="modal-footer">
-			    <a href="/follow_circle.html" class="btn">Retry</a>
-			    <a href="/draw_shape.html" onClick="sendData()" class="btn btn-primary">Submit</a>
+			    <a href="/draw_shape.html" class="btn">Retry</a>
+			    <button type="button" onClick="sendData()" class="btn btn-primary">Submit</button>
 			</div>
 		</div>
 
-		<!-- All the images used in the app -->
-		<img src="/img/sphere.png" id="c_img" class="img-circle" style="display:none;"/>
-		<img src="/img/circle.gif" id="open_circle" class="img-circle" style="display:none;"/>
-		<img src="/img/greencircle.gif" id="green_circle" class="img-circle" style="display:none;"/>
-		<img src="/img/concussion.gif" id="b_img" style="display:none;"/>
-
-		<!-- Displays the current amount of time for each circle -->
 		<span class="lead">
-			Time within - Circle A: <span id="timer0">0.00</span>, Circle B: <span id="timer1">0.00</span>
+			Horizontal tilt: <span id="tiltHorizontal">0.00</span>, Vertical tilt: <span id="tiltVertical">0.00</span>
 		</span>
+
+		<!-- All the images used in the app -->
+		<img id="circlesmall" src="/img/circlesmall.png" style="display:none;"/>
+		<img id="open_circle" src="/img/circle.gif" style="display:none;"/>
+
 		<canvas id="mainCanvas"></canvas>
 
 		<!-- JQuery and Bootstrap Javascript files -->
@@ -102,7 +85,7 @@
 
 		<!-- Concuss.js and Canvas utilities -->
 		<script text="text/javascript" src="/js/canvas_util.js"></script>
-		<script text="text/javascript" src="/js/follow_circle.js"></script>
+		<script text="text/javascript" src="/js/balance_ball.js"></script>
 	</body>
 </html>
 

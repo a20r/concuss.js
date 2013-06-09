@@ -21,9 +21,7 @@ var open_circle = document.getElementById("open_circle");
 // Gets the canvas
 var canvas = document.getElementById("mainCanvas");
 
-window.onload = function() {
-	initGame();
-}
+window.onload = initGame;
 
 // Function that needs to be called to initiate the game
 function initGame() {
