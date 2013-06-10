@@ -8,6 +8,8 @@ var circleOpen = document.getElementById("open_circle");
 
 var circleGreen = document.getElementById("green_circle");
 
+var gameInterval = undefined;
+
 var updateRate = 5;
 
 var scaleY = 5;
@@ -33,6 +35,7 @@ function initGame() {
 	$("#startMessage").modal("show");
 	$("#startMessage").on("hidden", function () {
 		drawInterval = setInterval(drawCircles, updateRate);
+		gameInterval = setInterval(whenGameEnds, gameLength);
 	});
 
 	if(window.DeviceOrientationEvent) {
@@ -50,6 +53,13 @@ function initGame() {
 
     circleSmall.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
     circleBoundary.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
+}
+
+function whenGameEnds() {
+	var finalTime = +$("#timer").html()
+	$("#time").html(finalTime + " sec");
+	$("#percent").html((100 * 1000 * finalTime / gameLength).toFixed(1) + "%");
+	$("#endMessage").modal("show");
 }
 
 function orientationEventHandler(event) {
@@ -78,8 +88,13 @@ function drawCircles() {
 	if (Math.sqrt(Math.pow(circleSmall.x - circleBoundary.x, 2) + 
 		Math.pow(circleSmall.y - circleBoundary.y, 2)) <= circleBoundary.image.height / 2) {
 		circleBoundary.image = circleGreen;
+		if (circleSmall.timer == undefined) {
+			circleSmall.timer = +new Date();
+		}
+		updateTimer();
 	} else {
 		circleBoundary.image = circleOpen;
+		circleSmall.timer = undefined;
 	}
 
 	uax = mapVal(+$("#tiltHorizontal").html(), -45, 45, -scaleX * Math.abs(ax), scaleX * Math.abs(ax));
@@ -88,8 +103,18 @@ function drawCircles() {
 	circleSmall.setHeading(circleSmall.hx + ax + uax, circleSmall.hy + ay + uay);
 }
 
-function sendData() {
+function updateTimer() {
+	var curTime = +new Date();
+	circleSmall.timeElapsed += (curTime - circleSmall.timer);
+	circleSmall.timer = curTime;
+	$("#timer").html((circleSmall.timeElapsed / 1000).toFixed(2));
+}
 
+function sendData() {
+	$.cookie("balancePercent", $("#percent").html());
+	$.cookie("balanceTime", $("#time").html());
+
+	$("#endMessage").modal("hide");
 }
 
 function mapVal(x, in_min, in_max, out_min, out_max) {

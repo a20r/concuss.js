@@ -171,6 +171,10 @@ function sendData() {
                                           initialDev : parseFloat(endStats.sDeviation),
                                           finalDev : parseFloat(endStats.eDeviation),
                                           velocity : parseFloat(endStats.vel) 
+                                    },
+                                    balance : {
+                                          time : parseFloat($.cookie("balanceTime")),
+                                          percent : parseFloat($.cookie("balancePercent"))
                                     }
       				}
       			}

@@ -70,6 +70,7 @@ func getResultFormat(sData SubjectInfo) (rethink.Map) {
     // the line below gets a sub interface because Go is stupid
     reflexMap := sData["results"].(map[string]interface{})["reflex"].(map[string]interface{})
     memoryMap := sData["results"].(map[string]interface{})["memory"].(map[string]interface{})
+    balanceMap := sData["results"].(map[string]interface{})["balance"].(map[string]interface{})
     return rethink.Map{
         "reflex" : rethink.Map{
             "circleA": rethink.Map{
@@ -85,6 +86,10 @@ func getResultFormat(sData SubjectInfo) (rethink.Map) {
             "initialDev" : memoryMap["initialDev"],
             "finalDev" : memoryMap["finalDev"],
             "velocity" : memoryMap["velocity"],
+        },
+        "balance" : rethink.Map{
+            "time" : balanceMap["time"],
+            "percent" : balanceMap["percent"],
         },
         "classification" : sData["classification"],
         "sport" : sData["sport"],

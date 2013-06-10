@@ -65,7 +65,6 @@ function sendData() {
 	// hides the end message modal and displays a modal
 	// that thanks the user for doing the test
     $("#endMessage").modal("hide");
-    $("#thankYouMessage").modal('show');
 }
 
 // obviously occurs when game ends. Shows a modal with the score
