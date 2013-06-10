@@ -1,21 +1,29 @@
 
-
+// Canvas Image used for the boundary circle
 var circleBoundary = new CanvasImage("mainCanvas", "green_circle");
 
+// Ball that moves around the screen due to tilt
 var circleSmall = new CanvasImage("mainCanvas", "circlesmall");
 
+// black open circle
 var circleOpen = document.getElementById("open_circle");
 
+// green open circle
 var circleGreen = document.getElementById("green_circle");
 
+// interval that specifies game length
 var gameInterval = undefined;
 
+// number of milliseconds between drawing updates
 var updateRate = 5;
 
+// constant value used to scale the Y tilt
 var scaleY = 5;
 
+// constant value used to scale the X tilt
 var scaleX = 4;
 
+// interval that controls drawing updates
 var drawInterval = undefined;
 
 // change in x velocity per 5 milliseconds
@@ -31,6 +39,8 @@ var canvas = document.getElementById("mainCanvas");
 
 window.onload = initGame;
 
+// initializes the game, adds listeners, and sets
+// starting position for the circles
 function initGame() {
 	$("#startMessage").modal("show");
 	$("#startMessage").on("hidden", function () {
@@ -56,6 +66,9 @@ function initGame() {
     //alert(checkOrientation());
 }
 
+// checks which orientation the tablet has
+// for instance there exists two landscape modes
+// and two portrait modes
 function checkOrientation() {
  
       switch(window.orientation){
@@ -74,13 +87,17 @@ function checkOrientation() {
      }
 }
 
+// destructor for the game. Stops the gameInterval
+// and shows the modal with the results
 function whenGameEnds() {
 	var finalTime = +$("#timer").html()
 	$("#time").html(finalTime + " sec");
 	$("#percent").html((100 * 1000 * finalTime / gameLength).toFixed(1) + "%");
+	clearInterval(gameInterval);
 	$("#endMessage").modal("show");
 }
 
+// is called when the screen tilt values change
 function orientationEventHandler(event) {
 	event.preventDefault();
 	$("#tiltVertical").html(Math.floor(event.gamma));
