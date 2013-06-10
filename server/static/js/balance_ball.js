@@ -24,7 +24,7 @@ var ax = 0;
 // change in y velocity per 5 milliseconds
 var ay = 0;
 
-var gameLength = 25 * 1000;
+var gameLength = 45 * 1000;
 
 // Gets the canvas
 var canvas = document.getElementById("mainCanvas");
@@ -53,6 +53,25 @@ function initGame() {
 
     circleSmall.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
     circleBoundary.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
+    //alert(checkOrientation());
+}
+
+function checkOrientation() {
+ 
+      switch(window.orientation){
+ 
+           case 0:
+           return 0;
+ 
+           case -90:
+           return 1;
+ 
+           case 90:
+           return -1;
+ 
+           case 180:
+           return 0;
+     }
 }
 
 function whenGameEnds() {
@@ -97,8 +116,10 @@ function drawCircles() {
 		circleSmall.timer = undefined;
 	}
 
-	uax = mapVal(+$("#tiltHorizontal").html(), -45, 45, -scaleX * Math.abs(ax), scaleX * Math.abs(ax));
-	uay = mapVal(-+$("#tiltVertical").html(), -45, 45, -scaleY * Math.abs(ay), scaleY * Math.abs(ay));
+	var ori = checkOrientation();
+
+	uax = mapVal(-ori * $("#tiltHorizontal").html(), -45, 45, -scaleX * Math.abs(ax), scaleX * Math.abs(ax));
+	uay = mapVal(ori * +$("#tiltVertical").html(), -45, 45, -scaleY * Math.abs(ay), scaleY * Math.abs(ay));
 
 	circleSmall.setHeading(circleSmall.hx + ax + uax, circleSmall.hy + ay + uay);
 }
