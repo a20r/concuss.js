@@ -5,9 +5,9 @@ window.onload = function () {
 }
 
 function getData () {
-	$.getJSON("/get_data/", visualizeData);
+	$.getJSON("/get_data/" + $("#proctorEmail").val() + "/" + $("#password").val(), visualizeData);
 }
 
 function visualizeData (data) {
-	// finish this up
+	
 }

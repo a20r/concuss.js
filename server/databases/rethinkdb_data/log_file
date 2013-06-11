@@ -184,3 +184,5 @@
 2013-06-10T12:06:06.937044000 0.083737s info: Listening for administrative HTTP connections on port 8080
 2013-06-10T12:06:06.937491000 0.084184s info: Listening on addresses: 127.0.0.1, 10.24.164.220
 2013-06-10T12:06:06.937492000 0.084185s info: Server ready
+2013-06-11T13:30:17.736829000 50731.779990s info: Applying data {"rdb_namespaces":{"67cb2d0b-72c4-4c15-a06a-0cd48eae38a3":null}}
+2013-06-11T13:30:26.591077000 50740.634317s info: Applying data {"rdb_namespaces":{"new":{"name":"concuss_data","primary_uuid":"00000000-0000-0000-0000-000000000000","database":"ad1dab3f-8250-4c12-b90e-9d101b055cc5","ack_expectations":{"00000000-0000-0000-0000-000000000000":{"expectation":1,"hard_durability":true}}}}}
