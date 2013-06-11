@@ -33,72 +33,73 @@
         	    <a class="brand" href="/">Home</a>
        		    <a class="brand" href="/about.html">About</a>
        		    <a class="brand" href="/blog.html">Progress</a>
+       		    <a class="brand" href="/view_data.html">Analyze</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
 	        </div>
 	      </div>
 	    </div>
 	    <div class="container">
-	    	<div class="span5 offset4">
+	    	<div class="span5 offset3">
 	    		<h1>Concuss.js</h1>
       			<p class="lead">Give me your digits!</p>
       		</div>
 
       		<div class="span5 offset3">
-	      		<form class="form-horizontal"> 
-			  		<div class="control-group">
-			  			<label class="control-label lead" for="fName">First Name</label>
-			  			<div class="controls">
+	      		<table class="table table-hover" border="0">
+			  		<tr>
+			  			<td class="lead">First Name</td>
+			  			<td>
 							<input type="text" id="fName" placeholder="Douglas">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Last Name</label>
-						<div class="controls">
+						</td>
+					</tr>
+					<tr>
+						<td class="lead">Last Name</td>
+						<td>
 							<input type="text" id="lName" placeholder="Adams">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Email</label>
-						<div class="controls">
+						</td>
+					</tr>
+					<tr>
+						<td class="lead">Email</td>
+						<td>
 					  		<input type="email" id="email" placeholder="potato@example.com">
-					  	</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Age</label>
-						<div class="controls">
+					  	</td>
+					</tr>
+					<tr>
+						<td class="lead">Age</td>
+						<td>
 					  		<input type="text" id="age" placeholder="42">
-					  	</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Sport</label>
-						<div class="controls">
+					  	</td>
+					</tr>
+					<tr>
+						<td class="lead">Sport</td>
+						<td>
 					  		<input type="text" id="sport" placeholder="Quidditch">
-					  	</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Gender</label>
-						<div class="controls">
+					  	</td>
+					</tr>
+					<tr>
+						<td class="lead">Gender</td>
+						<td>
 						  	<select id="gender">
 						  		<option>Male</option>
 							  	<option>Female</option>
 							  	<option>Transgender</option>
 							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Education</label>
-						<div class="controls">
+						</td>
+					</tr>
+					<tr>
+						<td class="lead">Education</td>
+						<td>
 						  	<select id="education">
 						  		<option>Elementary</option>
 							  	<option>Middle School</option>
 							  	<option>High School</option>
 							  	<option>Post Secondary</option>
 							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Classification</label>
-						<div class="controls">
+						</td>
+					</tr>
+					<tr>
+						<td class="lead">Classification</td>
+						<td>
 						  	<select id="classification">
 						  		<option>Baseline</option>
 						  		<option>Pre-Season</option>
@@ -107,27 +108,53 @@
 						  		<option>Drowsy</option>
 						  		<option>Intoxicated</option>
 							</select>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label lead">Prior Concussion</label>
-						<div class="controls">
+						</td>
+					</tr>
+					<tr>
+						<td class="lead">Prior Concussion</td>
+						<td>
 						  	<select id="priorConcussion">
 						  		<option>No</option>
 							  	<option>Yes</option>
 							</select>
-						</div>
-					</div>
-					<div class="control-group">
-					    <div class="controls">
-					      	<a href="/follow_circle.html" onclick="updateCookies()" class="btn-large btn-primary">
-					      		Begin tests
-					      	</a>
-					    </div>
-					</div>
-				</form>
+						</td>
+					</tr>
+				</table>
+				<div class="span5 offset1">
+					<button onclick="$('#loginMessage').modal('show')" class="btn-large btn-primary">
+						Begin tests
+					</button>
+				</div>
 			</div>
 		</div>
+
+		<!-- Modal that is displayed once you finish -->
+	    <div id="loginMessage" class="modal hide fade">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h3 class="brand">Proctor Login</h3>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover" border="0">
+					<tr>
+						<td class="lead">Email</td>
+						<td>
+					  		<input type="email" id="proctorEmail" placeholder="potato@example.com">
+					  	</td>
+					</tr>
+					<tr>
+			  			<td class="lead">Password</td>
+			  			<td>
+							<input type="password" id="password" placeholder="">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+			    <a href="/follow_circle.html" onClick="updateCookies()" class="btn btn-primary">Okay</a>
+			</div>
+		</div>
+
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
 		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
@@ -135,7 +162,7 @@
 		<script text="text/javascript">
 			function updateCookies() {
 				var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
-								"classification", "priorConcussion"];
+								"classification", "priorConcussion", "password", "proctorEmail"];
 				for (var i in inputIds) {
 					$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
 				}

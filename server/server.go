@@ -96,6 +96,8 @@ func getResultFormat(sData SubjectInfo) (rethink.Map) {
         "time" : sData["time"],
         "priorConcussion" : sData["priorConcussion"],
         "age" : sData["age"],
+        "password" : sData["password"],
+        "proctorEmail" : sData["proctorEmail"],
     }
 }
 
@@ -135,6 +137,16 @@ func formSubmitted(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func dataWanted(w http.ResponseWriter, r *http.Request) {
+    // finish this up
+}
+
+func forMac(w http.ResponseWriter, r *http.Request) {
+    r.ParseForm()
+    fmt.Println("POST\t" + r.URL.Path)
+    //fmt.Println("DATA\t" + r.Form)
+}
+
 // Handles all Javascript, images, and HTML
 // file requests
 func displayHandler() {
@@ -148,7 +160,9 @@ func displayHandler() {
 
 func main() {
     displayHandler()
-    http.HandleFunc("/form_submit/", formSubmitted);
+    http.HandleFunc("/form_submit/", formSubmitted)
+    http.HandleFunc("/get_data/", dataWanted)
+    http.HandleFunc("/mac/", forMac)
     var addr_flag = flag.String("addr", "localhost", "Address the http server binds to")
     var port_flag = flag.String("port", "8080", "Port used for http server")
     flag.Parse()

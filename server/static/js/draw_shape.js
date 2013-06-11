@@ -156,6 +156,8 @@ function sendData() {
       				classification : $.cookie("classification").toLowerCase(),
       				priorConcussion : $.cookie("priorConcussion") == "Yes",
       				time : new Date().toString(),
+                              password : $.cookie("password"),
+                              proctorEmail : $.cookie("proctorEmail"),
       				results : {
       					reflex : {
       						circleA : {
