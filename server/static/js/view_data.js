@@ -24,7 +24,22 @@ function searchData(searchTerm) {
 	}
 }
 
-function visualizeData(data) {
-	$("#dataHolder")
+function addTab(heading, body) {
+	var collapseId = Date.parse(heading);
+	var tab = '<div class="accordion-group">' + 
+					'<div class="accordion-heading">' + 
+						'<a class="accordion-toggle" data-toggle="collapse" data-parent="#dataHolder" href="#' + 
+						collapseId + '">' + heading + '</a></div>' +
+			    '<div id="' + collapseId + '" class="accordion-body collapse in">' + 
+			    	'<div class="accordion-inner">' + body + '</div></div></div>';
+	return tab;
+}
 
+function visualizeData(data) {
+	$("#dataHolder").html("");
+	var results = data[0]["data"];
+	for (var i = 0; i < results.length; i++) {
+		$("#dataHolder").append(addTab(results[i]["time"], JSON.stringify(results[i])));
+	}
+	$(".collapse").collapse("hide");
 }
