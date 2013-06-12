@@ -21,7 +21,7 @@
 </head>
 	<body>
 		<!-- Navigation bar -->
-		<div class="navbar navbar-fixed-top">
+		<div class="navbar navbar-fixed-top navbar-inverse">
 	      <div class="navbar-inner">
 	        <div class="container">
         	    <a class="brand" href="/">Home</a>
@@ -34,9 +34,18 @@
 	    </div>
 
 	    <div class="container">
-	    	<div class="span5 offset3">
+	    	<div class="span5 offset4">
 	    		<h1>Concuss.js</h1>
       			<p class="lead">Take a look inside me!</p>
+      			<form class="form-search">
+				  	<input id="searchTerm" type="text" class="input-large search-query" placeHolder="Enter name or email">
+				  	<button type="button" onclick="searchData($('#searchTerm').val().toLowerCase())" class="btn btn-primary">
+				  		Search
+				  	</button>
+				</form>
+				<p id="data"></p>
+				<div class="accordion" id="dataHolder">
+				</div>
       		</div>
       	</div>
       	<div id="loginMessage" class="modal hide fade">

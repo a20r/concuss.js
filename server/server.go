@@ -7,6 +7,7 @@ import (
     "net/http"
     "flag"
     "encoding/json"
+    "strings"
     rethink "github.com/christopherhesse/rethinkgo"
 )
 
@@ -137,8 +138,52 @@ func formSubmitted(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func proctorQuery(email, password string) (rethink.Exp) {
+
+    filterFunc := func (result rethink.Exp) (rethink.Exp) {
+        return result.Attr("proctorEmail").Eq(email).And(result.Attr("password").Eq(password))
+    }
+
+    mapFunc := func (val rethink.Exp) (rethink.Map) {
+        return rethink.Map{
+            "fName" : val.Attr("fName"), "lName" : val.Attr("lName"), 
+            "email" : val.Attr("email"), "education" : val.Attr("education"), 
+            "data" : val.Attr("results").Filter(filterFunc),
+        }
+    }
+    return rethink.Table("concuss_data").Map(mapFunc)
+}
+
 func dataWanted(w http.ResponseWriter, r *http.Request) {
-    // finish this up
+    urlVars := strings.Split(r.URL.Path[1:], "/")
+    fmt.Println("GET\t" + r.URL.Path)
+
+    email, password, queryTerm := urlVars[1], urlVars[2], urlVars[3]
+
+    var data []interface{}
+    query := proctorQuery(email, password)
+
+    if queryTerm == "name" {
+        fName := urlVars[4]
+        lName := urlVars[5]
+        query.Filter(rethink.Map{
+            "fName" : fName,
+            "lName" : lName,
+        }).Run(session).All(&data)
+    } else {
+        subjectEmail := urlVars[4]
+        query.Filter(rethink.Map{
+            "email" : subjectEmail,
+        }).Run(session).All(&data)
+    }
+
+    b, err := json.Marshal(data)
+    if err != nil {
+        fmt.Println("ERROR\t" + err.Error())
+    } else {
+        fmt.Println(string(b))
+        w.Write(b)
+    }
 }
 
 func forMac(w http.ResponseWriter, r *http.Request) {
