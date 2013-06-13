@@ -189,6 +189,13 @@ function sendData() {
     $("#thankYouMessage").modal('show');
 }
 
+function removeCookies() {
+      var inputIds = ["password", "proctorEmail"];
+      for (var i in inputIds) {
+            $.cookie(inputIds[i], null);
+      }
+}
+
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }

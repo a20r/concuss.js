@@ -151,7 +151,12 @@ func proctorQuery(email, password string) (rethink.Exp) {
             "data" : val.Attr("results").Filter(filterFunc),
         }
     }
-    return rethink.Table("concuss_data").Map(mapFunc)
+
+    filterNullData := func (val rethink.Exp) (rethink.Exp) {
+        return val.Attr("data").Count().Gt(0);
+    }
+
+    return rethink.Table("concuss_data").Map(mapFunc).Filter(filterNullData)
 }
 
 func dataWanted(w http.ResponseWriter, r *http.Request) {
@@ -186,6 +191,31 @@ func dataWanted(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func namesWanted(w http.ResponseWriter, r *http.Request) {
+    urlVars := strings.Split(r.URL.Path[1:], "/")
+    fmt.Println("GET\t" + r.URL.Path)
+    email, password := urlVars[1], urlVars[2]
+
+    mappingFunc := func (val rethink.Exp) (rethink.Map) {
+        return rethink.Map{
+            "fName" : val.Attr("fName"),
+            "lName" : val.Attr("lName"),
+        }
+    }
+
+    var data []interface{}
+    query := proctorQuery(email, password)
+    query.Map(mappingFunc).Run(session).All(&data)
+
+    b, err := json.Marshal(data)
+    if err != nil {
+        fmt.Println("ERROR\t" + err.Error())
+    } else {
+        fmt.Println(string(b))
+        w.Write(b)
+    }
+}
+
 func forMac(w http.ResponseWriter, r *http.Request) {
     r.ParseForm()
     fmt.Println("POST\t" + r.URL.Path)
@@ -207,6 +237,7 @@ func main() {
     displayHandler()
     http.HandleFunc("/form_submit/", formSubmitted)
     http.HandleFunc("/get_data/", dataWanted)
+    http.HandleFunc("/get_names/", namesWanted)
     http.HandleFunc("/mac/", forMac)
     var addr_flag = flag.String("addr", "localhost", "Address the http server binds to")
     var port_flag = flag.String("port", "8080", "Port used for http server")

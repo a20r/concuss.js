@@ -19,7 +19,6 @@
 			padding-right: 30px;
 			background: lightgrey;
 		}
-
 	</style>
 </head>
 	<body>
@@ -36,12 +35,23 @@
 	      </div>
 	    </div>
 	    <div class="container">
-	    	<div class="span5 offset3">
+	    	<div class="span5 offset4">
 	    		<h1>Concuss.js</h1>
       			<p class="lead">Give me your digits!</p>
+      			<p style="padding-top: 10px;">
+      				<span id="loadButtons">
+      					<button onclick="updateProctor()" class="btn btn-large btn-primary">
+      						Update proctor
+      					</button>
+      					&nbsp;
+      					<button onclick="addNewTest()" class="btn btn-large btn-success">
+      						Add new test
+      					</button>
+      				</span>
+      			</p>
       		</div>
 
-      		<div class="span5 offset3">
+      		<div id="userForm" class="span5 offset3" style="display:none;">
 	      		<table class="table table-hover" border="0">
 			  		<tr>
 			  			<td class="lead">First Name</td>
@@ -118,9 +128,9 @@
 					</tr>
 				</table>
 				<div class="span5 offset1">
-					<button onclick="$('#loginMessage').modal('show')" class="btn-large btn-primary">
+					<a href="/follow_circle.html" onClick="updateCookies()" class="btn-large btn-primary">
 						Begin tests
-					</button>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -148,7 +158,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-			    <a href="/follow_circle.html" onClick="updateCookies()" class="btn btn-primary">Okay</a>
+			    <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Okay</button>
 			</div>
 		</div>
 
@@ -157,6 +167,27 @@
 		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
 		<script src="/js/bootstrap.js"></script>
 		<script text="text/javascript">
+
+			function addNewTest() {
+				if ($.cookie("proctorEmail") != null && $.cookie("password") != null) {
+					$("#userForm").css("display", "block");
+				} else {
+					$('#loginMessage').modal('show');
+					$("#loginMessage").on("hidden", function () {
+						$("#userForm").css("display", "block");
+					});
+				}
+				$("#loadButtons").css("display", "none");
+			}
+
+			function updateProctor() {
+				$('#loginMessage').modal('show');
+				$("#loginMessage").on("hidden", function () {
+					$("#userForm").css("display", "block");
+				});
+				$("#loadButtons").css("display", "none");
+			}
+
 			function updateCookies() {
 				var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
 								"classification", "priorConcussion", "password", "proctorEmail"];
