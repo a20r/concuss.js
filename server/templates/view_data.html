@@ -18,6 +18,10 @@
 			background: lightgrey;
 		}
 
+		.chart {
+			padding-bottom: 20px;
+			padding-top: 20px;
+		}
 	</style>
 </head>
 	<body>
@@ -45,6 +49,17 @@
 				  		Search
 				  	</button>
 				</form>
+				<ul class="nav nav-pills">
+					<li>
+						<a onclick="getNames()" href="#">All Data</a>
+					</li>
+					<li id="tabular" class="disabled">
+						<a onclick="tableEnabled()" href="#">Tabular</a>
+					</li>
+					<li id="graphical" class="disabled">
+						<a onclick="graphEnabled()" href="#">Graphical</a>
+					</li>
+				</ul>
 			</div>
 			<div class="span5 offset3">
 				<p id="nameArea"></p>
@@ -84,6 +99,8 @@
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
 		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
 		<script src="/js/bootstrap.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
 		<script src="/js/view_data.js"></script>
 	</body>
 </html>
