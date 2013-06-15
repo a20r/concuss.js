@@ -42,7 +42,7 @@
 	    	<div class="span5 offset4">
 	    		<h1>Concuss.js</h1>
       			<p class="lead">Take a look inside me!</p>
-      			<form class="form-search">
+      			<form class="form-inline">
 				  	<input id="searchTerm" type="text" data-provide="typeahead" autocomplete="off" data-items="6" 
 				  	class="input-large search-query" placeHolder="Enter name or email">
 				  	<button type="button" onclick="searchData($('#searchTerm').val().toLowerCase())" class="btn btn-primary">
@@ -67,7 +67,7 @@
 				</div>
 			</div>
       	</div>
-      	<div id="loginMessage" class="modal hide fade">
+      	<div id="loginMessage" data-backdrop="static" class="modal hide fade">
 			<div class="modal-header">
 			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			    <h3 class="brand">Proctor Login</h3>
