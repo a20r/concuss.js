@@ -118,9 +118,11 @@ func formSubmitted(w http.ResponseWriter, r *http.Request) {
     // appends a list of results if the entry is already there
     if len(exists) > 0 {
         var person interface{}
-        rethink.Table("concuss_data").GetAll("email", sData["email"]).Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
+        rethink.Table("concuss_data").GetAll("email", 
+            sData["email"]).Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
         //fmt.Println(person)
-        rethink.Table("concuss_data").GetAll("email", sData["email"]).Update(rethink.Map{"results" : person}).Run(session).Exec()
+        rethink.Table("concuss_data").GetAll("email",
+            sData["email"]).Update(rethink.Map{"results" : person}).Run(session).Exec()
     // if entry is not in database, add new entry
     } else { 
         rethink.Table("concuss_data").Insert(
@@ -217,8 +219,17 @@ func namesWanted(w http.ResponseWriter, r *http.Request) {
 }
 
 func forMac(w http.ResponseWriter, r *http.Request) {
-    r.ParseForm()
-    fmt.Println("POST\t" + r.URL.Path)
+    fmt.Println("GET\t" + r.URL.Path)
+    mReader, err := r.MultipartReader()
+    if (err != nil) {
+        fmt.Println("ERROR\t" + err.Error())
+    } else {
+        fmt.Println("Got here")
+        nPart, _ := mReader.NextPart()
+        //fmt.Println("ERROR\t" + err.Error())
+        fmt.Println(nPart.FileName())
+    }
+    //fmt.Println("POST\t" + r.URL.Path)
     //fmt.Println("DATA\t" + r.Form)
 }
 

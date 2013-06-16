@@ -25,14 +25,18 @@ function tableEnabled() {
 	}
 }
 
+// gets the names of subject associated with a certain
+// email and password
 function getNames() {
 	$.getJSON("/get_names/" + email + "/" + password, nameWork);
 }
 
-function getData () {
+// sets the email and the password field and gets the
+// associated names
+function getNameData () {
 	email = $("#proctorEmail").val();
 	password = $("#password").val();
-	$.getJSON("/get_names/" + email + "/" + password, getNames());
+	getNames();
 }
 
 function nameWork(nameData) {
@@ -159,7 +163,7 @@ Chart.prototype.show = function (yTitle, yUnit) {
         chart: {
             type: 'line',
             marginRight: 130,
-            marginBottom: 40
+            marginBottom: 60
         },
         title: {
             text: this.title,
@@ -238,8 +242,10 @@ function tableVisualization(results) {
 
 		var reflexTable = new Table("Reflex");
 		reflexTable.addRow(["", "Left", "Right"]);
-		reflexTable.addRow(["Time", results[i]["reflex"]["circleA"]["time"], results[i]["reflex"]["circleB"]["time"]]);
-		reflexTable.addRow(["Percent", results[i]["reflex"]["circleA"]["percent"], results[i]["reflex"]["circleB"]["percent"]]);
+		reflexTable.addRow(["Time", results[i]["reflex"]["circleA"]["time"], 
+			results[i]["reflex"]["circleB"]["time"]]);
+		reflexTable.addRow(["Percent", results[i]["reflex"]["circleA"]["percent"], 
+			results[i]["reflex"]["circleB"]["percent"]]);
 
 		var infoTable = new Table("Patient Information");
 		infoTable.addRow(["Age", results[i]["age"]]);
