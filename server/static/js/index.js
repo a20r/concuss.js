@@ -29,7 +29,11 @@ function updateProctor() {
 
 function updateCookies() {
 	var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
-					"classification", "priorConcussion", "password", "proctorEmail"];
+					"classification", "priorConcussion"];
+	if ($.cookie("proctorEmail") == null && $.cookie("password") == null) {
+		inputIds.push("password");
+		inputIds.push("proctorEmail");
+	}
 	for (var i in inputIds) {
 		$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
 	}

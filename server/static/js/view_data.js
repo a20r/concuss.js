@@ -28,6 +28,7 @@ function tableEnabled() {
 // gets the names of subject associated with a certain
 // email and password
 function getNames() {
+	$("#allData").attr("class", "active");
 	$.getJSON("/get_names/" + email + "/" + password, nameWork);
 }
 
@@ -72,6 +73,7 @@ function nameWork(nameData) {
 
 // clean up the string more
 function searchData(searchTerm) {
+	$("#allData").attr("class", "");
 	if ($("#graphical").attr("class") == "disabled") {
 		$("#graphical").attr("class", "");
 		$("#tabular").attr("class", "active");
@@ -177,8 +179,9 @@ Chart.prototype.compileSeries = function () {
 
 Chart.prototype.show = function (yTitle, yUnit) {
 	var seriesArray = this.compileSeries();
-	alert(JSON.stringify(this.classDict));
+	//alert(JSON.stringify(this.classDict));
 	//alert(JSON.stringify(seriesArray));
+	var classDict = this.classDict;
 	$("#" + this.title).highcharts({
         chart: {
             type: 'line',
@@ -205,9 +208,17 @@ Chart.prototype.show = function (yTitle, yUnit) {
         },
         tooltip: {
             formatter: function() {
-                return 'The value for <b>'+ this.x +
-                    '</b> is <b>'+ this.y +'</b>';
-            }
+                var s = '<b>'+ this.x +'</b>';
+                
+                $.each(this.points, function(i, point) {
+                    s += '<br/><b style="color :' + point.series.color + ';">' + 
+                    point.series.name + ':</b> ' + point.y + ' ' + yUnit;
+                });
+                
+                s += '<br/><b>Classification:</b> ' + classDict[this.points[0].y];
+                return s;
+            },
+            shared: true
         },
         /*
         tooltip: {
