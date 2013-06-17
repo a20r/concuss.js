@@ -138,10 +138,13 @@
 		<!-- Modal that is displayed once you finish -->
 	    <div id="loginMessage" data-backdrop="static" class="modal hide fade">
 			<div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			    <h3 class="brand">Proctor Login</h3>
 			</div>
 			<div class="modal-body">
+				<div id="authAlert" class="alert alert-error" style="display:none;">
+					<b>Gosh darn it.</b> You must enter a username and password.
+					<button type="button" class="close" onclick='$("#authAlert").css("display", "none")'>&times;</button>
+				</div>
 				<table class="table table-hover" border="0">
 					<tr>
 						<td class="lead">Email</td>
@@ -158,7 +161,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-			    <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Okay</button>
+			    <button onclick="checkAuth()" class="btn btn-primary">Okay</button>
 			</div>
 		</div>
 
@@ -166,36 +169,7 @@
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
 		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
 		<script src="/js/bootstrap.js"></script>
-		<script text="text/javascript">
-
-			function addNewTest() {
-				if ($.cookie("proctorEmail") != null && $.cookie("password") != null) {
-					$("#userForm").css("display", "block");
-				} else {
-					$('#loginMessage').modal('show');
-					$("#loginMessage").on("hidden", function () {
-						$("#userForm").css("display", "block");
-					});
-				}
-				$("#loadButtons").css("display", "none");
-			}
-
-			function updateProctor() {
-				$('#loginMessage').modal('show');
-				$("#loginMessage").on("hidden", function () {
-					$("#userForm").css("display", "block");
-				});
-				$("#loadButtons").css("display", "none");
-			}
-
-			function updateCookies() {
-				var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
-								"classification", "priorConcussion", "password", "proctorEmail"];
-				for (var i in inputIds) {
-					$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
-				}
-			}
-		</script>
+		<script text="text/javascript" src="/js/index.js"></script>
 
 		<!-- Concuss.js and Canvas utilities -->
 		<!-- <script text="text/javascript" src="/js/index.js"></script> -->

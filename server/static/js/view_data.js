@@ -34,15 +34,24 @@ function getNames() {
 // sets the email and the password field and gets the
 // associated names
 function getNameData () {
+	if ($("#proctorEmail").val() == "" || $("#password").val() == "") {
+		$("#authAlert").css("display", "block");
+		return;
+	}
 	email = $("#proctorEmail").val();
 	password = $("#password").val();
 	getNames();
 }
 
 function nameWork(nameData) {
+	if (nameData.length == 0) {
+		$("#authAlert").css("display", "block");
+		return;
+	}
 	var names = new Array();
 	for (var i = 0; i < nameData.length; i++) {
-		names.push(makeStringPresentable(nameData[i]["fName"]) + " " + makeStringPresentable(nameData[i]["lName"]));
+		names.push(makeStringPresentable(nameData[i]["fName"]) + " " + 
+			makeStringPresentable(nameData[i]["lName"]));
 	}
 
 	names.sort();
@@ -58,6 +67,7 @@ function nameWork(nameData) {
 	$("#tabular").attr("class", "disabled");
 	$("#dataHolder").html("");
 	$("#nameArea").html(nameTable.getHtml());
+	$("#loginMessage").modal("hide");
 }
 
 // clean up the string more
@@ -90,6 +100,22 @@ function addTab(heading) {
 	return tab;
 }
 
+function visualizeData(data) {
+	$("#dataHolder").html("");
+	var results = data[0]["data"];
+
+	$("#nameArea").html(
+		"<h2>" + makeStringPresentable(data[0]["fName"]) + " " + 
+		makeStringPresentable(data[0]["lName"]) + "</h2>");
+
+	if($("#tabular").attr("class") == "active") {
+		tableVisualization(results);
+	} else if ($("#graphical").attr("class") == "active") {
+		graphicVisualization(results);
+	}
+	$(".collapse").collapse("hide");
+}
+
 function Table(heading) {
 	this.hString = "<p class='lead'><b>" + heading + "</b></p>";
 	this.sString = "<table class='table table-hover'>";
@@ -113,38 +139,31 @@ function makeStringPresentable(string) {
   return spaceString.charAt(0).toUpperCase() + spaceString.slice(1);
 }
 
-function visualizeData(data) {
-	$("#dataHolder").html("");
-	var results = data[0]["data"];
-
-	$("#nameArea").html(
-		"<h2>" + makeStringPresentable(data[0]["fName"]) + " " + 
-		makeStringPresentable(data[0]["lName"]) + "</h2>");
-
-	if($("#tabular").attr("class") == "active") {
-		tableVisualization(results);
-	} else if ($("#graphical").attr("class") == "active") {
-		graphicVisualization(results);
-	}
-	$(".collapse").collapse("hide");
-}
-
 function Chart(title, containerId) {
 	this.title = title;
+	this.currentCategory = "";
 	this.series = {};
+	this.classDict = {}
+	this.curentClass = "";
 	this.categories = new Array();
 	$("#" + containerId).append('<div class="chart" id="' + title + 
 		'" style="min-width: 500px; height: 300px; margin: 0 auto"></div>');
 }
 
+Chart.prototype.pushClass = function (cl) {
+	this.currentClass = cl;
+}
+
 Chart.prototype.pushCategory = function (cat) {
 	this.categories.push(cat);
+	this.currentCategory = +new Date(cat);
 }
 
 Chart.prototype.pushSeries = function (key, value) {
 	if (this.series[key] == undefined){
 		this.series[key] = new Array();
 	}
+	this.classDict[value] = this.currentClass;
 	this.series[key].push(value);
 }
 
@@ -158,6 +177,7 @@ Chart.prototype.compileSeries = function () {
 
 Chart.prototype.show = function (yTitle, yUnit) {
 	var seriesArray = this.compileSeries();
+	alert(JSON.stringify(this.classDict));
 	//alert(JSON.stringify(seriesArray));
 	$("#" + this.title).highcharts({
         chart: {
@@ -173,6 +193,7 @@ Chart.prototype.show = function (yTitle, yUnit) {
             categories: this.categories
         },
         yAxis: {
+        	min : 0,
         	title: {
         		text : yTitle
         	},
@@ -183,8 +204,16 @@ Chart.prototype.show = function (yTitle, yUnit) {
             }]
         },
         tooltip: {
+            formatter: function() {
+                return 'The value for <b>'+ this.x +
+                    '</b> is <b>'+ this.y +'</b>';
+            }
+        },
+        /*
+        tooltip: {
         	valueSuffix : " " + yUnit
         },
+        */
         legend: {
             layout: 'vertical',
             align: 'right',
@@ -209,7 +238,11 @@ function graphicVisualization(results) {
 		memoryChart.pushCategory(results[i]["time"].slice(4, 21));
 		reflexChart.pushCategory(results[i]["time"].slice(4, 21));
 
-		balanceChart.pushSeries("Within Boundary", results[i]["balance"]["percent"]);
+		balanceChart.pushClass(makeStringPresentable(results[i]["classification"]));
+		memoryChart.pushClass(makeStringPresentable(results[i]["classification"]));
+		reflexChart.pushClass(makeStringPresentable(results[i]["classification"]));
+
+		balanceChart.pushSeries("Percent", results[i]["balance"]["percent"]);
 
 		memoryChart.pushSeries("Initial Deviation", results[i]["memory"]["initialDev"]);
 		memoryChart.pushSeries("Final Deviation", results[i]["memory"]["finalDev"]);

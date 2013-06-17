@@ -72,6 +72,10 @@
 			    <h3 class="brand">Proctor Login</h3>
 			</div>
 			<div class="modal-body">
+				<div id="authAlert" class="alert alert-error" style="display:none;">
+					<b>Gosh darn it.</b> Wrong username or password.
+					<button type="button" class="close" onclick='$("#authAlert").css("display", "none")'>&times;</button>
+				</div>
 				<table class="table table-hover" border="0">
 					<tr>
 						<td class="lead">Email</td>
@@ -88,7 +92,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-			    <button type="button" onclick="getNameData()" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+			    <button type="button" onclick="getNameData()" class="btn btn-primary">
 			    	Okay
 			    </button>
 			</div>

@@ -171,6 +171,12 @@ function drawBoundaryCircles() {
 		circle_array[i].incrementPosition();
 		circle_array[i].redraw();
 	}
+
+	// so they don't cross over
+	if (circle_array[0].x > circle_array[1].x) {
+		var rCircle = getRandomInt(0, 1);
+		circle_array[rCircle].hx = -circle_array[rCircle].hx;
+	}
 }
 
 function updateBoundaryCircles() {
