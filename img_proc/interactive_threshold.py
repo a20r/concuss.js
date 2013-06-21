@@ -1,31 +1,43 @@
+
 import cv2
 import sys
 import numpy as np
+import blob
 
 cv2.namedWindow('Display Window')
 COLOR_MIN = np.array([0, 0, 0], np.uint8)
-COLOR_MAX = np.array([150, 50, 200], np.uint8)
-padding = 30
+COLOR_MAX = np.array([0, 0, 0], np.uint8)
+padding = 0
+blobSize = 0
 
 def printStats():
+	print "Blob Threshold:", blobSize
 	print "Range:", padding
 	print "HSV:", COLOR_MAX
+
+def changedBlobSize(thresh):
+	global blobSize
+	blobSize = thresh
+	changedRange(padding)
 
 def changedRange(nRange):
 	global padding
 	padding = nRange
-	changedH(COLOR_MAX[0])
-	changedS(COLOR_MAX[1])
-	changedV(COLOR_MAX[2])
+	changed(0)(COLOR_MAX[0])
+	changed(1)(COLOR_MAX[1])
+	changed(2)(COLOR_MAX[2])
 	printStats()
 
 def changed(channel):
 	def changedChannel(thresh):
 		COLOR_MAX[channel] = thresh
 		COLOR_MIN[channel] = thresh - padding if thresh - padding > 0 else 0
-		global img
-		img_thresh = cv2.inRange(img, COLOR_MIN, COLOR_MAX)
-		cv2.imshow('Display Window',img_thresh)
+		global img, img_hsv
+		img_disp = np.copy(img)
+		img_thresh = cv2.inRange(img_hsv, COLOR_MIN, COLOR_MAX)
+		bList = blob.getBlobs(img_thresh, blobSize, 10000)
+		cv2.drawContours(img_disp, map(lambda b: b.getContour(), bList), -1, 255, -1)
+		cv2.imshow('Display Window', img_disp)
 		printStats()
 	return changedChannel
 
@@ -34,18 +46,19 @@ def main():
 	    print "Usage : python display_image.py <image_file>"
 
 	else:
-		global img
+		global img, img_hsv
 		img = cv2.imread(sys.argv[1], cv2.CV_LOAD_IMAGE_COLOR)
 
 		if (img == None):
 			print "Could not open or find the image"
 		else:
-			img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+			img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 			img_thresh = cv2.inRange(img, COLOR_MIN, COLOR_MAX)
 
-			cv2.createTrackbar('H:','Display Window', 30, 255, changed(0))
-			cv2.createTrackbar('S:','Display Window', 30, 255, changed(1))
-			cv2.createTrackbar('V:','Display Window', 30, 255, changed(2))
+			cv2.createTrackbar('Hue:','Display Window', 0, 255, changed(0))
+			cv2.createTrackbar('Saturation:','Display Window', 0, 255, changed(1))
+			cv2.createTrackbar('Value:','Display Window', 0, 255, changed(2))
+			cv2.createTrackbar('Blob', 'Display Window', 0, 5000, changedBlobSize)
 			cv2.createTrackbar('Range:', 'Display Window', 0, 255, changedRange)
 
 			cv2.imshow('Display Window',img)
