@@ -35,11 +35,11 @@ function getNames() {
 // sets the email and the password field and gets the
 // associated names
 function getNameData () {
-	if ($("#proctorEmail").val() == "" || $("#password").val() == "") {
+	if ($("#email").val() == "" || $("#password").val() == "") {
 		$("#authAlert").css("display", "block");
 		return;
 	}
-	email = $("#proctorEmail").val();
+	email = $("#email").val();
 	password = $("#password").val();
 	getNames();
 }
@@ -83,10 +83,10 @@ function searchData(searchTerm) {
 	$("#searchTerm").val("");
 	var terms = searchTerm.split(" ");
 	if (terms.length == 1) {
-		$.getJSON("/get_data/" + $("#proctorEmail").val() + "/" + $("#password").val() + 
+		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() + 
 			"/email/" + searchTerm, visualizeData);
 	} else {
-		$.getJSON("/get_data/" + $("#proctorEmail").val() + "/" + $("#password").val() + 
+		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() + 
 			"/name/" + terms[0] + "/" + terms[1], visualizeData);
 	}
 }
@@ -209,7 +209,7 @@ Chart.prototype.show = function (yTitle, yUnit) {
         tooltip: {
             formatter: function() {
                 var s = '<b>'+ this.x +'</b>';
-                
+
                 $.each(this.points, function(i, point) {
                     s += '<br/><b style="color :' + point.series.color + ';">' + 
                     point.series.name + ':</b> ' + point.y + ' ' + yUnit;

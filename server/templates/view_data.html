@@ -18,6 +18,10 @@
 			background: lightgrey;
 		}
 
+		.inline {
+			padding-bottom: 10;
+		}
+
 		.chart {
 			padding-bottom: 20px;
 			padding-top: 20px;
@@ -76,11 +80,21 @@
 					<b>Gosh darn it.</b> Wrong username or password.
 					<button type="button" class="close" onclick='$("#authAlert").css("display", "none")'>&times;</button>
 				</div>
+				<!--
+				<label class="radio inline">
+					<input type="radio" name="optionsRadios" id="isProctor" value="option1" checked>
+					Proctor
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="optionsRadios" id="isUser" value="option2">
+					User
+				</label>
+				-->
 				<table class="table table-hover" border="0">
 					<tr>
 						<td class="lead">Email</td>
 						<td>
-					  		<input type="email" id="proctorEmail" placeholder="potato@example.com">
+					  		<input type="email" id="email" placeholder="potato@example.com">
 					  	</td>
 					</tr>
 					<tr>

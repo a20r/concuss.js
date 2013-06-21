@@ -141,7 +141,7 @@
 			    <h3 class="brand">Proctor Login</h3>
 			</div>
 			<div class="modal-body">
-				<div id="authAlert" class="alert alert-error" style="display:none;">
+				<div id="authAlertProctor" class="alert alert-error" style="display:none;">
 					<b>Gosh darn it.</b> You must enter a username and password.
 					<button type="button" class="close" onclick='$("#authAlert").css("display", "none")'>&times;</button>
 				</div>
@@ -161,9 +161,41 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-			    <button onclick="checkAuth()" class="btn btn-primary">Okay</button>
+			    <button onclick="checkAuthProctor()" class="btn btn-primary">Okay</button>
 			</div>
 		</div>
+		<!--
+		<div id="userLoginMessage" data-backdrop="static" class="modal hide fade">
+			<div class="modal-header">
+			    <h3 class="brand">User Login</h3>
+			</div>
+			<div class="modal-body">
+				<div id="authAlertUser" class="alert alert-error" style="display:none;">
+					<b>Gosh darn it.</b> You must enter a username and password.
+					<button type="button" class="close" onclick='$("#authAlert").css("display", "none")'>&times;</button>
+				</div>
+				<table class="table table-hover" border="0">
+					<tr>
+						<td class="lead">Email</td>
+						<td>
+					  		<input type="email" id="email" placeholder="potato@example.com">
+					  	</td>
+					</tr>
+					<tr>
+			  			<td class="lead">Password</td>
+			  			<td>
+							<input type="password" id="userPassword" placeholder="">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+			    <a href="/follow_circle.html" onclick="checkAuthUser()" class="btn btn-primary">
+			    	Okay
+			    </a>
+			</div>
+		</div>
+		-->
 
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>

@@ -140,6 +140,7 @@ function showTempResults() {
 
 // sends the data back to the server
 function sendData() {
+      //alert($.cookie("fName"));
 	$.ajax({
 		type: 'POST',
       	url:'/form_submit/',
@@ -183,10 +184,11 @@ function sendData() {
       		)
       	}
       });
+      //alert("TEST");
 	// hides the end message modal and displays a modal
-	// that thanks the user for doing the test
-    $("#endMessage").modal("hide");
-    $("#thankYouMessage").modal('show');
+	// that thanks the user for doing the tests
+      $("#endMessage").modal("hide");
+      $("#thankYouMessage").modal('show');
 }
 
 function removeCookies() {
