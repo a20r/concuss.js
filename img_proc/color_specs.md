@@ -18,3 +18,8 @@
 - Blob Threshold: 6013
 - Range: 255
 - HSV: [255  61 168]
+
+###Pupil;
+- Blob Threshold: 2395
+- Range: 255
+- HSV: [255 255  27]

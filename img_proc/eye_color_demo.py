@@ -20,6 +20,10 @@ eyeMin = np.array([0, 0, 0], np.uint8)
 eyeMax = np.array([255, 61, 168], np.uint8)
 eyeThresh = 6013
 
+pupilMin = np.array([0, 0, 0], np.uint8)
+pupilMax = np.array([255, 255,  27], np.uint8)
+pupilThresh = 2395
+
 def toggleView(thresh):
 	global img, img_centroid
 	if thresh == 0:
@@ -53,18 +57,25 @@ def main():
 		eyeBW = cv2.inRange(img_hsv, eyeMin, eyeMax)
 		eyeBList = blob.getBlobs(eyeBW, eyeThresh, 10000000)
 
+		pupilBW = cv2.inRange(img_hsv, pupilMin, pupilMax)
+		pupilBList = blob.getBlobs(pupilBW, pupilThresh, 10000000)
+
 		cv2.drawContours(img, map(lambda b: b.getContour(), eyeBList), -1, (255, 0, 0), -1)
 		cv2.drawContours(img, map(lambda b: b.getContour(), lidBList), -1, (0, 255, 0), -1)
 		cv2.drawContours(img, map(lambda b: b.getContour(), irisBList), -1, (0, 0, 255), -1)
+		cv2.drawContours(img, map(lambda b: b.getContour(), pupilBList), -1, (0, 255, 255), -1)
 
 		for b in eyeBList:
 			cv2.circle(img_centroid, b.getCentroid(), 20, (255, 100, 0), 4)
 
-		for b in irisBList:
-			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 0, 255), 4)
+		#for b in irisBList:
+			#cv2.circle(img_centroid, b.getCentroid(), 10, (0, 0, 255), 4)
 
-		for b in lidBList:
-			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 255, 0), 4)
+		#for b in lidBList:
+			#cv2.circle(img_centroid, b.getCentroid(), 10, (0, 255, 0), 4)
+
+		for b in pupilBList:
+			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 255, 255), 4)
 
 		cv2.createTrackbar('Toggle View', 'Color Segmentation', 0, 1, toggleView)
 
