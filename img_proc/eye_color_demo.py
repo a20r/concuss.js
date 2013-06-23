@@ -20,20 +20,28 @@ eyeMin = np.array([0, 0, 0], np.uint8)
 eyeMax = np.array([255, 61, 168], np.uint8)
 eyeThresh = 6013
 
+def toggleView(thresh):
+	global img, img_centroid
+	if thresh == 0:
+		cv2.imshow('Color Segmentation', img)
+	else:
+		cv2.imshow('Color Segmentation', img_centroid)
+
 def main():
 	if len(sys.argv) != 2:
 	    print "Usage : python display_image.py <image_file>"
 	else:
 		cv2.namedWindow('Color Segmentation')
-		cv2.namedWindow('Centroid Alignment')
-		cv2.namedWindow
-		img_orig = cv2.imread(sys.argv[1], cv2.CV_LOAD_IMAGE_COLOR)
-		img = np.copy(img_orig)
-		img_centroid = np.copy(img_orig)
 
-		if img == None:
+		img_orig = cv2.imread(sys.argv[1], cv2.CV_LOAD_IMAGE_COLOR)
+
+		if img_orig == None:
 			return False
 
+		global img, img_centroid
+
+		img = np.copy(img_orig)
+		img_centroid = np.copy(img_orig)
 		img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 		irisBW = cv2.inRange(img_hsv, irisMin, irisMax)
@@ -50,16 +58,17 @@ def main():
 		cv2.drawContours(img, map(lambda b: b.getContour(), irisBList), -1, (0, 0, 255), -1)
 
 		for b in eyeBList:
-			cv2.circle(img_centroid, b.getCentroid(), 20, (255, 0, 0), 2)
+			cv2.circle(img_centroid, b.getCentroid(), 20, (255, 100, 0), 4)
 
 		for b in irisBList:
-			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 0, 255), 2)
+			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 0, 255), 4)
 
 		for b in lidBList:
-			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 255, 0), 2)
+			cv2.circle(img_centroid, b.getCentroid(), 10, (0, 255, 0), 4)
+
+		cv2.createTrackbar('Toggle View', 'Color Segmentation', 0, 1, toggleView)
 
 		cv2.imshow('Color Segmentation', img)
-		cv2.imshow('Centroid Alignment', img_centroid)
 
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()
