@@ -1,5 +1,3 @@
-#Concuss.js
-
 ##Color Specification
 ###Blue eye iris & pupil:
 - Blob Threshold: 4628
@@ -10,3 +8,13 @@
 - Blob Threshold: 11414
 - Range: 129
 - HSV: [ 62 255 133]
+
+###White sclera:
+- Blob Threshold: 10263
+- Range: 255
+- HSV: [255  32 174]
+
+###Full eyeball:
+- Blob Threshold: 6013
+- Range: 255
+- HSV: [255  61 168]

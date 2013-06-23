@@ -36,7 +36,7 @@ def changed(channel):
 		img_disp = np.copy(img)
 		img_thresh = cv2.inRange(img_hsv, COLOR_MIN, COLOR_MAX)
 		bList = blob.getBlobs(img_thresh, blobSize, 10000000)
-		cv2.drawContours(img_disp, map(lambda b: b.getContour(), bList), -1, 255, -1)
+		cv2.drawContours(img_disp, map(lambda b: b.getContour(), bList), -1, (255, 0, 0), -1)
 		for b in bList:
 			cv2.circle(img_disp, b.getCentroid(), 10, (0,0,255), 2)
 		cv2.imshow('Display Window', img_disp)
