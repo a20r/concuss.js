@@ -633,6 +633,59 @@
 				      			</ul>
       						</div>
     					</div>
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse11">
+        						June 23, 2013
+      						</a>
+      					</div>
+      					<div id="collapse11" class="accordion-body collapse in">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				I have now created a demo application that can be used to track the sclera
+				      				and the pupil using color segmentation and blob detection. The application
+				      				takes as an input, a picture of a face. The program then uses Haar 
+				      				classification to detect where the eye is. The ROI then gets set
+				      				to the bounding rectangle of the eye. Color segmentation now comes into
+				      				play. With the new ROI set, the sclera and pupil are detected. A sclera will
+				      				only be shown if it is at most one standard deviation in distance away
+				      				from the pupil. This is used to filter out blobs of desirable sizes to 
+				      				be misclassified as sclera. Lines are then drawn from the sclera to
+				      				the pupil. The ROI as is reset to the original image with the eye 
+				      				altered and drawn on to demonstrate how the algorithm will work.
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				I still need to use video data and do it in real time under different
+				      				conditions. The blob size threshold values also need to be relative 
+				      				to the size of the image. And, of course, I need to port OpenCV to
+				      				JavaScript or use Processing.js to use OpenCV.
+				      			</p>
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Make blob threshold values relative
+				      				</li>
+				      				<li>
+				      					Try the demo with video data
+				      				</li>
+				      				<li>
+				      					Track more than one eye
+				      				</li>
+				      				<li>
+				      					Port what is needed from OpenCV and NumPy to JavaScript :/
+				      				</li>
+				      				<li>
+				      					Populate the database
+				      				</li>
+				      				<li>
+				      					Add more shapes to the memory test to involve cognitive measurements
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
+    					</div>
 					</div>
     			</div>
 	    	</div>
