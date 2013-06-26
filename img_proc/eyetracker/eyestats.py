@@ -1,9 +1,11 @@
+
+from collections import namedtuple
+
 class EyeStats(object):
 
 	def __init__(self):
-		self.scleraBlobs = list()
 		self.haarRectangle = None
-		self.pupil = None
+		self.pupilBlobs = list()
 		self.centroidImage = None
 		self.colorImage = None
 		self.image = None
@@ -14,12 +16,8 @@ class EyeStats(object):
 		"""
 		return np.sqrt(pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2))
 
-	def pushScleraBlob(self, sclera):
-		self.scleraBlobs += [sclera]
-		return self
-
-	def setPupil(self, nPupil):
-		self.pupil = nPupil
+	def pushPupil(self, nPupil):
+		self.pupilBlobs += [nPupil]
 		return self
 
 	def setCentroidImage(self, cImage):
@@ -41,18 +39,19 @@ class EyeStats(object):
 	def getHaarRectangle(self):
 		return self.haarRectangle
 
-	def getPupilDistances(self):
-		return [self.norm(sclera.getCentroid(), self.pupil.getCentroid()) for \
-			sclera in self.scleraBlobs]
+	def getCornerDistances(self):
+		CornerDistances = namedtuple("CornerDistances", "topLeft topRight bottomLeft bottomRight")
+		return [CornerDistances(
+			self.norm(pb.getCentroid(), (this.haarRectangle.x, this.haarRectangle.y)),
+			self.norm(pb.getCentroid(), (this.haarRectangle.x + this.haarRectangle.w, 
+				this.haarRectangle.y)),
+			self.norm(pb.getCentroid(), (this.haarRectangle.x, 
+				this.haarRectangle.y + this.haarRectangle.h)),
+			self.norm(pb.getCentroid(), (this.haarRectangle.x + this.haarRectangle.w, 
+				this.haarRectangle.y + this.haarRectangle.h))) for pb in self.pupilBlobs]
 
 	def getPupil(self):
 		return self.pupil
-
-	def getScleraBlobs(self):
-		return self.scleraBlobs
-
-	def getSclera(self, index):
-		return self.scleraBlobs[index]
 
 	def getCentroidImage(self):
 		return self.centroidImage
@@ -64,8 +63,7 @@ class EyeStats(object):
 		return self.image
 
 	def __str__(self):
-		return "Pupil: " + str(self.pupil.getCentroid()) + "\nSclera: " + \
-			", ".join(str(i.getCentroid()) for i in self.scleraBlobs)
+		return "Pupil: " + str(self.pupil.getCentroid())
 
 	def __getitem__(self, key):
-		return self.scleraBlobs[key]
+		return self.pupilBlobs[key]

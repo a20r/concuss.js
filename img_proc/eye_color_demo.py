@@ -24,7 +24,7 @@ def main():
 		tracker = eyetracker.EyeTracker(img_orig)
 		global results
 		results = tracker.track()
-		print results
+		#print results
 
 		cv2.createTrackbar('Toggle View', 'Color Segmentation', 0, 1, toggleView)
 
