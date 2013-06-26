@@ -685,6 +685,60 @@
 				      				</li>
 				      			</ul>
       						</div>
+    					</div><div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse12">
+        						June 25, 2013
+      						</a>
+      					</div>
+      					<div id="collapse12" class="accordion-body collapse in">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				I have now changed the algorithm for which I track the eyes and predict
+				      				the gaze. Instead of using the sclera and the pupils extracted from 
+				      				HSV color thresholding, I use the points from the bounding Haar 
+				      				rectangle and the pupil extracted from a grayscale image. The algorithm
+				      				works taking the resultant vector of the vectors from each point 
+				      				on the rectangle to the pupil centroid. This resultant vector can them
+				      				be used to predict the gaze. I currently have a program that visualizes
+				      				the gaze, but it needs to be finely tuned. 
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				I still need to filter what Haar rectangles can be used as eyes even
+				      				if a positive result has been returned. This can be done by checking
+				      				in how many frames a certain Haar feature appears, and if it does not 
+				      				appear for long enough, it can be discarded. I also need to add more 
+				      				filtering on what can be considered a pupil. This can be done by checking
+				      				the angles from the boundary rectangle points to the proposed pupil. If 
+				      				the angles are not within the range that they should be, the pupil will
+				      				be discarded. I also need to add a calibration feature in order to get
+				      				better gaze prediction results. 
+				      			</p>
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Map the ending point from the vector such that it is always within
+				      					the boundary rectangle. This will decrease the jitter	
+				      				</li>
+				      				<li>
+				      					Filter the Haar rectangles and the pupils so it more accurately 
+				      					classifies each.
+				      				</li>
+				      				<li>
+				      					Create a calibration application that can be imported and used
+				      					to get better results by calibrating the tracker.
+				      				</li>
+				      				<li>
+				      					Populate the database
+				      				</li>
+				      				<li>
+				      					Add more shapes to the memory test to involve cognitive measurements
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
     					</div>
 					</div>
     			</div>

@@ -5,6 +5,7 @@ class TrackingStats(object):
 		self.centroidImage = None
 		self.image = None
 		self.colorImage = None
+		self.trackingImage = None
 		self.eyeList = list()
 
 	def pushEye(self, eye):
@@ -22,6 +23,13 @@ class TrackingStats(object):
 	def setImage(self, image):
 		self.image = image
 		return self
+
+	def setTrackingImage(self, image):
+		self.trackingImage = image
+		return self
+
+	def getTrackingImage(self):
+		return self.trackingImage
 
 	def getColorImage(self):
 		return self.colorImage
@@ -46,4 +54,3 @@ class TrackingStats(object):
 
 	def __getitem__(self, key):
 		return self.eyeList[key]
-		

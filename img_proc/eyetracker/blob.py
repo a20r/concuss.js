@@ -3,6 +3,7 @@
 
 import cv2
 import numpy as np
+from collections import namedtuple
 
 class Blob:
 
@@ -28,12 +29,16 @@ class Blob:
     def getContourArea(self):
         return self.contourArea 
 
-def getBlobs(BW, minSize, maxSize):
+def getBlobs(BW, minSize, maxSize = None):
     cs, _ = cv2.findContours(BW.astype(np.uint8), mode = cv2.RETR_EXTERNAL, 
         method = cv2.CHAIN_APPROX_SIMPLE)
     blobList = list()
     for con in cs:
-        if abs(cv2.contourArea(con)) > minSize and abs(cv2.contourArea(con)) < maxSize:
+        if maxSize == None:
+            _maxSize = abs(cv2.contourArea(con)) + 1
+        else:
+            _maxSize = maxSize
+        if abs(cv2.contourArea(con)) > minSize and abs(cv2.contourArea(con)) < _maxSize:
             m = cv2.moments(con)
             try:
                 # image moments
