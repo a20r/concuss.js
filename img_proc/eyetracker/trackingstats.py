@@ -1,4 +1,6 @@
 
+import uuid
+
 class TrackingStats(object):
 
 	def __init__(self):
@@ -7,6 +9,31 @@ class TrackingStats(object):
 		self.colorImage = None
 		self.trackingImage = None
 		self.eyeList = list()
+		self.idMap = dict()
+
+	def assignIds(self, prevEyes):
+		if len(prevEyes) == 0:
+			for eye in self.eyeList:
+				eyeId = str(uuid.uuid4())
+				self.idMap[eyeId] = eye
+				eye.setId(eyeId)
+		else:
+			distList = [enumerate([eye.norm(eye.getPupil().getCentroid(), pEye.getPupil().getCentroid()) 
+				for eye in self.eyeList]) for pEye in prevEyes]
+
+			distList = map(lambda ds: sorted(ds, key = lambda val: val[1]), distList)
+			#print distList
+			for i, ds in enumerate(distList):
+				try:
+					j, _ = ds[0]
+				except IndexError:
+					self.eyeList = list()
+					break
+
+				self.eyeList[j].setId(prevEyes[i].getId())
+				self.idMap[prevEyes[i].getId()] = self.eyeList[j]
+
+		return self
 
 	def pushEye(self, eye):
 		self.eyeList += [eye]
@@ -44,13 +71,19 @@ class TrackingStats(object):
 		return self.eyeList[index]
 
 	def getEyeList(self):
-		return eyeList
+		return self.eyeList
 
 	def __str__(self):
 		retString = str()
 		for eye in self.eyeList:
-			retString += str(eye) + "\n"
+			retString += str(eye) + " "
 		return retString
 
 	def __getitem__(self, key):
-		return self.eyeList[key]
+		if type(key) == int:
+			return self.eyeList[key]
+		elif type(key) == str:
+			return self.idMap[key]
+		else:
+			raise TypeError("Cannot index the class using type: " + type(key))
+

@@ -10,10 +10,10 @@ while(1):
     tracker.setImage(f)
     results = tracker.track()
     #cv2.imshow('e2', cv2.inRange(cv2.cvtColor(results.getImage(), cv2.COLOR_BGR2GRAY), 
-    	#np.array([0], np.uint8), np.array([20], np.uint8)))
+    	#np.array([20], np.uint8), np.array([40], np.uint8)))
 
     cv2.imshow('e2', results.getTrackingImage())
 
-    if cv2.waitKey(5) == 27:
+    if cv2.waitKey(1) == 27:
         break
 cv2.destroyAllWindows()
