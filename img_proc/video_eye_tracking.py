@@ -12,7 +12,7 @@ while(1):
     #cv2.imshow('e2', cv2.inRange(cv2.cvtColor(results.getImage(), cv2.COLOR_BGR2GRAY), 
     	#np.array([20], np.uint8), np.array([40], np.uint8)))
 
-    cv2.imshow('e2', results.getTrackingImage())
+    cv2.imshow('e2', results.getCentroidImage())
 
     if cv2.waitKey(1) == 27:
         break

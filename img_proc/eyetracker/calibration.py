@@ -14,8 +14,7 @@ class EyeCalibration:
 		    _, frame = self.camera.read()
 		    self.tracker.setImage(frame)
 		    results = self.tracker.track()
-		    #print map(lambda r: r.getId(), results)
-		    cv2.imshow('e2', results.getCentroidImage())
+		    cv2.imshow('e2', results.getTrackingImage())
 		    if cv2.waitKey(1) == 27:
 		        break
 		cv2.destroyAllWindows()
