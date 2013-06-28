@@ -1,3 +1,4 @@
+
 import cv2
 import blob
 import numpy as np
@@ -16,13 +17,11 @@ class EyeTracker:
 			self.img_orig = cv2.resize(img_input, (self.xScale, self.yScale))
 
 		# detects the eye using haar cascades
-		self.cascade = cv2.CascadeClassifier("cascades/haarcascade_mcs_righteye.xml")
-		#self.cascade = cv2.CascadeClassifier("cascades/haarcascade_eye_tree_eyeglasses.xml")
+		#self.cascade = cv2.CascadeClassifier("cascades/haarcascade_mcs_righteye.xml")
+		self.cascade = cv2.CascadeClassifier("cascades/haarcascade_eye_tree_eyeglasses.xml")
 
 		# pupil color constants
-		self.pupilMin = self._val2np(0)
-		self.pupilMax = self._val2np(10)
-		self.pupilThresh = 4000
+		self.pupilThresh = 6000
 
 		# the resized width and height for analysis
 		self.xScale = 640
@@ -30,7 +29,14 @@ class EyeTracker:
 
 		self.padding = 10
 
+		# found empircally
+		self.averageContourSize = 9000
+
+		self.MAX_COLOR = 50
+		self.MIN_COLOR = 0
+
 		self.previousEyes = list()
+		self.lostEyes = set()
 
 	def setImage(self, image):
 		self.img_input = image
@@ -56,6 +62,17 @@ class EyeTracker:
 		#print angleInDegrees
 		return angleInDegrees
 
+	# takes in a tuple point NOT A BLOB
+	def getAverageAngle(self, p):
+		cornerList = [(0, 0), (self.xScale, 0), 
+			(0, self.yScale), (self.xScale, self.yScale)]
+		return np.mean(map(lambda corner: abs(self.getAngle(p, corner)), cornerList))
+
+	def weightPupil(self, possiblePupil):
+		angleDev = abs(self.getAverageAngle(possiblePupil.getCentroid()) - 22.5)
+		sizeDev = abs(possiblePupil.getContourArea() - self.averageContourSize)
+		return angleDev * sizeDev
+
 	def filterAngle(self, p1, p2, padding):
 		return (abs(self.getAngle(p1, p2)) < padding or
 			abs(self.getAngle(p1, p2)) - 45 < padding)
@@ -63,16 +80,28 @@ class EyeTracker:
 	def filterBlobs(self, blobList, padding):
 		cornerList = [(0, 0), (self.xScale, 0), 
 			(0, self.yScale), (self.xScale, self.yScale)]
-		return filter(lambda blob: all(self.filterAngle(blob.getCentroid(), 
+		return filter(lambda b: all(self.filterAngle(b.getCentroid(), 
 			corner, self.padding) for corner in cornerList), blobList)
 
 	def getPupil(self, img):
+		possiblePupils = list()
+		step = 10
+		for minColor in xrange(self.MIN_COLOR, self.MAX_COLOR - step, step):
+			for maxColor in xrange(minColor + step, self.MAX_COLOR, step):
+				pPupil = self.getUnfilteredPupil(img, minColor, maxColor)
+				if pPupil != None:
+					possiblePupils.append(pPupil)
+		if len(possiblePupils) == 0:
+			return None
+		return reduce(lambda p1, p2: p1 if self.weightPupil(p1) < self.weightPupil(p2) else p2, 
+			possiblePupils)
+
+	def getUnfilteredPupil(self, img, minColor, maxColor):
 
 		# creates a binary image via color segmentation
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		img = cv2.equalizeHist(img)
-		pupilBW = cv2.inRange(img, self.pupilMin,
-			self.pupilMax)
+		pupilBW = cv2.inRange(img, self._val2np(minColor), self._val2np(maxColor))
 		pupilBList = blob.getBlobs(pupilBW, self.pupilThresh)
 		pupilBList = self.filterBlobs(pupilBList, self.padding)
 
@@ -81,7 +110,6 @@ class EyeTracker:
 
 		maxIndex = [i for i, j in enumerate(pupilBList) if j.getContourArea() == max(
 			map(lambda pupil: pupil.getContourArea(), pupilBList))][0]
-
 		return pupilBList[maxIndex]
 
 	def drawPupils(self, img_centroid, pb, eyeStats):
@@ -99,12 +127,14 @@ class EyeTracker:
 		return map(lambda rect: rect[2] * rect[3], rects)
 
 	def filterRectSize(self, rects):
-		maxW, maxH = [(w, h) for _, _, w, h in rects 
-			if w * h == max(self.getRectSizes(rects))][0]
-		print maxW, maxH
-		return [(x + (w / 2) - (maxW / 2), y + (h / 2) - (maxH / 2), maxW, maxH) 
-			for x, y, w, h in rects]
-
+		try:
+			W, H = [(w, h) for _, _, w, h in rects 
+				if w * h == min(self.getRectSizes(rects))][0]
+			#print maxW, maxH
+			return [(x + (w / 2) - (W / 2), y + (h / 2) - (H / 2), W, H) 
+				for x, y, w, h in rects]
+		except IndexError:
+			return list()
 
 	def track(self):
 		trackingStats = TrackingStats()
@@ -113,10 +143,10 @@ class EyeTracker:
 		trackingStats.setImage(np.copy(img))
 
 		# uses Haar classification to find the eyes
-		self.eyeRects = self.cascade.detectMultiScale(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 
-			scaleFactor = 1.4, minNeighbors = 3, maxSize = (100, 100), minSize = (0, 0))
+		unfilteredEyeRects = self.cascade.detectMultiScale(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 
+			scaleFactor = 1.4, minNeighbors = 3, maxSize = (200, 200), minSize = (0, 0))
 
-		self.eyeRects = self.filterRectSize(self.eyeRects)
+		self.eyeRects = self.filterRectSize(unfilteredEyeRects)
 
 		img_disp_colors = np.copy(self.img_orig)
 		img_disp_centroids = np.copy(self.img_orig)
@@ -180,8 +210,8 @@ class EyeTracker:
 		trackingStats.setTrackingImage(np.copy(img_disp_tracking))
 		trackingStats.setCentroidImage(np.copy(img_disp_centroids))
 
-		trackingStats.assignIds(self.previousEyes)
-		self.previousEyes = trackingStats.getEyeList()
+		self.lostEyes.update(set(trackingStats.assignIds(self.previousEyes)))
+		self.previousEyes = trackingStats.getEyeList() + list(self.lostEyes)
 
 		return trackingStats
 
