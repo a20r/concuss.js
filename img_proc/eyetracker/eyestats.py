@@ -72,7 +72,7 @@ class EyeStats(object):
 		Vector = namedtuple("Vector", "x y")
 		CornerVectors = namedtuple("CornerVectors", "topLeft topRight bottomLeft bottomRight")
 		pb = self.pupil
-		centroid = Vector(pb.getCentroid()[0], pb.getCentroid()[1])
+		centroid = pb.getCentroid()
 		return CornerVectors(
 			Vector(centroid.x, centroid.y),
 			Vector(centroid.x - xSize, centroid.y),

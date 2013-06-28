@@ -11,6 +11,7 @@ class TrackingStats(object):
 		self.eyeList = list()
 		self.idMap = dict()
 
+	# assigns unique identifiers to pupils
 	def assignIds(self, prevEyes):
 		if len(self.eyeList) == 0:
 			return list()

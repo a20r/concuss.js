@@ -21,7 +21,7 @@ class EyeTracker:
 		self.cascade = cv2.CascadeClassifier("cascades/haarcascade_eye_tree_eyeglasses.xml")
 
 		# pupil color constants
-		self.pupilThresh = 6000
+		self.pupilThresh = 5000
 
 		# the resized width and height for analysis
 		self.xScale = 640
@@ -123,6 +123,12 @@ class EyeTracker:
 		cv2.line(img_centroid, pb.getCentroid(), (img_centroid.shape[1], 0), 
 			(255, 255, 255), 10)
 
+	def getXScale(self):
+		return self.xScale
+
+	def getYScale(self):
+		return self.yScale
+
 	def getRectSizes(self, rects):
 		return map(lambda rect: rect[2] * rect[3], rects)
 
@@ -144,7 +150,7 @@ class EyeTracker:
 
 		# uses Haar classification to find the eyes
 		unfilteredEyeRects = self.cascade.detectMultiScale(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 
-			scaleFactor = 1.4, minNeighbors = 3, maxSize = (200, 200), minSize = (0, 0))
+			scaleFactor = 2.0, minNeighbors = 3, maxSize = (200, 200), minSize = (0, 0))
 
 		self.eyeRects = self.filterRectSize(unfilteredEyeRects)
 

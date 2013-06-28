@@ -13,9 +13,11 @@ class Blob:
         self.contour = contour
         self.convexHullArea = convexHullArea
         self.contourArea = contourArea
+        self.Point = namedtuple("Point", "x y")
 
     def getCentroid(self):
-        return self.centroid
+        retCentroid = self.Point(self.centroid[0], self.centroid[1])
+        return retCentroid
 
     def getConvexHull(self):
         return self.convexHull
