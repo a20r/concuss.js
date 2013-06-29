@@ -45,9 +45,9 @@ class EyeCalibration:
 				cv2.circle(
 					canvas,
 					(
-						self.movAvgDict[key]["centroid"].getLastCompoundedResult().x + 
+						320 - 
 						self.movAvgDict[key]["rVector"].getLastCompoundedResult().x,
-						self.movAvgDict[key]["centroid"].getLastCompoundedResult().y + 
+						240 + 
 						self.movAvgDict[key]["rVector"].getLastCompoundedResult().y
 					),
 					5, 255, 5
@@ -70,8 +70,6 @@ class EyeCalibration:
 					"rVector": MovingAveragePoints(r.getResultantVector(
 						self.tracker.getXScale(), self.tracker.getYScale()), 
 					self.movAvgLength)}
-			newDict[r.getId()] = self.movAvgDict[r.getId()]
-		self.movAvgDict = newDict
 
 	def run(self):
 		while True:
