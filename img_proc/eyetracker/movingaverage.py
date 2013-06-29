@@ -30,9 +30,21 @@ class MovingAveragePoints(MovingAverageList):
 	def __init__(self, startingValue, length):
 		self.Point = namedtuple("Point", "x y")
 		super(MovingAveragePoints, self).__init__(startingValue, length)
+		self.lastMean = self.Point(0, 0)
 
 	def getMean(self):
-		divList = map(lambda val: self.Point(float(val.x) / float(len(self.movAvgList)), 
-			float(val.y) / float(len(self.movAvgList))), self.movAvgList)
-		retVal = reduce(lambda b1, b2: self.Point(b1.x + b2.x, b1.y + b2.y), divList)
+		divList = map(
+			lambda val: self.Point(
+				float(val.x) / float(len(self.movAvgList)), 
+				float(val.y) / float(len(self.movAvgList))
+			), 
+			self.movAvgList
+		)
+		retVal = reduce(
+			lambda b1, b2: self.Point(
+				b1.x + b2.x, b1.y + b2.y
+			), 
+			divList
+		)
 		return self.Point(int(retVal.x), int(retVal.y))
+

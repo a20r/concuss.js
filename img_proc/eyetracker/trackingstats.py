@@ -23,24 +23,24 @@ class TrackingStats(object):
 				eye.setId(eyeId)
 			return list()
 		else:
-			distList = [enumerate([eye.norm(eye.getPupil().getCentroid(), pEye.getPupil().getCentroid()) 
-				for eye in self.eyeList]) for pEye in prevEyes]
+			distList = [enumerate([eye.norm(eye.getHaarCentroid(), pEye.getHaarCentroid()) 
+				for pEye in prevEyes]) for eye in self.eyeList]
 
 			minDistList = map(lambda ds: reduce(lambda a, b: a if a[1] < b[1] else b, ds), distList)
 			usedPrevEyes = list()
-			for i, (j, minDist) in enumerate(minDistList):
-				if self.eyeList[j].getId() == None and not i in usedPrevEyes:
-					self.eyeList[j].setId(prevEyes[i].getId())
-					self.idMap[prevEyes[i].getId()] = self.eyeList[j]
-					usedPrevEyes += [i]
+			for i, (j, _) in enumerate(minDistList):
+				if self.eyeList[i].getId() == None and not j in usedPrevEyes:
+					self.eyeList[i].setId(prevEyes[j].getId())
+					self.idMap[prevEyes[j].getId()] = self.eyeList[i]
+					usedPrevEyes += [j]
 
-			for j, minDist in minDistList:
-				if self.eyeList[j].getId() == None:
+			for i in xrange(len(minDistList)):
+				if self.eyeList[i].getId() == None:
 					eyeId = str(uuid.uuid4())
-					self.eyeList[j].setId(eyeId)
-					self.idMap[eyeId] = self.eyeList[j]
+					self.eyeList[i].setId(eyeId)
+					self.idMap[eyeId] = self.eyeList[i]
 
-			return list(set(prevEyes) ^ set(prevEyes[i] for i in usedPrevEyes))
+			return list(set(prevEyes) ^ set(prevEyes[j] for j in usedPrevEyes))
 
 	def pushEye(self, eye):
 		self.eyeList += [eye]

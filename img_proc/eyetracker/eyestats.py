@@ -12,6 +12,7 @@ class EyeStats(object):
 		self.image = None
 		self.uId = None
 		self.trackingImage = None
+		self.Point = namedtuple("Point", "x y")
 
 	def norm(self, p1, p2):
 		"""
@@ -46,6 +47,10 @@ class EyeStats(object):
 	def setTrackingImage(self, image):
 		self.trackingImage = image
 		return self
+
+	def getHaarCentroid(self):
+		return self.Point(self.haarRectangle.x + self.haarRectangle.w / 2, 
+			self.haarRectangle.y + self.haarRectangle.h / 2)
 
 	def getId(self):
 		return self.uId
@@ -85,6 +90,10 @@ class EyeStats(object):
 		cVecs = self.getCornerVectors(xSize, ySize)
 		return reduce(lambda a, b: Vector(a.x + b.x, a.y + b.y), cVecs)
 
+	# IMPORTANT: returns the pupil for the given size
+    # of the sub image. Therefore the centroid will
+    # be respective of the sub image and not the entire
+    # frame!
 	def getPupil(self):
 		return self.pupil
 

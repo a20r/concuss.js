@@ -15,8 +15,13 @@ class Blob:
         self.contourArea = contourArea
         self.Point = namedtuple("Point", "x y")
 
+    # IMPORTANT: returns the centroid for the given size
+    # of the sub image
     def getCentroid(self):
-        retCentroid = self.Point(self.centroid[0], self.centroid[1])
+        retCentroid = self.Point(
+            self.centroid[0], 
+            self.centroid[1]
+        )
         return retCentroid
 
     def getConvexHull(self):
@@ -32,8 +37,11 @@ class Blob:
         return self.contourArea 
 
 def getBlobs(BW, minSize, maxSize = None):
-    cs, _ = cv2.findContours(BW.astype(np.uint8), mode = cv2.RETR_EXTERNAL, 
-        method = cv2.CHAIN_APPROX_SIMPLE)
+    cs, _ = cv2.findContours(
+        BW.astype(np.uint8), 
+        mode = cv2.RETR_EXTERNAL, 
+        method = cv2.CHAIN_APPROX_SIMPLE
+    )
     blobList = list()
     for con in cs:
         if maxSize == None:
@@ -50,9 +58,18 @@ def getBlobs(BW, minSize, maxSize = None):
 
                 cHull = cv2.convexHull(con)
 
-                blobList += [Blob((int(m10/m00), int(m01/m00)),
-                    cHull, cv2.contourArea(cHull),
-                    con, cv2.contourArea(con))]
+                blobList += [
+                    Blob(
+                        (
+                            int(m10/m00), 
+                            int(m01/m00)
+                        ),
+                        cHull, 
+                        cv2.contourArea(cHull),
+                        con, 
+                        cv2.contourArea(con)
+                    )
+                ]
             except:
 				pass
     return blobList
