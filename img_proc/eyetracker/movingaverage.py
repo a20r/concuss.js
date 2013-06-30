@@ -17,6 +17,16 @@ class MovingAverageList(object):
 		self.lastMean = self.getMean()
 		return self.lastMean
 
+	def setLength(self, length):
+		if length < len(self.movAvgList):
+			self.movAvgList = self.movAvgList[length - 1 : -1]
+		elif length > len(self.movAvgList):
+			lPoint = self.movAvgList[-1]
+			self.movAvgList.extend(
+				[lPoint for _ in xrange(length - len(self.movAvgList))]
+			)
+		return self
+
 	def getLastCompoundedResult(self):
 		return self.lastMean
 

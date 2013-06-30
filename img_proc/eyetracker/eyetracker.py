@@ -52,7 +52,7 @@ class EyeTracker:
 			retList += [t1[i] + t2[i] / 1]
 		return tuple(retList)
 
-	def _mapVal(self, x, in_min, in_max, out_min, out_max):
+	def mapVal(self, x, in_min, in_max, out_min, out_max):
 	  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 	def getAngle(self, P1, P2):
