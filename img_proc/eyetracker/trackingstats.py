@@ -12,21 +12,37 @@ class TrackingStats(object):
 		self.idMap = dict()
 
 	# assigns unique identifiers to pupils
+	# returns the eyes that are no longer in the frame
+	# takes a list of eyes from the last frame
+	# and the lost eyes
 	def assignIds(self, prevEyes):
 		if len(self.eyeList) == 0:
-			return list()
+			return set()
 
 		if len(prevEyes) == 0:
 			for eye in self.eyeList:
 				eyeId = str(uuid.uuid4())
 				self.idMap[eyeId] = eye
 				eye.setId(eyeId)
-			return list()
+			return set()
 		else:
-			distList = [enumerate([eye.norm(eye.getHaarCentroid(), pEye.getHaarCentroid()) 
-				for pEye in prevEyes]) for eye in self.eyeList]
+			distList = [
+				enumerate(
+					[
+						eye.norm(
+							eye.getHaarCentroid(), 
+							pEye.getHaarCentroid()
+						) for pEye in prevEyes
+					]
+				) for eye in self.eyeList
+			]
 
-			minDistList = map(lambda ds: reduce(lambda a, b: a if a[1] < b[1] else b, ds), distList)
+			minDistList = map(
+				lambda ds: reduce(
+					lambda a, b: a if a[1] < b[1] else b, ds
+				), 
+				distList
+			)
 			usedPrevEyes = list()
 			for i, (j, _) in enumerate(minDistList):
 				if self.eyeList[i].getId() == None and not j in usedPrevEyes:
@@ -40,7 +56,7 @@ class TrackingStats(object):
 					self.eyeList[i].setId(eyeId)
 					self.idMap[eyeId] = self.eyeList[i]
 
-			return list(set(prevEyes) ^ set(prevEyes[j] for j in usedPrevEyes))
+			return set(prevEyes) - set(prevEyes[j] for j in usedPrevEyes)
 
 	def pushEye(self, eye):
 		self.eyeList += [eye]
@@ -86,11 +102,17 @@ class TrackingStats(object):
 			retString += str(eye) + " "
 		return retString
 
+	def __len__(self):
+		return len(self.eyeList)
+
 	def __getitem__(self, key):
 		if type(key) == int:
 			return self.eyeList[key]
 		elif type(key) == str:
 			return self.idMap[key]
 		else:
-			raise TypeError("Cannot index the class using type: " + type(key))
+			raise TypeError(
+				"Cannot index the class using type: " + 
+				type(key)
+			)
 

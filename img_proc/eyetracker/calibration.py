@@ -119,7 +119,6 @@ class EyeCalibration:
 			flippedImage = cv2.flip(results.getTrackingImage(), 1)
 			self.drawCanvas(flippedImage, avgDict)
 			cv2.imshow('Eye Tracking', flippedImage)
-
 			if cv2.waitKey(1) == button:
 				return avgPoint
 

@@ -7,6 +7,9 @@ class MovingAverageList(object):
 		self.movAvgList = [startingValue for _ in xrange(length)]
 		self.lastMean = None
 
+	def getLength(self):
+		return len(self.movAvgList)
+
 	def put(self, value):
 		del self.movAvgList[0]
 		self.movAvgList += [value]
@@ -23,7 +26,11 @@ class MovingAverageList(object):
 		elif length > len(self.movAvgList):
 			lPoint = self.movAvgList[-1]
 			self.movAvgList.extend(
-				[lPoint for _ in xrange(length - len(self.movAvgList))]
+				[
+					lPoint for _ in xrange(
+						length - len(self.movAvgList)
+					)
+				]
 			)
 		return self
 
@@ -39,7 +46,10 @@ class MovingAverageList(object):
 class MovingAveragePoints(MovingAverageList):
 	def __init__(self, startingValue, length):
 		self.Point = namedtuple("Point", "x y")
-		super(MovingAveragePoints, self).__init__(startingValue, length)
+		super(
+			MovingAveragePoints, 
+			self
+		).__init__(startingValue, length)
 		self.lastMean = self.Point(0, 0)
 
 	def getMean(self):

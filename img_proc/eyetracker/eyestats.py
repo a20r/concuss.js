@@ -18,7 +18,10 @@ class EyeStats(object):
 		"""
 		Finds the distance between the two points
 		"""
-		return np.sqrt(pow(p1[0] - p2[0], 2) + pow(p1[1] - p2[1], 2))
+		return np.sqrt(
+			pow(p1[0] - p2[0], 2) + 
+			pow(p1[1] - p2[1], 2)
+		)
 
 	def setId(self, uId):
 		self.uId = uId
@@ -49,8 +52,10 @@ class EyeStats(object):
 		return self
 
 	def getHaarCentroid(self):
-		return self.Point(self.haarRectangle.x + self.haarRectangle.w / 2, 
-			self.haarRectangle.y + self.haarRectangle.h / 2)
+		return self.Point(
+			self.haarRectangle.x + self.haarRectangle.w / 2, 
+			self.haarRectangle.y + self.haarRectangle.h / 2
+		)
 
 	def getId(self):
 		return self.uId
@@ -62,20 +67,48 @@ class EyeStats(object):
 		return self.haarRectangle
 
 	def getCornerDistances(self):
-		CornerDistances = namedtuple("CornerDistances", "topLeft topRight bottomLeft bottomRight")
+		CornerDistances = namedtuple(
+			"CornerDistances", 
+			"topLeft topRight bottomLeft bottomRight"
+		)
 		pb = self.pupil
 		return CornerDistances(
-			self.norm(pb.getCentroid(), (self.haarRectangle.x, self.haarRectangle.y)),
-			self.norm(pb.getCentroid(), (self.haarRectangle.x + self.haarRectangle.w, 
-				self.haarRectangle.y)),
-			self.norm(pb.getCentroid(), (self.haarRectangle.x, 
-				self.haarRectangle.y + self.haarRectangle.h)),
-			self.norm(pb.getCentroid(), (self.haarRectangle.x + self.haarRectangle.w, 
-				self.haarRectangle.y + self.haarRectangle.h)))
+			self.norm(
+				pb.getCentroid(), 
+				(
+					self.haarRectangle.x, 
+					self.haarRectangle.y
+				)
+			),
+			self.norm(
+				pb.getCentroid(), 
+				(
+					self.haarRectangle.x + self.haarRectangle.w,
+					self.haarRectangle.y
+				)
+			),
+			self.norm(
+				pb.getCentroid(), 
+				(
+					self.haarRectangle.x, 
+					self.haarRectangle.y + self.haarRectangle.h
+				)
+			),
+			self.norm(
+				pb.getCentroid(), 
+				(
+					self.haarRectangle.x + self.haarRectangle.w, 
+					self.haarRectangle.y + self.haarRectangle.h
+				)
+			)
+		)
 
 	def getCornerVectors(self, xSize, ySize):
 		Vector = namedtuple("Vector", "x y")
-		CornerVectors = namedtuple("CornerVectors", "topLeft topRight bottomLeft bottomRight")
+		CornerVectors = namedtuple(
+			"CornerVectors", 
+			"topLeft topRight bottomLeft bottomRight"
+		)
 		pb = self.pupil
 		centroid = pb.getCentroid()
 		return CornerVectors(
@@ -88,7 +121,13 @@ class EyeStats(object):
 	def getResultantVector(self, xSize, ySize):
 		Vector = namedtuple("Vector", "x y")
 		cVecs = self.getCornerVectors(xSize, ySize)
-		return reduce(lambda a, b: Vector(a.x + b.x, a.y + b.y), cVecs)
+		return reduce(
+			lambda a, b: Vector(
+				a.x + b.x, 
+				a.y + b.y
+			), 
+			cVecs
+		)
 
 	# IMPORTANT: returns the pupil for the given size
     # of the sub image. Therefore the centroid will
@@ -105,6 +144,12 @@ class EyeStats(object):
 
 	def getImage(self):
 		return self.image
+
+	def __hash__(self):
+		return hash(self.uId)
+
+	def __eq__(self, val):
+		return hash(val) == hash(self)
 
 	def __str__(self):
 		return "Pupil: " + str(self.pupil.getCentroid())
