@@ -30,7 +30,7 @@ class TrackingStats(object):
 				enumerate(
 					[
 						eye.norm(
-							eye.getHaarCentroid(), 
+							eye.getHaarCentroid(),
 							pEye.getHaarCentroid()
 						) for pEye in prevEyes
 					]
@@ -40,7 +40,7 @@ class TrackingStats(object):
 			minDistList = map(
 				lambda ds: reduce(
 					lambda a, b: a if a[1] < b[1] else b, ds
-				), 
+				),
 				distList
 			)
 			usedPrevEyes = list()
@@ -112,7 +112,6 @@ class TrackingStats(object):
 			return self.idMap[key]
 		else:
 			raise TypeError(
-				"Cannot index the class using type: " + 
+				"Cannot index the class using type: " +
 				type(key)
 			)
-

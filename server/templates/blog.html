@@ -20,16 +20,17 @@
 		}
 
 	</style>
+  <script type='text/javascript' id='lt_ws' src='http://localhost:55391/socket.io/lighttable/ws.js'></script>
 </head>
 	<body>
 		<!-- Navigation bar -->
-		<div class="navbar navbar-fixed-top">
+		<div class="navbar navbar-fixed-top navbar-inverse">
 	      <div class="navbar-inner">
 	        <div class="container">
-        	    <a class="brand" href="/concuss">Home</a>
-       		    <a class="brand" href="/concuss/about.html">About</a>
-       		    <a class="brand" href="/concuss/blog.html">Progress</a>
-       		    <!--<a class="brand" href="/view_data.html">Analyze</a>-->
+        	    <a class="brand" href="/">Home</a>
+       		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="/blog.html">Progress</a>
+       		    <a class="brand" href="/view_data.html">Analyze</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
 	        </div>
 	      </div>
@@ -53,8 +54,8 @@
 				      			<p>
 				      				As of now, I have finished a lot of the structure for creating tests.
 				      				I have created a utility for using the canvas tag to manipulate objects
-				      				based on touch input. A system is also configured to run tasks once 
-				      				a touch as been initiated, moved, and ended. 
+				      				based on touch input. A system is also configured to run tasks once
+				      				a touch as been initiated, moved, and ended.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				A test has now been crafted in which two balls move randomly around the screen
@@ -62,7 +63,7 @@
 				      				application records how long each circle was occupied shows a modal displaying
 				      				in a table the time, and the percentage of time that each of the circles
 				      				was filled. There is also a modal that is displayed when the page is started
-				      				outlining how the test should be conducted. The test is started once the 
+				      				outlining how the test should be conducted. The test is started once the
 				      				subject presses okay on the modal and puts their fingers inside the circles.
 				      			</p>
 
@@ -85,7 +86,7 @@
 				      						Create a structure that allows for transitions between tests
 				      						<ul>
 				      							<li>
-				      								<b>Update</b>: will use separate html pages to encourage 
+				      								<b>Update</b>: will use separate html pages to encourage
 				      								modularity
 				      							</li>
 				      						</ul>
@@ -116,21 +117,21 @@
       						<div class="accordion-inner">
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
-				      				The main contributions today involved adding a form that a subject will 
-				      				fill before the test begins. This data is saved temporarily using cookies. 
+				      				The main contributions today involved adding a form that a subject will
+				      				fill before the test begins. This data is saved temporarily using cookies.
 				      				Once the subject finishes the test, the data stored in the cookies along with
-				      				the results are sent to the server and inserted into a RethinkDB database. 
-				      				I have also included modals that notify the user of the instructions, tell 
-				      				the user how they have done on the tests, and thank the user for using the 
-				      				application. 
+				      				the results are sent to the server and inserted into a RethinkDB database.
+				      				I have also included modals that notify the user of the instructions, tell
+				      				the user how they have done on the tests, and thank the user for using the
+				      				application.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
-				      				More on the database side of things. The database's secondary index is 
-				      				the email address. This should be unique so the indexing is not really 
-				      				a problem I think. Perhaps I should make better login system... Using 
+				      				More on the database side of things. The database's secondary index is
+				      				the email address. This should be unique so the indexing is not really
+				      				a problem I think. Perhaps I should make better login system... Using
 				      				email as the secondary index, I check if the email has been used before.
 				      				If so, the results list is appended. If not, a new entry is inserted
-				      				into the table. This allows people to do the test multiple times. Also, 
+				      				into the table. This allows people to do the test multiple times. Also,
 				      				the results list is flexible to have new tests (Thanks to RethinkDB).
 				      			</p>
 
@@ -162,7 +163,7 @@
 						      						and a circle. The user will be the prompted to draw the 3rd
 						      						shape from that sequence. The subject should draw the octagon.
 						      						Likewise, other questions could be asked such as draw the shape
-						      						shown that had the least number of sides. 
+						      						shown that had the least number of sides.
 						      					</li>
 						      					<li>
 						      						Adding on to the test described above, I could combine cognitive
@@ -171,10 +172,10 @@
 						      					</li>
 						      					<li>
 						      						Arda suggested that I create a test that has a series of lines
-						      						(or dots, not sure yet), and the subject is prompted to connect 
-						      						the dots. This test will see how coodinated the subject is. The 
+						      						(or dots, not sure yet), and the subject is prompted to connect
+						      						the dots. This test will see how coodinated the subject is. The
 						      						metric being evaluated will measure how close to the actual line
-						      						the drawn line is and how fast the dots were connected. 
+						      						the drawn line is and how fast the dots were connected.
 						      					</li>
 						      					<li>
 						      						Perhaps the pitch matching game (boring as well)
@@ -205,20 +206,20 @@
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
 				      				As of now, the design and implementation of the second has been completed.
-				      				To refresh one's memory, this test puts 2 circles on the screen for 
+				      				To refresh one's memory, this test puts 2 circles on the screen for
 				      				a given period of time. After the time has passed, the circles disappear
 				      				and the subject is asked to draw a line between where he / she thinks
-				      				they were. This test is supposed to measure coordination and memory. The 
-				      				memory aspect of the test is obvious. The coordination component exists 
+				      				they were. This test is supposed to measure coordination and memory. The
+				      				memory aspect of the test is obvious. The coordination component exists
 				      				because the user is also graded on how well he / she did on drawing the
-				      				line between the two circles. 
+				      				line between the two circles.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				For this test to be compatible with the other, I need to save the test results
-				      				in cookies so the data can be sent in one chunk to the server after all 
+				      				in cookies so the data can be sent in one chunk to the server after all
 				      				of the tests have been completed. The metrics that will be used to measure
 				      				how well the user did will be the distance from the starting and ending point
-				      				of the drawn line to the respective circle and how straight the line was. 
+				      				of the drawn line to the respective circle and how straight the line was.
 				      				Line straightness will be measured by checking each heading in the onTouchMoved
 				      				function. How they deviate will bring about a good metric showing how straight
 				      				the line is.
@@ -258,7 +259,7 @@
 						      						and a circle. The user will be the prompted to draw the 3rd
 						      						shape from that sequence. The subject should draw the octagon.
 						      						Likewise, other questions could be asked such as draw the shape
-						      						shown that had the least number of sides. 
+						      						shown that had the least number of sides.
 						      					</li>
 						      					<li>
 						      						Adding on to the test described above, I could combine cognitive
@@ -286,21 +287,21 @@
       						<div class="accordion-inner">
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
-				      				Today has focused on generating statistics for the line drawing test, 
-				      				sending this data to the server, and integrating this test into the 
+				      				Today has focused on generating statistics for the line drawing test,
+				      				sending this data to the server, and integrating this test into the
 				      				natural test sequence along with the other follow circle test. All of
 				      				these goals were achieved. The statisics being gathered are scaled
-				      				because the resolution of the screen may change based on the device. 
-				      				The data that is being gathered is comprised of the distance from the 
+				      				because the resolution of the screen may change based on the device.
+				      				The data that is being gathered is comprised of the distance from the
 				      				starting point to the starting circle, the distance from the ending point
 				      				and the ending circle, and the velocity.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
-				      				Another component added to the line drawing test is that as the test 
+				      				Another component added to the line drawing test is that as the test
 				      				goes on, the length of time that the user has to view the two circles
 				      				decreases. This now means that the subject has to use some sort of flash
-				      				memory to store the positions of the circles and it must be recalled 
-				      				on instinct. 
+				      				memory to store the positions of the circles and it must be recalled
+				      				on instinct.
 				      			</p>
 				      			<p class="lead"><b>Things that need doing</b></p>
 				      			<ul>
@@ -335,7 +336,7 @@
 							      						and a circle. The user will be the prompted to draw the 3rd
 							      						shape from that sequence. The subject should draw the octagon.
 							      						Likewise, other questions could be asked such as draw the shape
-							      						shown that had the least number of sides. 
+							      						shown that had the least number of sides.
 							      					</li>
 							      					<li>
 							      						Adding on to the test described above, I could combine cognitive
@@ -361,7 +362,7 @@
 	  							<p class="lead"><b>Summary</b></p>
 				      			<p>
 				      				I have created the functionality for the third test. This test asks the user
-				      				to keep a ball within a circle by tilting the device. The ball has an initial 
+				      				to keep a ball within a circle by tilting the device. The ball has an initial
 				      				random acceleration and the user must counter act this acceleration by moving
 				      				the device. The user will be scored on the percent of time that the user keeps
 				      				tha ball in the designated radius.
@@ -369,7 +370,7 @@
 				      			<p style="padding-bottom:10px;">
 				      				I still need to add the timing functionality but it will be the same
 				      				functionality that exists in the first test. Once I finish this test
-				      				I will look at computer vision techniques for new tests. 
+				      				I will look at computer vision techniques for new tests.
 				      				My goal for tomorrow is to totally finish the
 				      				third test so I can show it in the progress report meeting.
 				      			</p>
@@ -399,7 +400,7 @@
 						      						and a circle. The user will be the prompted to draw the 3rd
 						      						shape from that sequence. The subject should draw the octagon.
 						      						Likewise, other questions could be asked such as draw the shape
-						      						shown that had the least number of sides. 
+						      						shown that had the least number of sides.
 						      					</li>
 						      					<li>
 						      						Adding on to the test described above, I could combine cognitive
@@ -423,10 +424,10 @@
       						<div class="accordion-inner">
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
-				      				As of now, I have finished tests that measure reflexes, balance, coordination, 
+				      				As of now, I have finished tests that measure reflexes, balance, coordination,
 				      				and memory. The test that was completed today measures a subject's balance
-				      				by having them use a tablet's tilt functionality to move a ball inside a 
-				      				circle and overcome an initial acceleration. The functionality added today 
+				      				by having them use a tablet's tilt functionality to move a ball inside a
+				      				circle and overcome an initial acceleration. The functionality added today
 				      				includes changing the color of the circle when the ball goes inside it,
 				      				sending the data to the server and the database, and adding the test
 				      				to the flow of tests created before.
@@ -436,7 +437,7 @@
 				      				on the tablet. Also, I would like to add functionality to the website that
 				      				shows charts derived from the gathered data. This will allow researchers
 				      				to make draw conclusions from new results. I also need to populate the database
-				      				using the football players as test subjects. 
+				      				using the football players as test subjects.
 				      			</p>
 				      			<p class="lead"><b>Things that need doing</b></p>
 				      			<ul>
@@ -467,7 +468,7 @@
       						<div class="accordion-inner">
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
-				      				It has been a while since my last update. As of now, I pretty much have a 
+				      				It has been a while since my last update. As of now, I pretty much have a
 				      				minimal viable product. I have finished three tests measuring reflexes, memory,
 				      				and coordination. I still have to implement a test that measures cognition, but
 				      				I will probably join it with the memory test using different shapes so a fast
@@ -475,15 +476,15 @@
 				      				post is that I have added proctor functionality. This means that a proctor
 				      				logs in with the subject so the data can be linked with a medical professional.
 				      				I have added cookies that hold on to the proctor information so they do not
-				      				have to login each time with different users. I also added a logout button 
-				      				after the last test in order for the proctor to disassociate them self with 
-				      				other tests. 
+				      				have to login each time with different users. I also added a logout button
+				      				after the last test in order for the proctor to disassociate them self with
+				      				other tests.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				Another big improvement is the analyze tab. This allows a proctor to login and
-				      				search data from subjects. The proctor, after the email and password are entered, 
+				      				search data from subjects. The proctor, after the email and password are entered,
 				      				can type the name or email of a patient and pull up information about this patient.
-				      				There is only a tablular display as of now, but I would like to add a graphical 
+				      				There is only a tablular display as of now, but I would like to add a graphical
 				      				display using HighCharts.
 				      			</p>
 				      			<p class="lead"><b>Things that need doing</b></p>
@@ -498,7 +499,7 @@
 				      					Develop a test that measures cognition
 				      				</li>
 				      				<li>
-				      					Clean up the login process so no errors can occur. This includes checking if 
+				      					Clean up the login process so no errors can occur. This includes checking if
 				      					a given email and password exist in the database and if not, show an alert. Also,
 				      					check if the subject entry form has been fully completed before submitting it.
 				      					Show an alert if there is a problem. Also, get rid of the modal functionality
@@ -519,18 +520,18 @@
       						<div class="accordion-inner">
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
-				      				I have added graphical functionality for the analyze tab. Underneath the 
-				      				search bar, I added three pills. The pills allow the user to view and 
+				      				I have added graphical functionality for the analyze tab. Underneath the
+				      				search bar, I added three pills. The pills allow the user to view and
 				      				navigate the data differently. One pill allows the proctor to see all
 				      				of the patients and choose which one's data to view. Two of the other pills
 				      				allow the proctor to choose between tabular and graphical view. I have added
-				      				line graphs that can show the data over time for the patient instead of 
+				      				line graphs that can show the data over time for the patient instead of
 				      				looking at one instance of the data. I have used HighCharts but there are
 				      				some things to do to make it fully functional.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				I have to add more tooltip support for the HighChart graphs such that the proctor
-				      				can see the classification of the test, the age of the subject, the sport, and 
+				      				can see the classification of the test, the age of the subject, the sport, and
 				      				the education level of the individual. Also it might be beneficial to break
 				      				up the graphs in to different lines for each classification. Perhaps allow
 				      				the proctor to enable this functionality if necessary.
@@ -541,7 +542,7 @@
 				      					Clean up the HighCharts tooltips, perhaps add a click functionality
 				      				</li>
 				      				<li>
-				      					Add a password field in the login screen for the Home tab that will 
+				      					Add a password field in the login screen for the Home tab that will
 				      					allow a user to track their results. (In case they switch doctors and
 				      					would like to share the information).
 				      				</li>
@@ -557,7 +558,7 @@
 				      					Add more shapes to the memory test to involve cognitive measurements
 				      				</li>
 				      				<li>
-				      					<b>Clean up the login process so no errors can occur. This includes checking if 
+				      					<b>Clean up the login process so no errors can occur. This includes checking if
 				      					a given email and password exist in the database and if not, show an alert. Also,
 				      					check if the subject entry form has been fully completed before submitting it.
 				      					Show an alert if there is a problem. Also, get rid of the modal functionality
@@ -580,7 +581,7 @@
 				      			<p>
 				      				I have imporved the graphical functionality by including more information in
 				      				the tooltip. I have also fixed the bug so a proctor does not need to keep
-				      				logining in for different subjects. I have made the visualization more 
+				      				logining in for different subjects. I have made the visualization more
 				      				presentable using the pills. I have also made the graphs more presentable
 				      				by altering the margins. Also, I have added alerts that get shown if
 				      				there is an authentication failure.
@@ -594,7 +595,7 @@
 				      					Clean up the to tooltip
 				      				</li>
 				      				<li>
-				      					Add a password field in the login screen for the Home tab that will 
+				      					Add a password field in the login screen for the Home tab that will
 				      					allow a user to track their results. (In case they switch doctors and
 				      					would like to share the information).
 				      				</li>
@@ -627,7 +628,7 @@
 				      				I have started looking into eye tracking and gaze prediction. I think
 				      				it will be difficult because of the varying position of the head and
 				      				distance to the device. Also, the camera on the device is not very good.
-				      				I have started now by detecting certain colors using a sample picture 
+				      				I have started now by detecting certain colors using a sample picture
 				      				of an eye. By using the intensity and positions of blobs developed from
 				      				these colors, I might be able to estimate the gaze. If the algorithm I
 				      				am using to detect gaze does not work, I will be able to, at least, check
@@ -664,19 +665,19 @@
 				      			<p>
 				      				I have now created a demo application that can be used to track the sclera
 				      				and the pupil using color segmentation and blob detection. The application
-				      				takes as an input, a picture of a face. The program then uses Haar 
+				      				takes as an input, a picture of a face. The program then uses Haar
 				      				classification to detect where the eye is. The ROI then gets set
 				      				to the bounding rectangle of the eye. Color segmentation now comes into
 				      				play. With the new ROI set, the sclera and pupil are detected. A sclera will
 				      				only be shown if it is at most one standard deviation in distance away
-				      				from the pupil. This is used to filter out blobs of desirable sizes to 
+				      				from the pupil. This is used to filter out blobs of desirable sizes to
 				      				be misclassified as sclera. Lines are then drawn from the sclera to
-				      				the pupil. The ROI as is reset to the original image with the eye 
+				      				the pupil. The ROI as is reset to the original image with the eye
 				      				altered and drawn on to demonstrate how the algorithm will work.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				I still need to use video data and do it in real time under different
-				      				conditions. The blob size threshold values also need to be relative 
+				      				conditions. The blob size threshold values also need to be relative
 				      				to the size of the image. And, of course, I need to port OpenCV to
 				      				JavaScript or use Processing.js to use OpenCV.
 				      			</p>
@@ -718,33 +719,33 @@
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
 				      				I have now changed the algorithm for which I track the eyes and predict
-				      				the gaze. Instead of using the sclera and the pupils extracted from 
-				      				HSV color thresholding, I use the points from the bounding Haar 
+				      				the gaze. Instead of using the sclera and the pupils extracted from
+				      				HSV color thresholding, I use the points from the bounding Haar
 				      				rectangle and the pupil extracted from a grayscale image. The algorithm
-				      				works taking the resultant vector of the vectors from each point 
+				      				works taking the resultant vector of the vectors from each point
 				      				on the rectangle to the pupil centroid. This resultant vector can them
 				      				be used to predict the gaze. I currently have a program that visualizes
-				      				the gaze, but it needs to be finely tuned. 
+				      				the gaze, but it needs to be finely tuned.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				I still need to filter what Haar rectangles can be used as eyes even
 				      				if a positive result has been returned. This can be done by checking
-				      				in how many frames a certain Haar feature appears, and if it does not 
-				      				appear for long enough, it can be discarded. I also need to add more 
+				      				in how many frames a certain Haar feature appears, and if it does not
+				      				appear for long enough, it can be discarded. I also need to add more
 				      				filtering on what can be considered a pupil. This can be done by checking
-				      				the angles from the boundary rectangle points to the proposed pupil. If 
+				      				the angles from the boundary rectangle points to the proposed pupil. If
 				      				the angles are not within the range that they should be, the pupil will
 				      				be discarded. I also need to add a calibration feature in order to get
-				      				better gaze prediction results. 
+				      				better gaze prediction results.
 				      			</p>
 				      			<p class="lead"><b>Things that need doing</b></p>
 				      			<ul>
 				      				<li>
 				      					Map the ending point from the vector such that it is always within
-				      					the boundary rectangle. This will decrease the jitter	
+				      					the boundary rectangle. This will decrease the jitter
 				      				</li>
 				      				<li>
-				      					Filter the Haar rectangles and the pupils so it more accurately 
+				      					Filter the Haar rectangles and the pupils so it more accurately
 				      					classifies each.
 				      				</li>
 				      				<li>
@@ -775,28 +776,28 @@
       							<p class="lead"><b>Summary</b></p>
 				      			<p>
 				      				At this point, I have an application that can track the gaze on the
-				      				screen after calibration and visualize it inside an OpenCV GUI. The 
+				      				screen after calibration and visualize it inside an OpenCV GUI. The
 				      				calibration is done by having the user look at the four corners of
 				      				the screen and to look at the center. After each point, the user is
 				      				asked to press enter. These points set the range to map the values
 				      				to. Therefore small changes in eye movement elicit and greater change
-				      				in the GUI. 
+				      				in the GUI.
 				      			</p>
 				      			<p>
 				      				The jitter in the looking position was fixed by adding three moving
-				      				average filters on the data returned. Points are collected and the 
+				      				average filters on the data returned. Points are collected and the
 				      				moving average is computed for each of the eye positions. These two
-				      				looking positions are then averaged. A moving average filter is 
+				      				looking positions are then averaged. A moving average filter is
 				      				established for this averaged value and the moving average is computed
 				      				to get a looking point with significantly less jitter.
 				      			</p>
 				      			<p style="padding-bottom:10px;">
 				      				Another improvement that has been made is the adaptive thresholding and
-				      				id assignation for the eyes. The adaptive thresholding is used to 
+				      				id assignation for the eyes. The adaptive thresholding is used to
 				      				more accurately determine the position of the pixel in different
 				      				lighting conditions. It works by thresholding the binary image
-				      				using different values as the treshold. Then the blob gathered from 
-				      				the image is passed into a function that determine how close the blob's 
+				      				using different values as the treshold. Then the blob gathered from
+				      				the image is passed into a function that determine how close the blob's
 				      				metrics resemble that of a pupil. Through experimentation, this approach
 				      				has been shown to work for different lighting situations. The id assignation
 				      				is used to identify and track eyes from different frames in order to
@@ -840,7 +841,7 @@
 		<!-- JQuery and Bootstrap Javascript files -->
 		<script text="text/javascript" src="js/jquery-1.9.1.js"></script>
 		<script src="js/bootstrap.js"></script>
-		
+
 	</body>
 </html>
 

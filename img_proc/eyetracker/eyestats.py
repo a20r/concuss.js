@@ -1,6 +1,7 @@
 
 import numpy as np
 from collections import namedtuple
+from point import Point
 
 class EyeStats(object):
 
@@ -12,7 +13,6 @@ class EyeStats(object):
 		self.image = None
 		self.uId = None
 		self.trackingImage = None
-		self.Point = namedtuple("Point", "x y")
 
 	def norm(self, p1, p2):
 		"""
@@ -52,7 +52,7 @@ class EyeStats(object):
 		return self
 
 	def getHaarCentroid(self):
-		return self.Point(
+		return Point(
 			self.haarRectangle.x + self.haarRectangle.w / 2, 
 			self.haarRectangle.y + self.haarRectangle.h / 2
 		)
@@ -104,7 +104,6 @@ class EyeStats(object):
 		)
 
 	def getCornerVectors(self, xSize, ySize):
-		Vector = namedtuple("Vector", "x y")
 		CornerVectors = namedtuple(
 			"CornerVectors", 
 			"topLeft topRight bottomLeft bottomRight"
@@ -112,17 +111,16 @@ class EyeStats(object):
 		pb = self.pupil
 		centroid = pb.getCentroid()
 		return CornerVectors(
-			Vector(centroid.x, centroid.y),
-			Vector(centroid.x - xSize, centroid.y),
-			Vector(centroid.x, centroid.y - ySize),
-			Vector(centroid.x - xSize, centroid.y - ySize)
+			Point(centroid.x, centroid.y),
+			Point(centroid.x - xSize, centroid.y),
+			Point(centroid.x, centroid.y - ySize),
+			Point(centroid.x - xSize, centroid.y - ySize)
 		)
 
 	def getResultantVector(self, xSize, ySize):
-		Vector = namedtuple("Vector", "x y")
 		cVecs = self.getCornerVectors(xSize, ySize)
 		return reduce(
-			lambda a, b: Vector(
+			lambda a, b: Point(
 				a.x + b.x, 
 				a.y + b.y
 			), 

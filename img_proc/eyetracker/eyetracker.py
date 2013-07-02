@@ -36,7 +36,7 @@ class EyeTracker:
 		# found empircally
 		self.averageContourSize = 9000
 
-		self.MAX_COLOR = 50
+		self.MAX_COLOR = 60
 		self.MIN_COLOR = 0
 
 		self.previousEyes = list()
@@ -135,7 +135,11 @@ class EyeTracker:
 			for maxColor in xrange(
 				minColor + step, 
 				self.MAX_COLOR, step):
-				pPupil = self.getUnfilteredPupil(img, minColor, maxColor)
+				pPupil = self.getUnfilteredPupil(
+					img, 
+					minColor, 
+					maxColor
+				)
 				if pPupil != None:
 					possiblePupils.append(pPupil)
 
@@ -180,21 +184,21 @@ class EyeTracker:
 		eyeStats.setPupil(pb)
 		cv2.circle(
 			img_centroid, 
-			pb.getCentroid(), 
+			pb.getCentroid().toTuple(), 
 			10, 
 			(0, 255, 255), 
 			20
 		)
 		cv2.line(
 			img_centroid, 
-			pb.getCentroid(), 
+			pb.getCentroid().toTuple(), 
 			(0, 0), 
 			(255, 255, 255), 
 			10
 		)
 		cv2.line(
 			img_centroid, 
-			pb.getCentroid(), 
+			pb.getCentroid().toTuple(), 
 			(
 				img_centroid.shape[1], 
 				img_centroid.shape[0]
@@ -204,7 +208,7 @@ class EyeTracker:
 		)
 		cv2.line(
 			img_centroid, 
-			pb.getCentroid(), 
+			pb.getCentroid().toTuple(), 
 			(
 				0, 
 				img_centroid.shape[0]
@@ -214,7 +218,7 @@ class EyeTracker:
 		)
 		cv2.line(
 			img_centroid, 
-			pb.getCentroid(), 
+			pb.getCentroid().toTuple(), 
 			(
 				img_centroid.shape[1], 
 				0
@@ -260,7 +264,7 @@ class EyeTracker:
 				img, 
 				cv2.COLOR_BGR2GRAY
 			), 
-			scaleFactor = 2.0, 
+			scaleFactor = 2.2, 
 			minNeighbors = 3, 
 			maxSize = (200, 200), 
 			minSize = (0, 0)
@@ -303,31 +307,28 @@ class EyeTracker:
 			# draws the centroid on the tracking image
 			cv2.circle(
 				img_tracking, 
-				eyeStats.getPupil().getCentroid(), 
+				eyeStats.getPupil().getCentroid().toTuple(), 
 				10, 
 				(0, 255, 255), 
 				20
 			)
 
 			# gets the end point and maps it to be visualized
-			px, py = self._tupleSum(eyeStats.getPupil().getCentroid(), resVec)
+			px, py = eyeStats.getPupil().getCentroid() + resVec
 			endPoint = (px, py)
 
 			# draws lines indicating looking position
 			cv2.line(
 				img_tracking, 
-				eyeStats.getPupil().getCentroid(),
+				eyeStats.getPupil().getCentroid().toTuple(),
 				endPoint, 
 				(0, 255, 0), 
 				20
 			)
 			cv2.line(
 				img_centroid, 
-				eyeStats.getPupil().getCentroid(),
-				self._tupleSum(
-					eyeStats.getPupil().getCentroid(), 
-					resVec
-				),
+				eyeStats.getPupil().getCentroid().toTuple(),
+				(eyeStats.getPupil().getCentroid() + resVec).toTuple(),
 				(0, 255, 0), 
 				20
 			)

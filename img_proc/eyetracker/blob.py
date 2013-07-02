@@ -4,6 +4,7 @@
 import cv2
 import numpy as np
 from collections import namedtuple
+from point import Point
 
 class Blob:
 
@@ -13,12 +14,11 @@ class Blob:
         self.contour = contour
         self.convexHullArea = convexHullArea
         self.contourArea = contourArea
-        self.Point = namedtuple("Point", "x y")
 
     # IMPORTANT: returns the centroid for the given size
     # of the sub image
     def getCentroid(self):
-        retCentroid = self.Point(
+        retCentroid = Point(
             self.centroid[0], 
             self.centroid[1]
         )

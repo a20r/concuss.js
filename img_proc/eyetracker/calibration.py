@@ -4,20 +4,19 @@ import cv2
 import numpy as np
 from movingaverage import MovingAveragePoints
 from collections import namedtuple
+from point import Point
 
 class EyeCalibration:
 
 	def __init__(self):
-		self.Point = namedtuple("Point", "x y")
 		self.camera = cv2.VideoCapture(0)
 		self.tracker = eyetracker.EyeTracker()
 		self.movAvgDict = dict()
 		self.lookingPointMovAvg = MovingAveragePoints(
-			self.Point(
+			Point(
 				self.tracker.xScale / 2,
 				self.tracker.yScale / 2
-			),
-			5
+			), 5
 		)
 		self.subDict = dict()
 		self.movAvgLength = 4
@@ -46,7 +45,7 @@ class EyeCalibration:
 			avgX += avgDict[key]["rVector"].getLastCompoundedResult().x / sLen
 			avgY += avgDict[key]["rVector"].getLastCompoundedResult().y / sLen
 
-		return self.Point(
+		return Point(
 			self.tracker.mapVal(
 				self.tracker.getXScale() / 2 - avgX - self.xBias,
 				self.xMin - self.rangePadding - self.xBias,
@@ -65,19 +64,30 @@ class EyeCalibration:
 
 	def drawCanvas(self, img, avgDict):
 		avgLookingPoint = self.getAverageLookingPoint(avgDict)
-		currentPoint = self.lookingPointMovAvg.compound(avgLookingPoint)
-		cv2.circle(img, currentPoint, 5, (0, 255, 255), 5)
+		currentPoint = self.lookingPointMovAvg.compound(
+			avgLookingPoint,
+			Point(0, 0)
+		)
+		cv2.circle(
+			img, 
+			currentPoint.toTuple(), 
+			5, (0, 255, 255), 5
+		)
 		return self
 
 	def updateExistingValue(self, r):
 		self.movAvgDict[r.getId()]["centroid"].compound(
-			r.getPupil().getCentroid()
+			r.getPupil().getCentroid(),
+			Point(0, 0)
 		)
 		self.movAvgDict[r.getId()]["rVector"].compound(
 			r.getResultantVector(
-				self.tracker.getXScale(), 
+				self.tracker.getXScale(),
 				self.tracker.getYScale()
-			)
+			),
+			self.movAvgDict[r.getId()][
+				"centroid"
+			].getLastCompoundedResult()
 		)
 
 	def updateMovAvgDict(self, results):
@@ -87,17 +97,17 @@ class EyeCalibration:
 				self.updateExistingValue(r)
 			except KeyError:
 				self.movAvgDict[r.getId()] = {
-					"centroid": 
+					"centroid":
 						MovingAveragePoints(
-							r.getPupil().getCentroid(), 
+							r.getPupil().getCentroid(),
 							self.movAvgLength
-						), 
-					"rVector": 
+						),
+					"rVector":
 						MovingAveragePoints(
 							r.getResultantVector(
-								self.tracker.getXScale(), 
+								self.tracker.getXScale(),
 								self.tracker.getYScale()
-							), 
+							),
 							self.movAvgLength
 						)
 				}
@@ -156,11 +166,10 @@ class EyeCalibration:
 		self.run()
 
 	def run(self):
-		self.lookingPointMovAvg.setLength(10)
+		self.lookingPointMovAvg.setLength(15)
 		self.setPointAfterButton(27)
 
-
-if __name__ == "__main__":
+if __name__ == "__main__" or True:
 	eyeCalibration = EyeCalibration()
 	eyeCalibration.calibrate()
 

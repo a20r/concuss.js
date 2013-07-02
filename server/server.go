@@ -118,13 +118,13 @@ func formSubmitted(w http.ResponseWriter, r *http.Request) {
     // appends a list of results if the entry is already there
     if len(exists) > 0 {
         var person interface{}
-        rethink.Table("concuss_data").GetAll("email", 
+        rethink.Table("concuss_data").GetAll("email",
             sData["email"]).Nth(0).Attr("results").Append(getResultFormat(sData)).Run(session).One(&person)
         //fmt.Println(person)
         rethink.Table("concuss_data").GetAll("email",
             sData["email"]).Update(rethink.Map{"results" : person}).Run(session).Exec()
     // if entry is not in database, add new entry
-    } else { 
+    } else {
         rethink.Table("concuss_data").Insert(
             rethink.Map{
                 "fName" : sData["fName"],
@@ -148,8 +148,8 @@ func proctorQuery(email, password string) (rethink.Exp) {
 
     mapFunc := func (val rethink.Exp) (rethink.Map) {
         return rethink.Map{
-            "fName" : val.Attr("fName"), "lName" : val.Attr("lName"), 
-            "email" : val.Attr("email"), "education" : val.Attr("education"), 
+            "fName" : val.Attr("fName"), "lName" : val.Attr("lName"),
+            "email" : val.Attr("email"), "education" : val.Attr("education"),
             "data" : val.Attr("results").Filter(filterFunc),
         }
     }

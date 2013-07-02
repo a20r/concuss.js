@@ -1,5 +1,8 @@
 
 from collections import namedtuple
+import numpy as np
+from functools import partial
+from point import Point
 
 class MovingAverageList(object):
 
@@ -15,9 +18,13 @@ class MovingAverageList(object):
 		self.movAvgList += [value]
 		return self
 
-	def compound(self, value):
+	def compound(self, value, filterFunc):
 		self.put(value)
-		self.lastMean = self.getMean()
+		maListCopy = list()
+		maListCopy.extend(self.movAvgList)
+		self.lastMean = self.getMean(
+			filterFunc(maListCopy)
+		)
 		return self.lastMean
 
 	def setLength(self, length):
@@ -45,26 +52,55 @@ class MovingAverageList(object):
 
 class MovingAveragePoints(MovingAverageList):
 	def __init__(self, startingValue, length):
-		self.Point = namedtuple("Point", "x y")
 		super(
 			MovingAveragePoints, 
 			self
 		).__init__(startingValue, length)
-		self.lastMean = self.Point(0, 0)
+		self.lastMean = Point(0, 0)
 
-	def getMean(self):
+	def compound(self, value, refPoint):
+		return super(
+			MovingAveragePoints, 
+			self
+		).compound(value, partial(self.removeOutliers, refPoint))
+
+	def removeOutliers(self, refPoint, maList, m = 3):
+		distList = map(
+			partial(self.norm, refPoint), 
+			maList
+		)
+		meanDist = np.mean(distList)
+		stdDist = np.std(distList)
+		return [
+			maList[i] for i, dist in enumerate(distList) 
+			if dist < meanDist + m * stdDist
+		]
+
+	def getMean(self, maList):
+		if len(maList) == 0:
+			maList = self.movAvgList
+
 		divList = map(
-			lambda val: self.Point(
-				float(val.x) / float(len(self.movAvgList)), 
-				float(val.y) / float(len(self.movAvgList))
+			lambda val: Point(
+				float(val.x) / float(len(maList)), 
+				float(val.y) / float(len(maList))
 			), 
-			self.movAvgList
+			maList
 		)
 		retVal = reduce(
-			lambda b1, b2: self.Point(
+			lambda b1, b2: Point(
 				b1.x + b2.x, b1.y + b2.y
 			), 
 			divList
 		)
-		return self.Point(int(retVal.x), int(retVal.y))
+		return Point(int(retVal.x), int(retVal.y))
+
+	def norm(self, p1, p2):
+		"""
+		Finds the distance between the two points
+		"""
+		return np.sqrt(
+			pow(p1[0] - p2[0], 2) + 
+			pow(p1[1] - p2[1], 2)
+		)
 

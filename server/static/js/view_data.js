@@ -51,7 +51,7 @@ function nameWork(nameData) {
 	}
 	var names = new Array();
 	for (var i = 0; i < nameData.length; i++) {
-		names.push(makeStringPresentable(nameData[i]["fName"]) + " " + 
+		names.push(makeStringPresentable(nameData[i]["fName"]) + " " +
 			makeStringPresentable(nameData[i]["lName"]));
 	}
 
@@ -60,7 +60,7 @@ function nameWork(nameData) {
 
 	var nameTable = new Table("<h2>Subjects</h2>");
 	for (var i = 0; i < names.length; i++) {
-		nameTable.addRow(["<a class=\"lead\" href=\"#\" onclick='searchData(\"" + 
+		nameTable.addRow(["<a class=\"lead\" href=\"#\" onclick='searchData(\"" +
 			names[i].toLowerCase() + "\")'>" + names[i] + "</a>"]);
 	}
 
@@ -83,21 +83,21 @@ function searchData(searchTerm) {
 	$("#searchTerm").val("");
 	var terms = searchTerm.split(" ");
 	if (terms.length == 1) {
-		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() + 
+		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() +
 			"/email/" + searchTerm, visualizeData);
 	} else {
-		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() + 
+		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() +
 			"/name/" + terms[0] + "/" + terms[1], visualizeData);
 	}
 }
 
 function addTab(heading) {
 	var collapseId = Date.parse(heading);
-	var tab = '<div class="accordion-group">' + 
-					'<div class="accordion-heading">' + 
-						'<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#dataHolder" href="#' + 
+	var tab = '<div class="accordion-group">' +
+					'<div class="accordion-heading">' +
+						'<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#dataHolder" href="#' +
 						collapseId + '">' + heading + '</a></div>' +
-			    '<div id="' + collapseId + '" class="accordion-body collapse in">' + 
+			    '<div id="' + collapseId + '" class="accordion-body collapse in">' +
 			    	'<div class="accordion-inner" id=' + collapseId + '_inner></div></div></div>';
 	return tab;
 }
@@ -107,7 +107,7 @@ function visualizeData(data) {
 	var results = data[0]["data"];
 
 	$("#nameArea").html(
-		"<h2>" + makeStringPresentable(data[0]["fName"]) + " " + 
+		"<h2>" + makeStringPresentable(data[0]["fName"]) + " " +
 		makeStringPresentable(data[0]["lName"]) + "</h2>");
 
 	if($("#tabular").attr("class") == "active") {
@@ -134,7 +134,7 @@ Table.prototype.getHtml = function () {
 }
 
 // Makes the string presentable (obviously)
-// Capitalizes the first letter and 
+// Capitalizes the first letter and
 // puts space where there is an underscore
 function makeStringPresentable(string) {
   var spaceString = string.replace("_", " ");
@@ -148,7 +148,7 @@ function Chart(title, containerId) {
 	this.classDict = {}
 	this.curentClass = "";
 	this.categories = new Array();
-	$("#" + containerId).append('<div class="chart" id="' + title + 
+	$("#" + containerId).append('<div class="chart" id="' + title +
 		'" style="min-width: 500px; height: 300px; margin: 0 auto"></div>');
 }
 
@@ -211,10 +211,10 @@ Chart.prototype.show = function (yTitle, yUnit) {
                 var s = '<b>'+ this.x +'</b>';
 
                 $.each(this.points, function(i, point) {
-                    s += '<br/><b style="color :' + point.series.color + ';">' + 
+                    s += '<br/><b style="color :' + point.series.color + ';">' +
                     point.series.name + ':</b> ' + point.y + ' ' + yUnit;
                 });
-                
+
                 s += '<br/><b>Classification:</b> ' + classDict[this.points[0].y];
                 return s;
             },
@@ -286,9 +286,9 @@ function tableVisualization(results) {
 
 		var reflexTable = new Table("Reflex");
 		reflexTable.addRow(["", "Left", "Right"]);
-		reflexTable.addRow(["Time", results[i]["reflex"]["circleA"]["time"], 
+		reflexTable.addRow(["Time", results[i]["reflex"]["circleA"]["time"],
 			results[i]["reflex"]["circleB"]["time"]]);
-		reflexTable.addRow(["Percent", results[i]["reflex"]["circleA"]["percent"], 
+		reflexTable.addRow(["Percent", results[i]["reflex"]["circleA"]["percent"],
 			results[i]["reflex"]["circleB"]["percent"]]);
 
 		var infoTable = new Table("Patient Information");
