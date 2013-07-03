@@ -5,6 +5,7 @@ import numpy as np
 from collections import namedtuple
 from eyestats import EyeStats
 from trackingstats import TrackingStats
+from point import Point
 
 class EyeTracker:
 
@@ -24,8 +25,12 @@ class EyeTracker:
 			"cascades/haarcascade_eye_tree_eyeglasses.xml"
 		)
 
+		self.faceCascade = cv2.CascadeClassifier(
+			"cascades/haarcascade_frontalface_default.xml"
+		)
+
 		# pupil color constants
-		self.pupilThresh = 5000
+		self.pupilThresh = 9000
 
 		# the resized width and height for analysis
 		self.xScale = 640
@@ -34,7 +39,7 @@ class EyeTracker:
 		self.padding = 10
 
 		# found empircally
-		self.averageContourSize = 9000
+		self.averageContourSize = 10000
 
 		self.MAX_COLOR = 60
 		self.MIN_COLOR = 0
@@ -252,6 +257,20 @@ class EyeTracker:
 		except IndexError:
 			return list()
 
+	def matchFace(self, eyeStats, faceRects):
+		hr = eyeStats.getHaarRectangle()
+		haarCentroid = Point(
+			hr.x + hr.w / 2, 
+			hr.y + hr.h / 2
+		)
+		for x, y, w, h in faceRects:
+			if haarCentroid.x <= x + w and \
+				haarCentroid.x >= x and \
+				haarCentroid.y <= y + h and \
+				haarCentroid.y >= y:
+				eyeStats.setFace(self.Rectangle(x, y, w, h))
+				return
+
 	def track(self):
 		trackingStats = TrackingStats()
 
@@ -270,6 +289,17 @@ class EyeTracker:
 			minSize = (0, 0)
 		)
 
+		faceRects = self.faceCascade.detectMultiScale(
+			cv2.cvtColor(
+				img, 
+				cv2.COLOR_BGR2GRAY
+			), 
+			scaleFactor = 1.9, 
+			minNeighbors = 1, 
+			maxSize = (1000, 1000), 
+			minSize = (0, 0)
+		)
+
 		self.eyeRects = self.filterRectSize(unfilteredEyeRects)
 
 		img_disp_colors = np.copy(self.img_orig)
@@ -280,6 +310,10 @@ class EyeTracker:
 		for x, y, w, h in self.eyeRects:
 			eyeStats = EyeStats()
 			eyeStats.setHaarRectangle(self.Rectangle(x, y, w, h))
+
+			# pairs a face with the eyes
+			self.matchFace(eyeStats, faceRects)
+
 			img = self.img_orig[y:y+h, x:x+w]
 			eyeStats.setImage(self.img_orig[y:y+h, x:x+w])
 			img = cv2.resize(img, (self.xScale, self.yScale))

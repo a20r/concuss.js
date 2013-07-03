@@ -19,7 +19,7 @@ class EyeCalibration:
 			), 5
 		)
 		self.subDict = dict()
-		self.movAvgLength = 4
+		self.movAvgLength = 3
 
 		self.topLeft = None
 		self.topRight = None
@@ -37,6 +37,11 @@ class EyeCalibration:
 
 		self.rangePadding = 40
 
+		self.translationXMin = 0
+		self.translationXMax = self.tracker.getXScale()
+		self.translationYMin = 0
+		self.translationYMax = self.tracker.getYScale()
+
 	def getAverageLookingPoint(self, avgDict):
 		avgX = 0
 		avgY = 0
@@ -50,15 +55,15 @@ class EyeCalibration:
 				self.tracker.getXScale() / 2 - avgX - self.xBias,
 				self.xMin - self.rangePadding - self.xBias,
 				self.xMax + self.rangePadding - self.xBias,
-				0,
-				self.tracker.getXScale()
+				self.translationXMin,
+				self.translationXMax
 			),
 			self.tracker.mapVal(
 				self.tracker.getYScale() / 2 + avgY - self.yBias,
 				self.yMin - self.rangePadding - self.yBias,
 				self.yMax + self.rangePadding - self.yBias,
-				0,
-				self.tracker.getYScale()
+				self.translationYMin,
+				self.translationYMax
 			)
 		)
 
@@ -76,7 +81,7 @@ class EyeCalibration:
 		return self
 
 	def updateExistingValue(self, r):
-		self.movAvgDict[r.getId()]["centroid"].compound(
+		r.pupil.centroid = self.movAvgDict[r.getId()]["centroid"].compound(
 			r.getPupil().getCentroid(),
 			Point(0, 0)
 		)
@@ -93,9 +98,7 @@ class EyeCalibration:
 	def updateMovAvgDict(self, results):
 		newDict = dict()
 		for r in results:
-			try:
-				self.updateExistingValue(r)
-			except KeyError:
+			if not r.getId() in self.movAvgDict.keys():
 				self.movAvgDict[r.getId()] = {
 					"centroid":
 						MovingAveragePoints(
@@ -111,11 +114,51 @@ class EyeCalibration:
 							self.movAvgLength
 						)
 				}
-				self.updateExistingValue(r)
+			self.updateExistingValue(r)
 			newDict[r.getId()] = self.movAvgDict[r.getId()]
 
 		self.subDict = newDict
 		return newDict
+
+	def drawFilteredGaze(self, img, results):
+		for r in results:
+			hr = r.getHaarRectangle()
+			imgDisp = cv2.resize(
+				img[
+					hr.y : hr.y + hr.h, 
+					hr.x : hr.x + hr.w
+				],
+				(
+					self.tracker.getXScale(), 
+					self.tracker.getYScale()
+				)
+			)
+
+			centroidPoint = self.movAvgDict[
+				r.getId()
+			]["centroid"].getLastCompoundedResult()
+
+			lookingVector = self.movAvgDict[
+				r.getId()
+			]["rVector"].getLastCompoundedResult()
+
+			cv2.line(
+				imgDisp,
+				centroidPoint.toTuple(),
+				(
+					centroidPoint + 
+					lookingVector
+				).toTuple(),
+				(0, 255, 0),
+				20
+			)
+
+			img[
+				hr.y : hr.y + hr.h, 
+				hr.x : hr.x + hr.w
+			] = cv2.resize(imgDisp, (hr.w, hr.h))
+
+		return img
 
 	def setPointAfterButton(self, button = 32):
 		while True:
@@ -126,14 +169,17 @@ class EyeCalibration:
 			avgDict = self.updateMovAvgDict(results)
 			avgPoint = self.getAverageLookingPoint(avgDict)
 
-			flippedImage = cv2.flip(results.getTrackingImage(), 1)
+			raw_img = results.getImage()
+			img = self.drawFilteredGaze(raw_img, results)
+
+			flippedImage = cv2.flip(img, 1)
 			self.drawCanvas(flippedImage, avgDict)
 			cv2.imshow('Eye Tracking', flippedImage)
 			if cv2.waitKey(1) == button:
 				return avgPoint
 
 	def setCornerPointsInteractive(self):
-		self.lookingPointMovAvg.setLength(15)
+		self.lookingPointMovAvg.setLength(6)
 		print "Set top left corner"
 		self.topLeft = self.setPointAfterButton()
 
@@ -166,7 +212,7 @@ class EyeCalibration:
 		self.run()
 
 	def run(self):
-		self.lookingPointMovAvg.setLength(15)
+		self.lookingPointMovAvg.setLength(10)
 		self.setPointAfterButton(27)
 
 if __name__ == "__main__" or True:

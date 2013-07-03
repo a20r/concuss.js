@@ -13,6 +13,7 @@ class EyeStats(object):
 		self.image = None
 		self.uId = None
 		self.trackingImage = None
+		self.faceRect = None
 
 	def norm(self, p1, p2):
 		"""
@@ -25,6 +26,10 @@ class EyeStats(object):
 
 	def setId(self, uId):
 		self.uId = uId
+		return self
+
+	def setFace(self, fRect):
+		self.faceRect = fRect
 		return self
 
 	def setPupil(self, nPupil):
@@ -50,6 +55,9 @@ class EyeStats(object):
 	def setTrackingImage(self, image):
 		self.trackingImage = image
 		return self
+
+	def getFace(self):
+		return self.faceRect
 
 	def getHaarCentroid(self):
 		return Point(
