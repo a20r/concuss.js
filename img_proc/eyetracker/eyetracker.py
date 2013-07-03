@@ -289,17 +289,6 @@ class EyeTracker:
 			minSize = (0, 0)
 		)
 
-		faceRects = self.faceCascade.detectMultiScale(
-			cv2.cvtColor(
-				img, 
-				cv2.COLOR_BGR2GRAY
-			), 
-			scaleFactor = 1.9, 
-			minNeighbors = 1, 
-			maxSize = (1000, 1000), 
-			minSize = (0, 0)
-		)
-
 		self.eyeRects = self.filterRectSize(unfilteredEyeRects)
 
 		img_disp_colors = np.copy(self.img_orig)
@@ -310,9 +299,6 @@ class EyeTracker:
 		for x, y, w, h in self.eyeRects:
 			eyeStats = EyeStats()
 			eyeStats.setHaarRectangle(self.Rectangle(x, y, w, h))
-
-			# pairs a face with the eyes
-			self.matchFace(eyeStats, faceRects)
 
 			img = self.img_orig[y:y+h, x:x+w]
 			eyeStats.setImage(self.img_orig[y:y+h, x:x+w])

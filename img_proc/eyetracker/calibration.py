@@ -26,8 +26,6 @@ class EyeCalibration:
 		self.bottomLeft = None
 		self.bottomRight = None
 		self.center = None
-		self.headCenter = Point(0, 0)
-		self.headOffset = Point(0, 0)
 
 		self.xBias = 0
 		self.yBias = 0
@@ -75,7 +73,7 @@ class EyeCalibration:
 		currentPoint = self.lookingPointMovAvg.compound(
 			avgLookingPoint,
 			Point(0, 0)
-		) + self.headOffset
+		)
 		cv2.circle(
 			img, 
 			currentPoint.toTuple(), 
@@ -101,11 +99,6 @@ class EyeCalibration:
 	def updateMovAvgDict(self, results):
 		newDict = dict()
 		for r in results:
-			if self.center != None:
-				self.headOffset = (
-					self.headCenter -
-					self.getCenter(r.getFace())
-				)
 
 			if not r.getId() in self.movAvgDict.keys():
 				self.movAvgDict[r.getId()] = {
@@ -212,7 +205,6 @@ class EyeCalibration:
 
 		print "Set center"
 		self.center, res = self.setPointAfterButton()
-		self.headCenter = self.getCenter(res[0].getFace())
 
 		self.xMax = self.topRight.x
 		self.xMin = self.topLeft.x
