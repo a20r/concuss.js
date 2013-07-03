@@ -26,6 +26,8 @@ class EyeCalibration:
 		self.bottomLeft = None
 		self.bottomRight = None
 		self.center = None
+		self.headCenter = Point(0, 0)
+		self.headOffset = Point(0, 0)
 
 		self.xBias = 0
 		self.yBias = 0
@@ -35,7 +37,7 @@ class EyeCalibration:
 		self.xMax = self.tracker.getXScale()
 		self.yMax = self.tracker.getYScale()
 
-		self.rangePadding = 40
+		self.rangePadding = 20
 
 		self.translationXMin = 0
 		self.translationXMax = self.tracker.getXScale()
@@ -46,6 +48,7 @@ class EyeCalibration:
 		avgX = 0
 		avgY = 0
 		sLen = len(avgDict.keys())
+
 		for key in avgDict.keys():
 			avgX += avgDict[key]["rVector"].getLastCompoundedResult().x / sLen
 			avgY += avgDict[key]["rVector"].getLastCompoundedResult().y / sLen
@@ -72,7 +75,7 @@ class EyeCalibration:
 		currentPoint = self.lookingPointMovAvg.compound(
 			avgLookingPoint,
 			Point(0, 0)
-		)
+		) + self.headOffset
 		cv2.circle(
 			img, 
 			currentPoint.toTuple(), 
@@ -98,6 +101,12 @@ class EyeCalibration:
 	def updateMovAvgDict(self, results):
 		newDict = dict()
 		for r in results:
+			if self.center != None:
+				self.headOffset = (
+					self.headCenter -
+					self.getCenter(r.getFace())
+				)
+
 			if not r.getId() in self.movAvgDict.keys():
 				self.movAvgDict[r.getId()] = {
 					"centroid":
@@ -125,7 +134,7 @@ class EyeCalibration:
 			hr = r.getHaarRectangle()
 			imgDisp = cv2.resize(
 				img[
-					hr.y : hr.y + hr.h, 
+					hr.y : hr.y + hr.h,
 					hr.x : hr.x + hr.w
 				],
 				(
@@ -176,24 +185,34 @@ class EyeCalibration:
 			self.drawCanvas(flippedImage, avgDict)
 			cv2.imshow('Eye Tracking', flippedImage)
 			if cv2.waitKey(1) == button:
-				return avgPoint
+				return avgPoint, results
+
+	def getCenter(self, rect):
+		try:
+			return Point(
+				rect.x + rect.w / 2, 
+				rect.y + rect.h / 2
+			)
+		except AttributeError:
+			return Point(0, 0)
 
 	def setCornerPointsInteractive(self):
 		self.lookingPointMovAvg.setLength(6)
 		print "Set top left corner"
-		self.topLeft = self.setPointAfterButton()
+		self.topLeft, _ = self.setPointAfterButton()
 
 		print "Set top right corner"
-		self.topRight = self.setPointAfterButton()
+		self.topRight, _ = self.setPointAfterButton()
 
 		print "Set bottom left corner"
-		self.bottomLeft = self.setPointAfterButton()
+		self.bottomLeft, _ = self.setPointAfterButton()
 
 		print "Set bottom right corner"
-		self.bottomRight = self.setPointAfterButton()
+		self.bottomRight, _ = self.setPointAfterButton()
 
 		print "Set center"
-		self.center = self.setPointAfterButton()
+		self.center, res = self.setPointAfterButton()
+		self.headCenter = self.getCenter(res[0].getFace())
 
 		self.xMax = self.topRight.x
 		self.xMin = self.topLeft.x
