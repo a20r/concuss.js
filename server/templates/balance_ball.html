@@ -20,6 +20,7 @@
 		}
 
 	</style>
+  <script type='text/javascript' id='lt_ws' src='http://localhost:49487/socket.io/lighttable/ws.js'></script>
 </head>
 	<body>
 		<!-- Navigation bar -->
@@ -44,7 +45,7 @@
 			<div class="modal-body">
 		    	<p class="lead">
 		    		There will be two circles on the screen, one large, open circle and one small,
-		    		solid circle. Keep the smaller circle inside the larger circle by tilting 
+		    		solid circle. Keep the smaller circle inside the larger circle by tilting
 		    		the tablet. There is an initial acceleration applied on the smaller circle
 		    		and you must over come this acceleration to keep the smaller circle
 		    		inside the designated boundary. You will be tested on the amount of time
@@ -84,7 +85,7 @@
 		</div>
 
 		<span class="lead">
-			Horizontal tilt: <span id="tiltHorizontal">0.00</span>, Vertical tilt: <span id="tiltVertical">0.00</span>, 
+			Horizontal tilt: <span id="tiltHorizontal">0.00</span>, Vertical tilt: <span id="tiltVertical">0.00</span>,
 			Time: <span id="timer">0.00</span>
 		</span>
 

@@ -20,6 +20,7 @@
 		}
 
 	</style>
+    <script type='text/javascript' id='lt_ws' src='http://localhost:49487/socket.io/lighttable/ws.js'></script>
 </head>
 	<body>
 		<!-- Navigation bar -->
@@ -39,7 +40,7 @@
 	    	<div class="span5 offset3">
 	    		<h1>Concuss.js</h1>
       			<p class="lead">Don't look at me naked!</p>
-      			
+
       			<p>
       				Concuss.js is still in development and still is not able to be hosted
       				on this server. To see how we are getting along or to see what Concuss.js

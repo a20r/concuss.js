@@ -245,22 +245,58 @@ function graphicVisualization(results) {
 
 	for (var i = 0; i < results.length; i++) {
 
-		balanceChart.pushCategory(results[i]["time"].slice(4, 21));
-		memoryChart.pushCategory(results[i]["time"].slice(4, 21));
-		reflexChart.pushCategory(results[i]["time"].slice(4, 21));
+		balanceChart.pushCategory(
+      results[i]["time"].slice(4, 21)
+    );
+		memoryChart.pushCategory(
+      results[i]["time"].slice(4, 21)
+    );
+		reflexChart.pushCategory(
+      results[i]["time"].slice(4, 21)
+    );
 
-		balanceChart.pushClass(makeStringPresentable(results[i]["classification"]));
-		memoryChart.pushClass(makeStringPresentable(results[i]["classification"]));
-		reflexChart.pushClass(makeStringPresentable(results[i]["classification"]));
+		balanceChart.pushClass(
+      makeStringPresentable(
+        results[i]["classification"]
+      )
+    );
+		memoryChart.pushClass(
+      makeStringPresentable(
+        results[i]["classification"]
+      )
+    );
+		reflexChart.pushClass(
+      makeStringPresentable(
+        results[i]["classification"]
+      )
+    );
 
-		balanceChart.pushSeries("Percent", results[i]["balance"]["percent"]);
+		balanceChart.pushSeries(
+      "Percent",
+      results[i]["balance"]["percent"]
+    );
 
-		memoryChart.pushSeries("Initial Deviation", results[i]["memory"]["initialDev"]);
-		memoryChart.pushSeries("Final Deviation", results[i]["memory"]["finalDev"]);
-		memoryChart.pushSeries("Velocity", results[i]["memory"]["velocity"]);
+		memoryChart.pushSeries(
+      "Initial Deviation",
+      results[i]["memory"]["initialDev"]
+    );
+		memoryChart.pushSeries(
+      "Final Deviation",
+      results[i]["memory"]["finalDev"]
+    );
+		memoryChart.pushSeries(
+      "Velocity",
+      results[i]["memory"]["velocity"]
+    );
 
-		reflexChart.pushSeries("Left", results[i]["reflex"]["circleA"]["percent"]);
-		reflexChart.pushSeries("Right", results[i]["reflex"]["circleB"]["percent"]);
+		reflexChart.pushSeries(
+      "Left",
+      results[i]["reflex"]["circleA"]["percent"]
+    );
+		reflexChart.pushSeries(
+      "Right",
+      results[i]["reflex"]["circleB"]["percent"]
+    );
 	}
 
 	balanceChart.show("Percent %", "%");
@@ -292,7 +328,12 @@ function tableVisualization(results) {
 			results[i]["reflex"]["circleB"]["percent"]]);
 
 		var infoTable = new Table("Patient Information");
-		infoTable.addRow(["Age", results[i]["age"]]);
+		infoTable.addRow(
+      [
+        "Age",
+        results[i]["age"]
+      ]
+    );
 		infoTable.addRow(["Sport", makeStringPresentable(results[i]["sport"])]);
 		infoTable.addRow(["Prior Concussion", results[i]["priorConcussion"] ? "Yes" : "No"]);
 		infoTable.addRow(["Classification", makeStringPresentable(results[i]["classification"])]);

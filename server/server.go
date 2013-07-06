@@ -254,6 +254,7 @@ func main() {
     var port_flag = flag.String("port", "8080", "Port used for http server")
     flag.Parse()
     //fmt.Println("Running server on " + *addr_flag + ":" + *port_flag)
-    http.ListenAndServe(*addr_flag + ":" + *port_flag, nil)
+    err := http.ListenAndServe(*addr_flag + ":" + *port_flag, nil)
+    fmt.Println(err)
 }
 
