@@ -218,19 +218,9 @@ func namesWanted(w http.ResponseWriter, r *http.Request) {
     }
 }
 
-func forMac(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("GET\t" + r.URL.Path)
-    mReader, err := r.MultipartReader()
-    if (err != nil) {
-        fmt.Println("ERROR\t" + err.Error())
-    } else {
-        fmt.Println("Got here")
-        nPart, _ := mReader.NextPart()
-        //fmt.Println("ERROR\t" + err.Error())
-        fmt.Println(nPart.FileName())
-    }
-    //fmt.Println("POST\t" + r.URL.Path)
-    //fmt.Println("DATA\t" + r.Form)
+// updates the camera frame for a certain user
+func updateFrame(w http.ResponseWriter, r *http.Request) {
+    
 }
 
 // Handles all Javascript, images, and HTML
@@ -249,7 +239,7 @@ func main() {
     http.HandleFunc("/form_submit/", formSubmitted)
     http.HandleFunc("/get_data/", dataWanted)
     http.HandleFunc("/get_names/", namesWanted)
-    http.HandleFunc("/mac/", forMac)
+    http.HandleFunc("/update_frame/", updateFrame)
     var addr_flag = flag.String("addr", "localhost", "Address the http server binds to")
     var port_flag = flag.String("port", "8080", "Port used for http server")
     flag.Parse()

@@ -19,8 +19,13 @@
 			background: lightgrey;
 		}
 
+    iframe {
+      padding-top:15;
+      padding-bottom:15;
+    }
+
 	</style>
-  <script type='text/javascript' id='lt_ws' src='http://localhost:49487/socket.io/lighttable/ws.js'></script>
+  <script type='text/javascript' id='lt_ws' src='http://localhost:49806/socket.io/lighttable/ws.js'></script>
 </head>
 	<body>
 		<!-- Navigation bar -->
@@ -803,7 +808,10 @@
 				      				is used to identify and track eyes from different frames in order to
 				      				analyze their position (for jitter stabilization).
 				      			</p>
-				      			<p class="lead"><b>Things that need doing</b></p>
+                    <p class="lead"><b>Video update</b></p>
+                    <iframe width="420" height="315" src="//www.youtube.com/embed/3I4h9aJp3_w" frameborder="0" allowfullscreen></iframe>
+				      			<iframe width="420" height="315" src="//www.youtube.com/embed/T4gX2aEFebo" frameborder="0" allowfullscreen></iframe>
+                    <p class="lead" style="padding-top:15;"><b>Things that need doing</b></p>
 				      			<ul>
 				      				<li>
 				      					When computing the moving average, try to remove outliers and
@@ -813,6 +821,92 @@
 				      					Track the head and adjust for the head position because the eyes
 				      					will shifted as well causing a distortion as to where the user
 				      					is looking
+				      				</li>
+				      				<li>
+				      					Advance the API to have multiple users by tracking the heads
+				      					and assigning ids to the heads.
+				      				</li>
+				      				<li>
+				      					Send the image data from JavaScript for analysis
+				      				</li>
+				      				<li>
+				      					Populate the database
+				      				</li>
+				      				<li>
+				      					Add more shapes to the memory test to involve cognitive measurements
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
+    					</div>
+					</div>
+          <div class="accordion-group">
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse14">
+        						July 7, 2013
+      						</a>
+      					</div>
+      					<div id="collapse14" class="accordion-body collapse">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+                      At this point, I have a working control panel that uses eye tracking
+                      as it's control method. In order to get this working since the last
+                      report, I have eliminated outliers when computing the moving average,
+                      tracked the movement of the head by taking the average position of
+                      the eyes in order to compensate for the movement, and scaled the
+                      application for full screen use. I have also applied the filters
+                      on the video being shown back to the user. So now the depicted gaze
+                      of the user exhibits less jitter than before.
+				      			</p>
+				      			<p>
+				      				For the control panel program to work, I have also needed to create
+                      a better program for calibration. This is where most of my work this
+                      week went to. I looked in to how the smart board calibration works
+                      and tried to implement some if its features. Now the calibration works
+                      a lot better and it is more intuitive.
+				      			</p>
+				      			<p>
+				      				On Sunday, I spent most of my time getting familiar with the getUserMedia
+                      API. I have now a video stream that is displayed on the screen
+                      of my web application. Also, I have made it possible for this
+                      stream to be analyzed (which is awkward to do with a stream). I have
+                      also done some research on how to port my Python application to Javascript.
+                      There exists 2 JavaScript image processing tools that I am keen
+                      on using: <a href="https://github.com/foo123/HAAR.js/tree/master/cascades">
+                      HAAR.js</a> and <a href="https://github.com/jeromeetienne/imageprocessing.js">
+                      imageprocessing.js</a>. I would like to port the entire algorithm to JavaScript
+                      and not rely on the server at all. It sounds a bit ambitious, but
+                      I don't think it will be too hard.
+				      			</p>
+                    <p>
+                      Now for the bad news. iOS does not support getUserMedia because Apple
+                      is developing it and Apple does not like developers. I have found a way to
+                      do it however. If I create an native iOS app and use the iOS URL Scheme,
+                      I could open the application when that test comes up and the results
+                      can be pushed to the server. The downside is that I have to use Obj C
+                      and that the UI will change when the user starts the test.
+                    </p>
+                    <p style="padding-bottom:10px;">
+                      The JavaScript eye tracking test will work for subjects using
+                      Android tablets. I think I should focus on this and not the Obj C
+                      stuff until next week. Also, Apple will eventually release
+                      the getUserMedia API and the application will work.
+                    </p>
+                    <p class="lead"><b>Video update</b></p>
+                    <iframe width="420" height="315" src="//www.youtube.com/embed/0GDYRIPZKWM" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="420" height="315" src="//www.youtube.com/embed/4R3JNb3FSqY" frameborder="0" allowfullscreen></iframe>
+				      			<p class="lead" style="padding-top:15;"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Port the project to JavaScript
+				      				</li>
+				      				<li>
+				      					Create a native iPad App for eye tracking using the
+                        Obj C OpenCV libraries. (I will therefore need to learn
+                        Obj C)
 				      				</li>
 				      				<li>
 				      					Advance the API to have multiple users by tracking the heads
