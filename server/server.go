@@ -218,16 +218,12 @@ func namesWanted(w http.ResponseWriter, r *http.Request) {
     }
 }
 
-// updates the camera frame for a certain user
-func updateFrame(w http.ResponseWriter, r *http.Request) {
-    
-}
-
 // Handles all Javascript, images, and HTML
 // file requests
 func displayHandler() {
     staticHandler := fileResponseCreator("static")
     http.HandleFunc("/", fileResponseCreator("templates"))
+    http.HandleFunc("/camgaze.js/js/", fileResponseCreator("../.."))
     http.HandleFunc("/css/", staticHandler)
     http.HandleFunc("/js/", staticHandler)
     http.HandleFunc("/img/", staticHandler)
@@ -239,7 +235,6 @@ func main() {
     http.HandleFunc("/form_submit/", formSubmitted)
     http.HandleFunc("/get_data/", dataWanted)
     http.HandleFunc("/get_names/", namesWanted)
-    http.HandleFunc("/update_frame/", updateFrame)
     var addr_flag = flag.String("addr", "localhost", "Address the http server binds to")
     var port_flag = flag.String("port", "8080", "Port used for http server")
     flag.Parse()

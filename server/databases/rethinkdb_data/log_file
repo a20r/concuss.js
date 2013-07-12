@@ -342,3 +342,28 @@
 2013-07-08T02:04:49.276170000 25450.865578s info: All client connections closed.
 2013-07-08T02:04:49.276174000 25450.865582s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
 2013-07-08T02:04:49.277746000 25450.867155s info: Storage engine shut down.
+2013-07-08T10:21:56.143751000 0.219719s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-07-08T10:21:56.148451000 0.224419s info: Running on Darwin 12.2.1 x86_64
+2013-07-08T10:21:56.148507000 0.224474s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-07-08T10:21:56.155323000 0.231291s info: Listening for intracluster connections on port 29015
+2013-07-08T10:21:56.156764000 0.232732s info: Listening for client driver connections on port 28015
+2013-07-08T10:21:56.156779000 0.232746s info: Listening for administrative HTTP connections on port 8080
+2013-07-08T10:21:56.156780000 0.232747s info: Listening on addresses: 127.0.0.1
+2013-07-08T10:21:56.156781000 0.232748s info: To fully expose RethinkDB on the network, bind to all addresses
+2013-07-08T10:21:56.156782000 0.232749s info: by running rethinkdb with the `--bind all' command line option.
+2013-07-08T10:21:56.156783000 0.232750s info: Server ready
+2013-07-08T17:20:05.339431000 1558.830957s info: Server got SIGINT; shutting down...
+2013-07-08T17:20:05.339663000 1558.831189s info: Shutting down client connections...
+2013-07-08T17:20:05.339885000 1558.831411s info: All client connections closed.
+2013-07-08T17:20:05.339891000 1558.831417s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-07-08T17:20:05.342493000 1558.834019s info: Storage engine shut down.
+2013-07-11T16:37:48.069257000 0.128915s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-07-11T16:37:48.084305000 0.143962s info: Running on Darwin 12.2.1 x86_64
+2013-07-11T16:37:48.084371000 0.144029s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-07-11T16:37:48.137504000 0.197161s info: Listening for intracluster connections on port 29015
+2013-07-11T16:37:48.138928000 0.198585s info: Listening for client driver connections on port 28015
+2013-07-11T16:37:48.138940000 0.198597s info: Listening for administrative HTTP connections on port 8080
+2013-07-11T16:37:48.138941000 0.198598s info: Listening on addresses: 127.0.0.1
+2013-07-11T16:37:48.138942000 0.198599s info: To fully expose RethinkDB on the network, bind to all addresses
+2013-07-11T16:37:48.138943000 0.198600s info: by running rethinkdb with the `--bind all' command line option.
+2013-07-11T16:37:48.138943000 0.198600s info: Server ready
