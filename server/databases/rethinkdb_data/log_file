@@ -367,3 +367,8 @@
 2013-07-11T16:37:48.138942000 0.198599s info: To fully expose RethinkDB on the network, bind to all addresses
 2013-07-11T16:37:48.138943000 0.198600s info: by running rethinkdb with the `--bind all' command line option.
 2013-07-11T16:37:48.138943000 0.198600s info: Server ready
+2013-07-12T00:03:24.004359000 26736.690180s info: Server got SIGINT; shutting down...
+2013-07-12T00:03:24.004485000 26736.690306s info: Shutting down client connections...
+2013-07-12T00:03:24.004717000 26736.690538s info: All client connections closed.
+2013-07-12T00:03:24.004721000 26736.690542s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-07-12T00:03:24.006683000 26736.692504s info: Storage engine shut down.
