@@ -25,17 +25,16 @@
     }
 
 	</style>
-  <script type='text/javascript' id='lt_ws' src='http://localhost:49806/socket.io/lighttable/ws.js'></script>
-</head>
+  </head>
 	<body>
 		<!-- Navigation bar -->
-		<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar navbar-fixed-top">
 	      <div class="navbar-inner">
 	        <div class="container">
-        	    <a class="brand" href="/">Home</a>
-       		    <a class="brand" href="/about.html">About</a>
-       		    <a class="brand" href="/blog.html">Progress</a>
-       		    <a class="brand" href="/view_data.html">Analyze</a>
+        	    <a class="brand" href="/concuss/">Home</a>
+       		    <a class="brand" href="/concuss/about.html">About</a>
+       		    <a class="brand" href="/concuss/blog.html">Progress</a>
+       		    <!--<a class="brand" href="/view_data.html">Analyze</a>-->
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
 	        </div>
 	      </div>
@@ -842,7 +841,7 @@
       						</div>
     					</div>
 					</div>
-          <div class="accordion-group">
+          			<div class="accordion-group">
     					<div class="accordion-heading">
       						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse14">
         						July 7, 2013
@@ -928,6 +927,49 @@
       						</div>
     					</div>
 					</div>
+					<div class="accordion-group">
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse15">
+        						July 15, 2013
+      						</a>
+      					</div>
+      					<div id="collapse15" class="accordion-body collapse">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				Two things have been accomplished this week. I have improved the
+				      				training and calibration phase of the eye tracking software in
+				      				Python and I have starting porting the Python project, camgaze, 
+				      				to JavaScript. This is difficult because a lot of the computer
+				      				vision algorithms need to be implemented. I have ported the
+				      				moving average classes, added functionality for getting 
+				      				camera data, and have started working on blob detection. There
+				      				is a long road ahead but I think it is possible to finish.
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				I am having a lot of trouble doing blob detection because I have
+				      				to implement the connected components algorithm and the UnionFind
+				      				structure for showing equivalence between subset keys. I hope to 
+				      				have the port finished by the end of next week.
+				      			</p>
+				      			<p class="lead"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Finish porting camgaze to JavaScript
+				      				</li>
+				      				<li>
+				      					Populate the database
+				      				</li>
+				      				<li>
+				      					Add more shapes to the memory test to involve cognitive measurements
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
+    					</div>
+    				</div>
     			</div>
 	    	</div>
 	    </div>

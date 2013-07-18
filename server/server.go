@@ -223,7 +223,7 @@ func namesWanted(w http.ResponseWriter, r *http.Request) {
 func displayHandler() {
     staticHandler := fileResponseCreator("static")
     http.HandleFunc("/", fileResponseCreator("templates"))
-    http.HandleFunc("/camgaze.js/js/", fileResponseCreator("../.."))
+    http.HandleFunc("/camgaze.js/", fileResponseCreator("../.."))
     http.HandleFunc("/css/", staticHandler)
     http.HandleFunc("/js/", staticHandler)
     http.HandleFunc("/img/", staticHandler)
