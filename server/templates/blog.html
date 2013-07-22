@@ -28,13 +28,13 @@
   </head>
 	<body>
 		<!-- Navigation bar -->
-		<div class="navbar navbar-fixed-top">
+		<div class="navbar navbar-fixed-top navbar-inverse">
 	      <div class="navbar-inner">
 	        <div class="container">
-        	    <a class="brand" href="/concuss/">Home</a>
-       		    <a class="brand" href="/concuss/about.html">About</a>
-       		    <a class="brand" href="/concuss/blog.html">Progress</a>
-       		    <!--<a class="brand" href="/view_data.html">Analyze</a>-->
+        	    <a class="brand" href="/">Home</a>
+       		    <a class="brand" href="/about.html">About</a>
+       		    <a class="brand" href="/blog.html">Progress</a>
+       		    <a class="brand" href="/view_data.html">Analyze</a>
        		    <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
 	        </div>
 	      </div>
@@ -962,6 +962,53 @@
 				      				</li>
 				      				<li>
 				      					Add more shapes to the memory test to involve cognitive measurements
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
+    					</div>
+    				</div>
+    				<div class="accordion-group">
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse16">
+        						July 22, 2013
+      						</a>
+      					</div>
+      					<div id="collapse16" class="accordion-body collapse">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				I am very happy to say that I have implemented eye tracking
+				      				in the worst FEASIBLE language to do so, JavaScript. Not
+				      				to sound like I am bragging, I am just surprised. I have 
+				      				created a suite of classes that can be used for computer vision
+				      				applications and canvas drawing. I have implemented a blob 
+				     				detection algorithm, an eye tracking algorithm, canvas drawing
+				     				applications, a union find structure, a moving average list
+				     				structure, and a wrapper that allows for easy use of these 
+				     				things.
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				I still have to implement the calibration and filtering 
+				      				classes. Once these are done, a JavaScript test for eye
+				      				movement can easily be implemented. I have structured
+				      				the API as of now to allow the calibration and filtering
+				      				to be a separate class that you pass data from the eye
+				      				tracker. This will mean that developers will be able 
+				      				to play around with the calibration and filtering as they
+				      				would like. 
+				      			</p>
+				      			<p class="lead"><b>Video update</b></p>
+				      			<iframe width="420" height="315" src="//www.youtube.com/embed/w1vurmCOI_I" frameborder="0" allowfullscreen></iframe>
+				      			<p class="lead" style="padding-top:15px;"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Port the calibration and filtering to JavaScript
+				      				</li>
+				      				<li>
+				      					POPULATE THE DATABASE!!!
 				      				</li>
 				      				<li>
 				      					Also, everything I have not finished that is listed in previous posts
