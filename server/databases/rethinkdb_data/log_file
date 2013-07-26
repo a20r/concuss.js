@@ -414,3 +414,11 @@
 2013-07-14T18:53:06.065338000 0.015365s info: Listening for administrative HTTP connections on port 8080
 2013-07-14T18:53:06.065870000 0.015896s info: Listening on addresses: 127.0.0.1, 10.18.32.97
 2013-07-14T18:53:06.065871000 0.015897s info: Server ready
+2013-07-25T22:11:04.250772000 0.128984s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-07-25T22:11:04.269636000 0.147848s info: Running on Darwin 12.2.1 x86_64
+2013-07-25T22:11:04.269711000 0.147922s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-07-25T22:11:04.321580000 0.199791s info: Listening for intracluster connections on port 29015
+2013-07-25T22:11:04.322998000 0.201209s info: Listening for client driver connections on port 28015
+2013-07-25T22:11:04.323011000 0.201222s info: Listening for administrative HTTP connections on port 8080
+2013-07-25T22:11:04.323571000 0.201782s info: Listening on addresses: 127.0.0.1, 10.18.37.117
+2013-07-25T22:11:04.323572000 0.201783s info: Server ready
