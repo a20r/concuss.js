@@ -1,0 +1,58 @@
+<html>
+<head>
+	<title>Smiley Face Demo</title>
+	<!-- Bootsrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le Bootstrap styles -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+	<!-- Le other styles -->
+	<style>
+		body {
+			padding-top: 60px;
+			padding-left: 30px;
+			padding-right: 30px;
+			background: lightgrey;
+		}
+
+    video {
+      display:block;
+    }
+
+	</style>
+</head>
+	<body>
+		<!-- Navigation bar -->
+		<div class="navbar navbar-fixed-top navbar-inverse">
+	      <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">Home</a>
+                <a class="brand" href="/about.html">About</a>
+                <a class="brand" href="/blog.html">Progress</a>
+                <a class="brand" href="/view_data.html">Analyze</a>
+                <a class="brand" href="https://github.com/wallarelvo/concuss">GitHub</a>
+            </div>
+	      </div>
+	  </div>
+
+	<div style="white-space: nowrap">
+	    <canvas id="mainCanvas" style="display: inline-block;"></canvas>
+	    <video autoplay style="display: inline-block;"></video>
+	</div>
+
+		<!-- JQuery and Bootstrap Javascript files -->
+		<script text="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script text="text/javascript" src="/js/jquery.cookie.js"></script>
+		<script src="/js/bootstrap.js"></script>
+
+		<!-- Concuss.js and Canvas utilities -->
+		<script text="text/javascript" src="/camgaze.js/js/jsfeat.js"></script>
+		<script text="text/javascript" src="/camgaze.js/js/compatibility.js"></script>
+		<script text="text/javascript" src="/camgaze.js/cascades/eye.js"></script>
+		<script text="text/javascript" src="/camgaze.js/cascades/frontalface.js"></script>
+		<script text="text/javascript" src="/camgaze.js/js/camgaze.js"></script>
+		<script text="text/javascript" src="/camgaze.js/js/smileyFace.js"></script>
+	</body>
+</html>

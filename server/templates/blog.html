@@ -1017,6 +1017,83 @@
       						</div>
     					</div>
     				</div>
+    				<div class="accordion-group">
+    					<div class="accordion-heading">
+      						<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#accordion2" href="#collapse17">
+        						July 29, 2013
+      						</a>
+      					</div>
+      					<div id="collapse17" class="accordion-body collapse">
+      						<div class="accordion-inner">
+      							<p class="lead"><b>Summary</b></p>
+				      			<p>
+				      				This week I have been focused on filtering the jitter
+				      				out of the centroid and gaze vector values. This has 
+				      				led me to find flaws in my API that I have had to fix.
+				      				Mainly, I was not giving the option to the user if
+				      				they would like to not show the video. I had to write
+				      				an API for drawing to a canvas that was more higher level
+				      				than the one provided. I also discovered a flaw in the
+				      				way my algorithm for gaze prediction was being 
+				      				executed. The provided API for Haar detection is supposed
+				      				to scale the boundary rectangles, but for the eye cascade,
+				      				it does not. This means that when I would move my eye 
+				      				from side to side, the bounding rectangle would also move
+				      				thus bringing the gaze vector to null. I was able to 
+				      				get around this by detecting the face (which has a much
+				      				more highly trained cascade), and find the eye boundaries
+				      				using proportions. This has seemed to fix the problem for 
+				      				now.
+				      			</p>
+				      			<p>
+				      				Another issue that I have been having is that the drawImage
+				      				function does not work for video on Chrome for Android. I
+				      				have already submitted this problem to the Google Groups
+				      				and hopefully will have an answer some time on Monday. This
+				      				should not have been a problem because programs running on 
+				      				Chrome on the desktop should work the same way on Chrome for 
+				      				Android with the correct flags enabled. Not being able 
+				      				to draw the video causes problems for image aquisition.
+				      			</p>
+				      			<p>
+				      				Not to worry, not everything this week was a problem. I have 
+				      				created a great way to draw on the canvas for each frame. 
+				      				I have also got filtering working using the moving average
+				      				and outlier detection. All that needs to be done now is 
+				      				calibration and a sample program showing interaction. 
+				      				I know that this can be accomplished this week. 
+				      			</p>
+				      			<p style="padding-bottom:10px;">
+				      				For the future, I would like to integrate the calibration 
+				      				with neural networks. I would have a ball moving around 
+				      				the screen and the user would be tasked with following it.
+				      				The input to the network would be the average resultant 
+				      				vector for the gaze direction, and the output would be the
+				      				position of the ball on the screen. Hopefully with enough 
+				      				training data, the neural network will be able to give 
+				      				me good results. 
+				      			</p>
+				      			<p class="lead"><b>Video update</b></p>
+				      			<iframe width="420" height="315" src="//www.youtube.com/embed/zXWFsxc-dzE" frameborder="0" allowfullscreen></iframe>
+				      			<p class="lead" style="padding-top:15px;"><b>Things that need doing</b></p>
+				      			<ul>
+				      				<li>
+				      					Get an application working with calibration. Perhaps
+				      					using neural networks
+				      				</li>
+				      				<li>
+				      					Find out what is the problem with drawImage on the tablet
+				      				</li>
+				      				<li>
+				      					POPULATE THE DATABASE!!!
+				      				</li>
+				      				<li>
+				      					Also, everything I have not finished that is listed in previous posts
+				      				</li>
+				      			</ul>
+      						</div>
+    					</div>
+    				</div>
     			</div>
 	    	</div>
 	    </div>
