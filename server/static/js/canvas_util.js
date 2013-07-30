@@ -46,10 +46,28 @@ CanvasImage.prototype.distanceTo = function (n_x, n_y) {
 
 // checks if to CanvasImages intersect
 CanvasImage.prototype.intersects = function (canvasImage) {
-	return canvasImage.x - canvasImage.image.width / 2 < this.x + this.image.width / 2 && 
-		canvasImage.x + canvasImage.image.width / 2 > this.x - this.image.width / 2 && 
-		canvasImage.y - canvasImage.image.height / 2 < this.y + this.image.height /2 && 
-		canvasImage.y + canvasImage.image.height / 2 > this.y - this.image.height / 2;
+	return (
+		(
+			canvasImage.x - 
+			canvasImage.image.width / 2 < 
+			this.x + this.image.width / 2
+		) && 
+		(
+			canvasImage.x + 
+			canvasImage.image.width / 2 > 
+			this.x - this.image.width / 2
+		) && 
+		(
+			canvasImage.y - 
+			canvasImage.image.height / 2 < 
+			this.y + this.image.height / 2
+		) && 
+		(
+			canvasImage.y + 
+			canvasImage.image.height / 2 > 
+			this.y - this.image.height / 2
+		)
+	);
 }
 
 // setter for the transformation vector
@@ -60,7 +78,11 @@ CanvasImage.prototype.setTransformVector = function (n_tx, n_ty) {
 
 // draws the image on the canvas
 CanvasImage.prototype.redraw = function() {
-	this.context.drawImage(this.image, this.x - this.image.width / 2, this.y - this.image.height / 2);
+	this.context.drawImage(
+		this.image, 
+		this.x - this.image.width / 2, 
+		this.y - this.image.height / 2
+	);
 }
 
 // Draws the image on the specified canvas
@@ -92,13 +114,25 @@ CanvasImage.prototype.incrementPosition = function () {
 // clears the canvas
 CanvasImage.prototype.clearCanvas = function () {
 	// clears the canvas and draws the new image
-	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	this.context.clearRect(
+		0, 0, 
+		this.canvas.width, 
+		this.canvas.height
+	);
 }
 
 // checks if a point is inside the image
 CanvasImage.prototype.withinBounds = function (n_x, n_y) {
-	if (n_x > this.x - this.image.width / 2 && n_x < this.x + this.image.width / 2 && 
-		n_y > this.y - this.image.height / 2 && n_y < this.y + this.image.height / 2) {
+	if (
+			(
+				n_x > this.x - this.image.width / 2 && 
+				n_x < this.x + this.image.width / 2
+			) && 
+			(
+				n_y > this.y - this.image.height / 2 && 
+				n_y < this.y + this.image.height / 2
+			)
+	) {
 		return true;
 	} else {
 		return false;
@@ -108,10 +142,16 @@ CanvasImage.prototype.withinBounds = function (n_x, n_y) {
 // updates the grabbed variable if the touch is within bounds
 // and sets the transformation vector
 CanvasImage.prototype.updateGrabbed = function (n_touch) {
-	this.grabbed = this.withinBounds(n_touch.pageX, n_touch.pageY);
+	this.grabbed = this.withinBounds(
+		n_touch.pageX, 
+		n_touch.pageY
+	);
 	if (this.grabbed) {
 		this.setCurrentTouchId(n_touch.identifier);
-		this.setTransformVector(this.x - n_touch.pageX, this.y - n_touch.pageY);
+		this.setTransformVector(
+			this.x - n_touch.pageX, 
+			this.y - n_touch.pageY
+		);
 	}
 }
 
@@ -135,7 +175,10 @@ function CanvasRectangle(xPos, yPos, width, height) {
 // draws the rectangle on the canvas
 CanvasRectangle.prototype.redraw = function (context, innerColor, outerColor, lineWidth) {
 	context.beginPath();
-	context.rect(this.x, this.y, this.width, this.height);
+	context.rect(
+		this.x, this.y, 
+		this.width, this.height
+	);
 	context.fillStyle = innerColor;
 	context.fill();
     context.lineWidth = lineWidth;
@@ -145,10 +188,12 @@ CanvasRectangle.prototype.redraw = function (context, innerColor, outerColor, li
 
 // checks if a canvas image intersects with the rectangle
 CanvasRectangle.prototype.intersects = function (canvasImage, px, py) {
-	return px - canvasImage.image.width / 2 < this.x + this.width && 
+	return (
+		px - canvasImage.image.width / 2 < this.x + this.width && 
 		px + canvasImage.image.width / 2 > this.x && 
 		py - canvasImage.image.height / 2 < this.y + this.height && 
-		py + canvasImage.image.height / 2 > this.y;
+		py + canvasImage.image.height / 2 > this.y
+	);
 }
 
 // object used to store data about a maze
@@ -164,21 +209,32 @@ function CanvasMap(canvasId, obstacleArray) {
 // draws the map
 CanvasMap.prototype.redraw = function () {
 	for (var i = 0; i < this.obstacleArray.length; i++) {
-		this.obstacleArray[i].redraw(this.context, "lightblue", "black", 4);
+		this.obstacleArray[i].redraw(
+			this.context, 
+			"lightblue", 
+			"black", 
+			4
+		);
 	}
 }
 
 // clears the canvas
 CanvasMap.prototype.clearCanvas = function () {
 	// clears the canvas and draws the new image
-	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	this.context.clearRect(
+		0, 0, 
+		this.canvas.width, 
+		this.canvas.height
+	);
 }
 
 // checks if any intersects exists between a canvas image
 // and the obstacle array
 CanvasMap.prototype.intersects = function (canvasImage, px, py) {
-	return this.obstacleArray.some(function (val, index, array) {
-		return val.intersects(canvasImage, px, py);
-	});
+	return this.obstacleArray.some(
+		function (val, index, array) {
+			return val.intersects(canvasImage, px, py);
+		}
+	);
 }
 

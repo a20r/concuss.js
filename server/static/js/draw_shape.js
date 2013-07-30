@@ -1,9 +1,15 @@
 
 // circle used for to indicate the starting and ending positions
-var circleMedium = [new CanvasImage("mainCanvas", "circlemedium"), new CanvasImage("mainCanvas", "circlemedium")];
+var circleMedium = [
+      new CanvasImage("mainCanvas", "circlemedium"), 
+      new CanvasImage("mainCanvas", "circlemedium")
+];
 
 // circle used to draw with
-var circleSmall = new CanvasImage("mainCanvas", "circlesmall");
+var circleSmall = new CanvasImage(
+      "mainCanvas", 
+      "circlesmall"
+);
 
 // canvas used for the drawing
 var canvas = document.getElementById("mainCanvas");
@@ -48,9 +54,16 @@ function initGame() {
       canvas.height = document.height;
       $("#startMessage").on("hidden", function () {
             drawRandomCircles(100);
-            circleInterval = setInterval(getReadyForDrawing, circleShowingTime);
+            circleInterval = setInterval(
+                  getReadyForDrawing, 
+                  circleShowingTime
+            );
       });
-      circleSmall.setTransformVector(-circleSmall.image.width / 2 - 20, -circleSmall.image.height - 20);
+
+      circleSmall.setTransformVector(
+            -circleSmall.image.width / 2 - 20, 
+            -circleSmall.image.height - 20
+      );
 }
 
 // occurs after the circles have been
@@ -65,44 +78,95 @@ function getReadyForDrawing() {
 // that the subject needs to draw a line 
 // through
 function drawRandomCircles(space) {
-      circleMedium[0].updatePosition(getRandomInt(space, canvas.width / 2 - space), 
-            getRandomInt(space, canvas.height - space)).redraw();
-      circleMedium[1].updatePosition(getRandomInt(canvas.width / 2 + space, canvas.width - space), 
-            getRandomInt(space, canvas.height - space)).redraw();
+      circleMedium[0].updatePosition(
+            getRandomInt(
+                  space, 
+                  canvas.width / 2 - space
+            ), 
+            getRandomInt(space, 
+                  canvas.height - space
+            )
+      ).redraw();
+      circleMedium[1].updatePosition(
+            getRandomInt(
+                  canvas.width / 2 + space, 
+                  canvas.width - space
+            ), 
+            getRandomInt(
+                  space, 
+                  canvas.height - space
+            )
+      ).redraw();
 }
 
 function addTouchListeners() {
       // if it is touchable, touch functions get fired
       if('createTouch' in document) {
-            canvas.addEventListener('touchstart', onTouchStart, false);
-            canvas.addEventListener('touchmove', onTouchMove, false);
-            canvas.addEventListener('touchend', onTouchEnd, false);
+            canvas.addEventListener(
+                  'touchstart', 
+                  onTouchStart, 
+                  false
+            );
+            canvas.addEventListener(
+                  'touchmove', 
+                  onTouchMove, 
+                  false
+            );
+            canvas.addEventListener(
+                  'touchend', 
+                  onTouchEnd, 
+                  false
+            );
       }
 }
 
 function removeTouchListeners() {
       if('createTouch' in document) {
-            canvas.removeEventListener('touchstart', onTouchStart, false);
-            canvas.removeEventListener('touchmove', onTouchMove, false);
-            canvas.removeEventListener('touchend', onTouchEnd, false);
+            canvas.removeEventListener(
+                  'touchstart', 
+                  onTouchStart, 
+                  false
+            );
+            canvas.removeEventListener(
+                  'touchmove', 
+                  onTouchMove, 
+                  false
+            );
+            canvas.removeEventListener(
+                  'touchend', 
+                  onTouchEnd, 
+                  false
+            );
       }
 }
 
 // get the unix time here and from on touch end to get the time taken
 function onTouchStart(event) {
-      circleSmall.updatePosition(event.touches[0].pageX, event.touches[0].pageY).redraw();
+      circleSmall.updatePosition(
+            event.touches[0].pageX, 
+            event.touches[0].pageY
+      ).redraw();
       stats.setStartTime();
-      stats.setStart(circleSmall.x, circleSmall.y);
+      stats.setStart(
+            circleSmall.x, 
+            circleSmall.y
+      );
 }
 
 function onTouchMove(event) {
       event.preventDefault();
       context.beginPath();
       context.moveTo(circleSmall.x, circleSmall.y);
-      context.lineTo(event.touches[0].pageX + circleSmall.tx, event.touches[0].pageY + circleSmall.ty);
+      context.lineTo(
+            event.touches[0].pageX + circleSmall.tx, 
+            event.touches[0].pageY + circleSmall.ty
+      );
       context.lineWidth = 5;
       context.stroke();
-      circleSmall.updatePosition(event.touches[0].pageX, event.touches[0].pageY);
+      circleSmall.updatePosition(
+            event.touches[0].pageX, 
+            event.touches[0].pageY
+      );
 }
 
 function onTouchEnd(event) {
@@ -110,7 +174,12 @@ function onTouchEnd(event) {
       circleSmall.redraw();
       stats.setEndTime();
       stats.setEnd(circleSmall.x, circleSmall.y);
-      stats.compileCurrentStats(circleMedium[0].x, circleMedium[0].y, circleMedium[1].x, circleMedium[1].y);
+      stats.compileCurrentStats(
+            circleMedium[0].x, 
+            circleMedium[0].y, 
+            circleMedium[1].x, 
+            circleMedium[1].y
+      );
 
       circleMedium[0].redraw();
       circleMedium[1].redraw();
@@ -133,8 +202,13 @@ function showTempResults() {
       } else {
             circleSmall.clearCanvas();
             drawRandomCircles(100);
-            circleShowingTime -= (circleShowingTimeConstant / (maxCounter + 1));
-            circleInterval = setInterval(getReadyForDrawing, circleShowingTime);
+            circleShowingTime -= (
+                  circleShowingTimeConstant / (maxCounter + 1)
+            );
+            circleInterval = setInterval(
+                  getReadyForDrawing, 
+                  circleShowingTime
+            );
       }
 }
 
@@ -162,12 +236,20 @@ function sendData() {
       				results : {
       					reflex : {
       						circleA : {
-      							time : parseFloat($.cookie("resultTime0")),
-      							percent : parseFloat($.cookie("resultPercent0"))
+      							time : parseFloat(
+                                                      $.cookie("resultTime0")
+                                                ),
+      							percent : parseFloat(
+                                                      $.cookie("resultPercent0")
+                                                )
       						}, 
       						circleB : {
-      							time : parseFloat($.cookie("resultTime1")),
-      							percent : parseFloat($.cookie("resultPercent1"))
+      							time : parseFloat(
+                                                      $.cookie("resultTime1")
+                                                ),
+      							percent : parseFloat(
+                                                      $.cookie("resultPercent1")
+                                                )
       						}
       					}, 
                                     memory : {
@@ -176,8 +258,12 @@ function sendData() {
                                           velocity : parseFloat(endStats.vel) 
                                     },
                                     balance : {
-                                          time : parseFloat($.cookie("balanceTime")),
-                                          percent : parseFloat($.cookie("balancePercent"))
+                                          time : parseFloat(
+                                                $.cookie("balanceTime")
+                                          ),
+                                          percent : parseFloat(
+                                                $.cookie("balancePercent")
+                                          )
                                     }
       				}
       			}
@@ -199,6 +285,8 @@ function removeCookies() {
 }
 
 function getRandomInt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(
+      Math.random() * (max - min + 1)
+    ) + min;
 }
 

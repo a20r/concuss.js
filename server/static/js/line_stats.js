@@ -78,26 +78,55 @@ LineStats.prototype.setEnd = function (x, y) {
 // compiles the current statistics and puts the data into
 // the respective arrays
 LineStats.prototype.compileCurrentStats = function (lx1, ly1, lx2, ly2) {
-      this.globalVelValues.push(1000 * 100 * Math.sqrt(Math.pow((lx1 - lx2) / screen.width, 2) + 
-            Math.pow((ly1 - ly2) / screen.height, 2)) / (this.eTime - this.sTime));
-      this.globalSDistances.push(1000 * Math.sqrt(Math.pow((lx1 - this.sx) / screen.width, 2) + 
-            Math.pow((ly1 - this.sy) / screen.height, 2)));
-      this.globalEDistances.push(1000 * Math.sqrt(Math.pow((lx2 - this.ex) / screen.width, 2) + 
-            Math.pow((ly2 - this.ey) / screen.height, 2)));
+      this.globalVelValues.push(
+            1000 * 100 * Math.sqrt(
+                  Math.pow(
+                        (lx1 - lx2) / screen.width, 2
+                  ) + 
+                  Math.pow(
+                        (ly1 - ly2) / screen.height, 2
+                  )
+            ) / (this.eTime - this.sTime)
+      );
+      this.globalSDistances.push(
+            1000 * Math.sqrt(
+                  Math.pow(
+                        (lx1 - this.sx) / screen.width, 2
+                  ) + 
+                  Math.pow(
+                        (ly1 - this.sy) / screen.height, 2
+                  )
+            )
+      );
+      this.globalEDistances.push(
+            1000 * Math.sqrt(
+                  Math.pow(
+                        (lx2 - this.ex) / screen.width, 2
+                  ) + 
+                  Math.pow(
+                        (ly2 - this.ey) / screen.height, 2
+                  )
+            )
+      );
 }
 
 // returns a FinalStats object containing the average scaled
 // statistics from each of the arrays
 LineStats.prototype.getGlobalStats = function () {
       //alert(this.globalSDistances.avg().toFixed(2));
-      return new FinalStats(this.globalSDistances.avg().toFixed(2), this.globalEDistances.avg().toFixed(2),
-            this.globalVelValues.avg().toFixed(2));
+      return new FinalStats(
+            this.globalSDistances.avg().toFixed(2), 
+            this.globalEDistances.avg().toFixed(2),
+            this.globalVelValues.avg().toFixed(2)
+      );
 }
 
 // determines the average of a number array
 Array.prototype.avg = function () {
-      var sum = this.reduce(function (prev, cur, index, array) {
-            return prev + cur;
-      });
+      var sum = this.reduce(
+            function (prev, cur, index, array) {
+                  return prev + cur;
+            }
+      );
       return sum / this.length;
 }

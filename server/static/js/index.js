@@ -31,6 +31,10 @@ function updateCookies() {
 	var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
 				"classification", "priorConcussion"];
 	for (var i in inputIds) {
-		$.cookie(inputIds[i], $("#" + inputIds[i]).val(), {expires: 7});
+		$.cookie(
+			inputIds[i], 
+			$("#" + inputIds[i]).val().split(" ")[0].split("'")[0], 
+			{expires: 7}
+		);
 	}
 }

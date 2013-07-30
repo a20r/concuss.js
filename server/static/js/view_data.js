@@ -29,13 +29,18 @@ function tableEnabled() {
 // email and password
 function getNames() {
 	$("#allData").attr("class", "active");
-	$.getJSON("/get_names/" + email + "/" + password, nameWork);
+	$.getJSON(
+		"/get_names/" + email + "/" + password, 
+		nameWork
+	);
 }
 
 // sets the email and the password field and gets the
 // associated names
 function getNameData () {
-	if ($("#email").val() == "" || $("#password").val() == "") {
+	if ($("#email").val() == "" || 
+		$("#password").val() == ""
+	) {
 		$("#authAlert").css("display", "block");
 		return;
 	}
@@ -51,8 +56,10 @@ function nameWork(nameData) {
 	}
 	var names = new Array();
 	for (var i = 0; i < nameData.length; i++) {
-		names.push(makeStringPresentable(nameData[i]["fName"]) + " " +
-			makeStringPresentable(nameData[i]["lName"]));
+		names.push(
+			makeStringPresentable(nameData[i]["fName"]) + " " +
+			makeStringPresentable(nameData[i]["lName"])
+		);
 	}
 
 	names.sort();
@@ -60,8 +67,13 @@ function nameWork(nameData) {
 
 	var nameTable = new Table("<h2>Subjects</h2>");
 	for (var i = 0; i < names.length; i++) {
-		nameTable.addRow(["<a class=\"lead\" href=\"#\" onclick='searchData(\"" +
-			names[i].toLowerCase() + "\")'>" + names[i] + "</a>"]);
+		nameTable.addRow(
+			[
+				"<a class=\"lead\" href=\"#\" onclick='searchData(\"" + 
+				names[i].toLowerCase() + 
+				"\")'>" + names[i] + "</a>"
+			]
+		);
 	}
 
 	$("#graphical").attr("class", "disabled");
@@ -83,22 +95,32 @@ function searchData(searchTerm) {
 	$("#searchTerm").val("");
 	var terms = searchTerm.split(" ");
 	if (terms.length == 1) {
-		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() +
-			"/email/" + searchTerm, visualizeData);
+		$.getJSON(
+			"/get_data/" + $("#email").val() + "/" + $("#password").val() +
+			"/email/" + searchTerm, 
+			visualizeData
+		);
 	} else {
-		$.getJSON("/get_data/" + $("#email").val() + "/" + $("#password").val() +
-			"/name/" + terms[0] + "/" + terms[1], visualizeData);
+		$.getJSON(
+			"/get_data/" + $("#email").val() + "/" + $("#password").val() +
+			"/name/" + terms[0] + "/" + terms[1], 
+			visualizeData
+		);
 	}
 }
 
 function addTab(heading) {
 	var collapseId = Date.parse(heading);
-	var tab = '<div class="accordion-group">' +
-					'<div class="accordion-heading">' +
-						'<a class="accordion-toggle lead" data-toggle="collapse" data-parent="#dataHolder" href="#' +
-						collapseId + '">' + heading + '</a></div>' +
-			    '<div id="' + collapseId + '" class="accordion-body collapse in">' +
-			    	'<div class="accordion-inner" id=' + collapseId + '_inner></div></div></div>';
+	var tab = (
+		'<div class="accordion-group">' +
+		'<div class="accordion-heading">' +
+		'<a class="accordion-toggle lead" data-toggle="collapse"' +
+		'data-parent="#dataHolder" href="#' +
+		collapseId + '">' + heading + '</a></div>' +
+		'<div id="' + collapseId + '" class="accordion-body collapse in">' +
+		'<div class="accordion-inner" id=' + collapseId + 
+		'_inner></div></div></div>'
+	);
 	return tab;
 }
 
@@ -126,11 +148,20 @@ function Table(heading) {
 }
 
 Table.prototype.addRow = function (rowArray) {
-	 this.inner += "<tr><td>" + rowArray.join("</td><td>") + "</td></tr>";
+	 this.inner += (
+	 	"<tr><td>" + 
+	 	rowArray.join("</td><td>") + 
+	 	"</td></tr>"
+	 );
 }
 
 Table.prototype.getHtml = function () {
-	return this.hString + this.sString + this.inner + this.eString;
+	return (
+		this.hString + 
+		this.sString + 
+		this.inner + 
+		this.eString
+	);
 }
 
 // Makes the string presentable (obviously)
@@ -138,7 +169,10 @@ Table.prototype.getHtml = function () {
 // puts space where there is an underscore
 function makeStringPresentable(string) {
   var spaceString = string.replace("_", " ");
-  return spaceString.charAt(0).toUpperCase() + spaceString.slice(1);
+  return (
+  	spaceString.charAt(0).toUpperCase() + 
+  	spaceString.slice(1)
+  );
 }
 
 function Chart(title, containerId) {
@@ -148,8 +182,11 @@ function Chart(title, containerId) {
 	this.classDict = {}
 	this.curentClass = "";
 	this.categories = new Array();
-	$("#" + containerId).append('<div class="chart" id="' + title +
-		'" style="min-width: 500px; height: 300px; margin: 0 auto"></div>');
+	$("#" + containerId).append(
+		'<div class="chart" id="' + title +
+		'" style="min-width: 500px;' +
+		' height: 300px; margin: 0 auto"></div>'
+	);
 }
 
 Chart.prototype.pushClass = function (cl) {
@@ -172,7 +209,12 @@ Chart.prototype.pushSeries = function (key, value) {
 Chart.prototype.compileSeries = function () {
 	var seriesArray = new Array();
 	for (var i in this.series) {
-		seriesArray.push({name : i, data : this.series[i]});
+		seriesArray.push(
+			{
+				name : i, 
+				data : this.series[i]
+			}
+		);
 	}
 	return seriesArray;
 }
@@ -211,11 +253,18 @@ Chart.prototype.show = function (yTitle, yUnit) {
                 var s = '<b>'+ this.x +'</b>';
 
                 $.each(this.points, function(i, point) {
-                    s += '<br/><b style="color :' + point.series.color + ';">' +
-                    point.series.name + ':</b> ' + point.y + ' ' + yUnit;
+                    s += (
+                    	'<br/><b style="color :' + 
+                    	point.series.color + ';">' +
+                    	point.series.name + ':</b> ' + 
+                    	point.y + ' ' + yUnit
+                    );
                 });
 
-                s += '<br/><b>Classification:</b> ' + classDict[this.points[0].y];
+                s += (
+                	'<br/><b>Classification:</b> ' + 
+                	classDict[this.points[0].y]
+                );
                 return s;
             },
             shared: true
@@ -246,57 +295,58 @@ function graphicVisualization(results) {
 	for (var i = 0; i < results.length; i++) {
 
 		balanceChart.pushCategory(
-      results[i]["time"].slice(4, 21)
-    );
+			results[i]["time"].slice(4, 21)
+		);
+
 		memoryChart.pushCategory(
-      results[i]["time"].slice(4, 21)
-    );
+      		results[i]["time"].slice(4, 21)
+    	);
 		reflexChart.pushCategory(
-      results[i]["time"].slice(4, 21)
-    );
+      		results[i]["time"].slice(4, 21)
+    	);
 
 		balanceChart.pushClass(
-      makeStringPresentable(
-        results[i]["classification"]
-      )
-    );
+      		makeStringPresentable(
+        		results[i]["classification"]
+      		)
+    	);
 		memoryChart.pushClass(
-      makeStringPresentable(
-        results[i]["classification"]
-      )
-    );
+      		makeStringPresentable(
+        		results[i]["classification"]
+      		)
+    	);
 		reflexChart.pushClass(
-      makeStringPresentable(
-        results[i]["classification"]
-      )
-    );
+      		makeStringPresentable(
+        		results[i]["classification"]
+      		)
+    	);
 
 		balanceChart.pushSeries(
-      "Percent",
-      results[i]["balance"]["percent"]
-    );
+      		"Percent",
+      		results[i]["balance"]["percent"]
+    	);
 
 		memoryChart.pushSeries(
-      "Initial Deviation",
-      results[i]["memory"]["initialDev"]
-    );
+      		"Initial Deviation",
+      		results[i]["memory"]["initialDev"]
+    	);
 		memoryChart.pushSeries(
-      "Final Deviation",
-      results[i]["memory"]["finalDev"]
-    );
+      		"Final Deviation",
+      		results[i]["memory"]["finalDev"]
+    	);
 		memoryChart.pushSeries(
-      "Velocity",
-      results[i]["memory"]["velocity"]
-    );
+      		"Velocity",
+      		results[i]["memory"]["velocity"]
+    	);
 
 		reflexChart.pushSeries(
-      "Left",
-      results[i]["reflex"]["circleA"]["percent"]
-    );
+      		"Left",
+      		results[i]["reflex"]["circleA"]["percent"]
+    	);
 		reflexChart.pushSeries(
-      "Right",
-      results[i]["reflex"]["circleB"]["percent"]
-    );
+      		"Right",
+      		results[i]["reflex"]["circleB"]["percent"]
+    	);
 	}
 
 	balanceChart.show("Percent %", "%");
@@ -308,35 +358,85 @@ function graphicVisualization(results) {
 function tableVisualization(results) {
 	for (var i = 0; i < results.length; i++) {
 
-		$("#dataHolder").append(addTab(results[i]["time"]));
+		$("#dataHolder").append(
+			addTab(results[i]["time"])
+		);
 		var innerId = Date.parse(results[i]["time"]) + "_inner";
 
 		var balanceTable = new Table("Balance");
-		balanceTable.addRow(["Time", results[i]["balance"]["time"]]);
-		balanceTable.addRow(["Percent", results[i]["balance"]["percent"]]);
+		balanceTable.addRow(
+			[
+				"Time", 
+				results[i]["balance"]["time"]
+			]
+		);
+		balanceTable.addRow(
+			[
+				"Percent", 
+				results[i]["balance"]["percent"]
+			]
+		);
 
 		var memoryTable = new Table("Memory");
-		memoryTable.addRow(["Initial Deviation", results[i]["memory"]["initialDev"]]);
-		memoryTable.addRow(["Final Deviation", results[i]["memory"]["finalDev"]]);
-		memoryTable.addRow(["Velocity", results[i]["memory"]["velocity"]]);
+		memoryTable.addRow(
+			[
+				"Initial Deviation", 
+				results[i]["memory"]["initialDev"]
+			]
+		);
+		memoryTable.addRow(
+			[
+				"Final Deviation", results[i]["memory"]["finalDev"]
+			]
+		);
+		memoryTable.addRow(
+			[
+				"Velocity", results[i]["memory"]["velocity"]
+			]
+		);
 
 		var reflexTable = new Table("Reflex");
 		reflexTable.addRow(["", "Left", "Right"]);
-		reflexTable.addRow(["Time", results[i]["reflex"]["circleA"]["time"],
-			results[i]["reflex"]["circleB"]["time"]]);
-		reflexTable.addRow(["Percent", results[i]["reflex"]["circleA"]["percent"],
-			results[i]["reflex"]["circleB"]["percent"]]);
+		reflexTable.addRow(
+			[
+				"Time", 
+				results[i]["reflex"]["circleA"]["time"],
+				results[i]["reflex"]["circleB"]["time"]
+			]
+		);
+		reflexTable.addRow(
+			[
+				"Percent", 
+				results[i]["reflex"]["circleA"]["percent"],
+				results[i]["reflex"]["circleB"]["percent"]
+			]
+		);
 
 		var infoTable = new Table("Patient Information");
 		infoTable.addRow(
-      [
-        "Age",
-        results[i]["age"]
-      ]
-    );
-		infoTable.addRow(["Sport", makeStringPresentable(results[i]["sport"])]);
-		infoTable.addRow(["Prior Concussion", results[i]["priorConcussion"] ? "Yes" : "No"]);
-		infoTable.addRow(["Classification", makeStringPresentable(results[i]["classification"])]);
+			[
+				"Age",
+        		results[i]["age"]
+      		]
+    	);
+		infoTable.addRow(
+			[
+				"Sport", 
+				makeStringPresentable(results[i]["sport"])
+			]
+		);
+		infoTable.addRow(
+			[
+				"Prior Concussion", 
+				results[i]["priorConcussion"] ? "Yes" : "No"
+			]
+		);
+		infoTable.addRow(
+			[
+				"Classification", 
+				makeStringPresentable(results[i]["classification"])
+			]
+		);
 
 		$("#" + innerId).append(infoTable.getHtml());
 		$("#" + innerId).append(balanceTable.getHtml());

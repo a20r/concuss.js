@@ -49,7 +49,11 @@ function initGame() {
 	});
 
 	if(window.DeviceOrientationEvent) {
-    	window.addEventListener('deviceorientation', orientationEventHandler, false);
+    	window.addEventListener(
+    		'deviceorientation', 
+    		orientationEventHandler, 
+    		false
+    	);
     }
 
 	// Makes the canvas the size of the page
@@ -61,8 +65,15 @@ function initGame() {
 
     circleSmall.setHeading(ax, ay);
 
-    circleSmall.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
-    circleBoundary.updatePosition(canvas.width / 2, canvas.height / 2).redraw();
+    circleSmall.updatePosition(
+    	canvas.width / 2, 
+    	canvas.height / 2
+    ).redraw();
+
+    circleBoundary.updatePosition(
+    	canvas.width / 2, 
+    	canvas.height / 2
+    ).redraw();
     //alert(checkOrientation());
 }
 
@@ -92,7 +103,11 @@ function checkOrientation() {
 function whenGameEnds() {
 	var finalTime = +$("#timer").html()
 	$("#time").html(finalTime + " sec");
-	$("#percent").html((100 * 1000 * finalTime / gameLength).toFixed(1) + "%");
+	$("#percent").html(
+		(
+			100 * 1000 * finalTime / gameLength
+		).toFixed(1) + "%"
+	);
 	clearInterval(gameInterval);
 	$("#endMessage").modal("show");
 }
@@ -109,20 +124,50 @@ function drawCircles() {
 	circleBoundary.redraw();
 
 	// fix this constants crap
-	if (circleSmall.x + circleSmall.hx + circleSmall.image.width / 2 > document.width - 50 || 
-		circleSmall.x + circleSmall.hx - circleSmall.image.width / 2 < 0) {
+	if (
+			(
+				circleSmall.x + 
+				circleSmall.hx + 
+				circleSmall.image.width / 2 > document.width - 50
+			) || 
+			(
+				circleSmall.x + 
+				circleSmall.hx - 
+				circleSmall.image.width / 2 < 0
+			)
+		) {
 		circleSmall.hx = -circleSmall.hx / 1.8;
 	}
 
-	if (circleSmall.y + circleSmall.hy + circleSmall.image.height / 2 > document.height - 170 || 
-		circleSmall.y + circleSmall.hy - circleSmall.image.height / 2 < 50) {
+	if (
+			(
+				circleSmall.y + 
+				circleSmall.hy + 
+				circleSmall.image.height / 2 > document.height - 170
+			) || 
+			(
+				circleSmall.y + 
+				circleSmall.hy - 
+				circleSmall.image.height / 2 < 50
+			)
+	) {
 		circleSmall.hy = -circleSmall.hy / 1.8;
 	}
 
 	circleSmall.incrementPosition().redraw();
 
-	if (Math.sqrt(Math.pow(circleSmall.x - circleBoundary.x, 2) + 
-		Math.pow(circleSmall.y - circleBoundary.y, 2)) <= circleBoundary.image.height / 2) {
+	if (
+			Math.sqrt(
+				Math.pow(
+					circleSmall.x - 
+					circleBoundary.x, 2
+				) + 
+				Math.pow(
+					circleSmall.y - 
+					circleBoundary.y, 2
+				)
+			) <= circleBoundary.image.height / 2
+		) {
 		circleBoundary.image = circleGreen;
 		if (circleSmall.timer == undefined) {
 			circleSmall.timer = +new Date();
@@ -135,17 +180,33 @@ function drawCircles() {
 
 	var ori = checkOrientation();
 
-	uax = mapVal(-ori * $("#tiltHorizontal").html(), -45, 45, -scaleX * Math.abs(ax), scaleX * Math.abs(ax));
-	uay = mapVal(ori * +$("#tiltVertical").html(), -45, 45, -scaleY * Math.abs(ay), scaleY * Math.abs(ay));
+	uax = mapVal(
+		-ori * $("#tiltHorizontal").html(), 
+		-45, 45, 
+		-scaleX * Math.abs(ax), 
+		scaleX * Math.abs(ax)
+	);
 
-	circleSmall.setHeading(circleSmall.hx + ax + uax, circleSmall.hy + ay + uay);
+	uay = mapVal(
+		ori * +$("#tiltVertical").html(), 
+		-45, 45, 
+		-scaleY * Math.abs(ay), 
+		scaleY * Math.abs(ay)
+	);
+
+	circleSmall.setHeading(
+		circleSmall.hx + ax + uax, 
+		circleSmall.hy + ay + uay
+	);
 }
 
 function updateTimer() {
 	var curTime = +new Date();
 	circleSmall.timeElapsed += (curTime - circleSmall.timer);
 	circleSmall.timer = curTime;
-	$("#timer").html((circleSmall.timeElapsed / 1000).toFixed(2));
+	$("#timer").html(
+		(circleSmall.timeElapsed / 1000).toFixed(2)
+	);
 }
 
 function sendData() {
@@ -156,9 +217,19 @@ function sendData() {
 }
 
 function mapVal(x, in_min, in_max, out_min, out_max) {
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  return (
+  	(x - in_min) * 
+  	(out_max - out_min) / 
+  	(in_max - in_min) + 
+  	out_min
+  );
 }
 
 function getRandomInt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(
+    	Math.random() * 
+    	(max - min + 1)
+   	) + min;
 }
+
+
