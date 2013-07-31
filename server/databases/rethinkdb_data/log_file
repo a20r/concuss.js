@@ -496,3 +496,11 @@
 2013-07-30T10:52:03.371932000 0.069026s info: Listening on addresses: 127.0.0.1, 10.18.37.117
 2013-07-30T10:52:03.371933000 0.069027s info: Server ready
 2013-07-30T12:17:31.277151000 5128.091265s info: Someone asked for the nonwhitelisted file /smiley_face.html, if this should be accessible add it to the whitelist.
+2013-07-31T10:05:39.869935000 0.005147s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-07-31T10:05:39.873923000 0.009135s info: Running on Darwin 12.2.1 x86_64
+2013-07-31T10:05:39.873974000 0.009186s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-07-31T10:05:39.881164000 0.016376s info: Listening for intracluster connections on port 29015
+2013-07-31T10:05:39.882391000 0.017603s info: Listening for client driver connections on port 28015
+2013-07-31T10:05:39.882400000 0.017612s info: Listening for administrative HTTP connections on port 8080
+2013-07-31T10:05:39.913711000 0.048923s info: Listening on addresses: 127.0.0.1, 10.18.37.117
+2013-07-31T10:05:39.913716000 0.048928s info: Server ready

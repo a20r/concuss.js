@@ -53,7 +53,7 @@ function initGame() {
       canvas.width = document.width;
       canvas.height = document.height;
       $("#startMessage").on("hidden", function () {
-            drawRandomCircles(100);
+            drawRandomCircles(150);
             circleInterval = setInterval(
                   getReadyForDrawing, 
                   circleShowingTime
@@ -174,11 +174,24 @@ function onTouchEnd(event) {
       circleSmall.redraw();
       stats.setEndTime();
       stats.setEnd(circleSmall.x, circleSmall.y);
+      if (
+            Math.abs(circleSmall.x - circleMedium[0].x) +
+            Math.abs(circleSmall.y - circleMedium[0].y) >
+            Math.abs(circleSmall.x - circleMedium[1].x) +
+            Math.abs(circleSmall.y - circleMedium[1].y)
+      ) {
+            var start = 0;
+            var end = 1;
+      } else {
+            var start = 1;
+            var end = 0;
+      }
+
       stats.compileCurrentStats(
-            circleMedium[0].x, 
-            circleMedium[0].y, 
-            circleMedium[1].x, 
-            circleMedium[1].y
+            circleMedium[start].x, 
+            circleMedium[start].y, 
+            circleMedium[end].x, 
+            circleMedium[end].y
       );
 
       circleMedium[0].redraw();
@@ -201,7 +214,7 @@ function showTempResults() {
             whenGameEnds();
       } else {
             circleSmall.clearCanvas();
-            drawRandomCircles(100);
+            drawRandomCircles(150);
             circleShowingTime -= (
                   circleShowingTimeConstant / (maxCounter + 1)
             );

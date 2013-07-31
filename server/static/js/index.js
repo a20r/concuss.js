@@ -28,8 +28,17 @@ function updateProctor() {
 }
 
 function updateCookies() {
-	var inputIds = ["fName", "lName", "email", "age", "sport", "gender", "education", 
-				"classification", "priorConcussion"];
+	var inputIds = [
+		"fName", 
+		"lName", 
+		"email", 
+		"age", 
+		"sport", 
+		"gender", 
+		"education", 
+		"classification", 
+		"priorConcussion"
+	];
 	for (var i in inputIds) {
 		$.cookie(
 			inputIds[i], 
