@@ -504,3 +504,24 @@
 2013-07-31T10:05:39.882400000 0.017612s info: Listening for administrative HTTP connections on port 8080
 2013-07-31T10:05:39.913711000 0.048923s info: Listening on addresses: 127.0.0.1, 10.18.37.117
 2013-07-31T10:05:39.913716000 0.048928s info: Server ready
+2013-07-31T18:06:48.680737000 28660.704659s info: Server got SIGINT; shutting down...
+2013-07-31T18:06:48.680919000 28660.704841s info: Shutting down client connections...
+2013-07-31T18:06:48.681410000 28660.705332s info: All client connections closed.
+2013-07-31T18:06:48.681417000 28660.705339s info: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2013-07-31T18:06:48.683179000 28660.707101s info: Storage engine shut down.
+2013-07-31T18:07:25.291741000 0.004775s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-07-31T18:07:25.295302000 0.008336s info: Running on Darwin 12.2.1 x86_64
+2013-07-31T18:07:25.295348000 0.008382s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-07-31T18:07:25.301735000 0.014770s info: Listening for intracluster connections on port 29015
+2013-07-31T18:07:25.303047000 0.016082s info: Listening for client driver connections on port 28015
+2013-07-31T18:07:25.303060000 0.016094s info: Listening for administrative HTTP connections on port 8080
+2013-07-31T18:07:25.303407000 0.016442s info: Listening on addresses: 127.0.0.1, 10.18.37.117
+2013-07-31T18:07:25.303409000 0.016443s info: Server ready
+2013-08-01T15:38:42.542986000 0.005470s info: Running rethinkdb 1.5.2 (CLANG 4.1 ((tags/Apple/clang-421.11.66)))...
+2013-08-01T15:38:42.600194000 0.062677s info: Running on Darwin 12.2.1 x86_64
+2013-08-01T15:38:42.600249000 0.062732s info: Loading data from directory /Users/wallarelvo-mac/Documents/ERWiN/concuss/server/databases/rethinkdb_data
+2013-08-01T15:38:42.637482000 0.099964s info: Listening for intracluster connections on port 29015
+2013-08-01T15:38:42.638852000 0.101335s info: Listening for client driver connections on port 28015
+2013-08-01T15:38:42.638864000 0.101347s info: Listening for administrative HTTP connections on port 8080
+2013-08-01T15:38:42.647296000 0.109779s info: Listening on addresses: 127.0.0.1, 10.18.37.117
+2013-08-01T15:38:42.647298000 0.109780s info: Server ready
